@@ -89,18 +89,6 @@
   <path id="library.classes.classpath">
     <pathelement location="${basedir}/../classes.jar"/>
   </path>
-  <!-- Register Custom Compiler Taskdefs -->
-  <property name="javac2.home" value="${idea.home}/lib"/>
-  <path id="javac2.classpath">
-    <pathelement location="${javac2.home}/javac2.jar"/>
-    <pathelement location="${javac2.home}/jdom.jar"/>
-    <pathelement location="${javac2.home}/asm-all.jar"/>
-    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
-  </path>
-  <target name="register.custom.compilers">
-    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
-    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
-  </target>
   
   <!-- Modules -->
   
@@ -170,15 +158,15 @@
   
   <target name="compile.module.alloy" depends="compile.module.alloy.production,compile.module.alloy.tests" description="Compile module Alloy"/>
   
-  <target name="compile.module.alloy.production" depends="register.custom.compilers" description="Compile module Alloy; production classes">
+  <target name="compile.module.alloy.production" description="Compile module Alloy; production classes">
     <mkdir dir="${alloy.output.dir}"/>
-    <javac2 destdir="${alloy.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.alloy}/javac">
+    <javac destdir="${alloy.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.alloy}/javac">
       <compilerarg line="${compiler.args.alloy}"/>
       <bootclasspath refid="alloy.module.bootclasspath"/>
       <classpath refid="alloy.module.production.classpath"/>
       <src refid="alloy.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.alloy"/>
-    </javac2>
+    </javac>
     
     <copy todir="${alloy.output.dir}">
       <fileset dir="${module.alloy.basedir}/src/main/java">
@@ -192,15 +180,15 @@
     </copy>
   </target>
   
-  <target name="compile.module.alloy.tests" depends="register.custom.compilers,compile.module.alloy.production" description="compile module Alloy; test classes" unless="skip.tests">
+  <target name="compile.module.alloy.tests" depends="compile.module.alloy.production" description="compile module Alloy; test classes" unless="skip.tests">
     <mkdir dir="${alloy.testoutput.dir}"/>
-    <javac2 destdir="${alloy.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.alloy}/javac">
+    <javac destdir="${alloy.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.alloy}/javac">
       <compilerarg line="${compiler.args.alloy}"/>
       <bootclasspath refid="alloy.module.bootclasspath"/>
       <classpath refid="alloy.module.classpath"/>
       <src refid="alloy.module.test.sourcepath"/>
       <patternset refid="excluded.from.compilation.alloy"/>
-    </javac2>
+    </javac>
     
     <copy todir="${alloy.testoutput.dir}">
       <fileset dir="${module.alloy.basedir}/src/test/java">
