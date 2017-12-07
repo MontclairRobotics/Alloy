@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_alloy" default="compile.module.alloy">
+  <dirname property="module.alloy.basedir" file="${ant.file.module_alloy}"/>
+  
+  <property name="module.jdk.home.alloy" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.alloy" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.alloy" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.alloy" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="alloy.output.dir" value="${module.alloy.basedir}/out/production/Alloy"/>
+  <property name="alloy.testoutput.dir" value="${module.alloy.basedir}/out/test/Alloy"/>
+  
+  <path id="alloy.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="alloy.module.production.classpath">
+    <path refid="${module.jdk.classpath.alloy}"/>
+    <path refid="library.classes.classpath"/>
+  </path>
+  
+  <path id="alloy.runtime.production.module.classpath">
+    <pathelement location="${alloy.output.dir}"/>
+    <path refid="library.classes.classpath"/>
+  </path>
+  
+  <path id="alloy.module.classpath">
+    <path refid="${module.jdk.classpath.alloy}"/>
+    <pathelement location="${alloy.output.dir}"/>
+    <path refid="library.classes.classpath"/>
+  </path>
+  
+  <path id="alloy.runtime.module.classpath">
+    <pathelement location="${alloy.testoutput.dir}"/>
+    <pathelement location="${alloy.output.dir}"/>
+    <path refid="library.classes.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.alloy">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.alloy">
+    <patternset refid="excluded.from.module.alloy"/>
+  </patternset>
+  
+  <path id="alloy.module.sourcepath">
+    <dirset dir="${module.alloy.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.alloy" depends="compile.module.alloy.production,compile.module.alloy.tests" description="Compile module Alloy"/>
+  
+  <target name="compile.module.alloy.production" depends="register.custom.compilers" description="Compile module Alloy; production classes">
+    <mkdir dir="${alloy.output.dir}"/>
+    <javac2 destdir="${alloy.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.alloy}/javac">
+      <compilerarg line="${compiler.args.alloy}"/>
+      <bootclasspath refid="alloy.module.bootclasspath"/>
+      <classpath refid="alloy.module.production.classpath"/>
+      <src refid="alloy.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.alloy"/>
+    </javac2>
+    
+    <copy todir="${alloy.output.dir}">
+      <fileset dir="${module.alloy.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.alloy.tests" depends="register.custom.compilers,compile.module.alloy.production" description="compile module Alloy; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.alloy" description="cleanup module">
+    <delete dir="${alloy.output.dir}"/>
+    <delete dir="${alloy.testoutput.dir}"/>
+  </target>
+</project>
