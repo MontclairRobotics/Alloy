@@ -3,11 +3,14 @@ package org.montclairrobotics.Alloy.Vector;
 /**
  * Created by MHS Robotics on 11/13/2017.
  *
- * @author Garrett Burroughs
  *
  * The angle class allows for easy managment of angles aswell as easy conversion between degree and radian
  * angle measure
  * The class keeps track of the angle in degrees but can easily be converted to radians
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
  */
 public class Angle {
 
@@ -61,37 +64,54 @@ public class Angle {
         this(AngleMeasure.DEGREE, degrees);
     }
 
-    /** @return the degree angle measure */
+
+
+
+    /**
+     *  @return the degree angle measure
+     */
     public double getDegrees(){
         return degrees;
     }
 
-    /** @return the radian angle measure */
+    /**
+     *  @return the radian angle measure
+     */
     public double getRadians(){
         return degrees * (Math.PI / 180);
     }
 
-    /** @param degrees the degree angle measure */
+    /**
+     * @param degrees the degree angle measure
+     */
     public void setDegrees(double degrees){
         this.degrees = degrees;
     }
 
-    /** @param radians the degree angle measure */
+    /**
+     * @param radians the degree angle measure
+     */
     public void setRadians(double radians){
         this.degrees = radians * (180/Math.PI);
     }
 
-    /** @return the sin of the angle */
+    /**
+     * @return the sin of the angle
+     */
     public double sin(){
         return Math.sin(getRadians());
     }
 
-    /** @return the sin of the angle */
+    /**
+     * @return the sin of the angle
+     */
     public double cos(){
         return Math.cos(getRadians());
     }
 
-    /** @return the sin of the angle */
+    /**
+     * @return the sin of the angle
+     */
     public double tan(){
         return Math.tan(getRadians());
     }
