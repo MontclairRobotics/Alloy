@@ -1,4 +1,4 @@
-package org.montclairrobotics.Alloy.Vector;
+package org.montclairrobotics.alloy.vector;
 
 /**
  * Created by MHS Robotics on 11/13/2017.

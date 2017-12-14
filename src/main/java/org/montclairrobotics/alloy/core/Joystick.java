@@ -1,6 +1,6 @@
-package org.montclairrobotics.Alloy.Core;
+package org.montclairrobotics.alloy.core;
 
-import org.montclairrobotics.Alloy.Vector.Vector;
+import org.montclairrobotics.alloy.vector.Vector;
 
 /**
  * Created by MHS Robotics on 11/14/2017.

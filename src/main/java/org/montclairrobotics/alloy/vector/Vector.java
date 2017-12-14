@@ -1,9 +1,9 @@
-package org.montclairrobotics.Alloy.Vector;
+package org.montclairrobotics.alloy.vector;
 
 /**
  * Created by MHS Robotics on 11/14/2017. <br />
  * <br />
- * Interface for creating vector classes, implemented in Vector.XY and Vector.Polar <br />
+ * Interface for creating vector classes, implemented in vector.XY and vector.Polar <br />
  * <br />
  * Since a 2D vector can be made up of an angle and a Magnitude or it's vector components (XY)
  * The vector interface contains all functionality that a vector should have and it is then implemented
@@ -27,7 +27,7 @@ public interface Vector {
     /**
      * Gets the X component of the vector
      *
-     * @return the X component of the Vector
+     * @return the X component of the vector
      */
     public double getX();
 
@@ -41,7 +41,7 @@ public interface Vector {
     /**
      * Gets the Y component of the vector
      *
-     * @return the Y component of the Vector
+     * @return the Y component of the vector
      */
     public double getY();
 
@@ -55,7 +55,7 @@ public interface Vector {
     /**
      * Gets the magnitude of the vector
      *
-     * @return the magnitude of the Vector
+     * @return the magnitude of the vector
      */
     public double getManitude();
 
@@ -111,7 +111,7 @@ public interface Vector {
      * Subtracts a vector and returns the result
      *
      * <p>
-     *     Vector subtraction is similar to vector addition but the direction of the vector being subtracted
+     *     vector subtraction is similar to vector addition but the direction of the vector being subtracted
      *     is simply reversed <br />
      *     EX: <br />
      *     V1 = 3i + 4j <br />

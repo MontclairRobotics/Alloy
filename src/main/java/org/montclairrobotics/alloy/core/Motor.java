@@ -1,4 +1,4 @@
-package org.montclairrobotics.Alloy.Core;
+package org.montclairrobotics.alloy.core;
 
 /**
  * Created by MHS Robotics on 11/13/2017.

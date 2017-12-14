@@ -1,4 +1,4 @@
-package org.montclairrobotics.Alloy.Core;
+package org.montclairrobotics.alloy.core;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Since essential parts to the robots operation are stored in OpMode
  * @see com.qualcomm.robotcore.eventloop.opmode.OpMode
  * The robot core class creates static instances of all of the essentail objects on initialization
- * The actual objects are passed in in the Alloy class
+ * The actual objects are passed in in the alloy class
  * @see Alloy
  * With this, the user can acess all of the objects throughout the project.
  *
@@ -28,7 +28,7 @@ public class RobotCore {
     public static Telemetry telemetry;
 
     /**
-     * The hardware map is essential to any robot and is how the FTC core interacts with the hardware devices
+     * The hardware map is essential to any robot and is how the ftc core interacts with the hardware devices
      * on the phones
      */
     public static HardwareMap hardwareMap;

@@ -1,7 +1,7 @@
-package org.montclairrobotics.Alloy.FTC;
+package org.montclairrobotics.alloy.ftc;
 
-import org.montclairrobotics.Alloy.Core.Joystick;
-import org.montclairrobotics.Alloy.Vector.Vector;
+import org.montclairrobotics.alloy.core.Joystick;
+import org.montclairrobotics.alloy.vector.Vector;
 
 /**
  * Created by Garrett on 11/14/2017.

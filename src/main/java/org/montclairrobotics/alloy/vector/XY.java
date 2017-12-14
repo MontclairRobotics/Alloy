@@ -1,5 +1,4 @@
-package org.montclairrobotics.Alloy.Vector;
-
+package org.montclairrobotics.alloy.vector;
 
 /**
  * Created by MHS Robotics on 11/14/2017.
@@ -8,23 +7,28 @@ package org.montclairrobotics.Alloy.Vector;
  * @version 0.1
  * @since 0.1
  */
-public class Polar implements Vector {
-    private double magnitude;
-    private Angle  angle;
+public class XY  implements Vector{
+    private double x;
+    private double y;
 
-    public Polar(double magnitude, Angle angle) {
-        this.magnitude = magnitude;
-        this.angle = angle;
+    public XY(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public XY(XY vector){
+        x = vector.getY();
+        y = vector.getY();
     }
 
     /**
      * Gets the X component of the vector
      *
-     * @return the X component of the Vector
+     * @return the X component of the vector
      */
     @Override
     public double getX() {
-        return magnitude * angle.cos();
+        return x;
     }
 
     /**
@@ -34,18 +38,17 @@ public class Polar implements Vector {
      */
     @Override
     public void setX(double x) {
-        magnitude = Math.sqrt(Math.pow(x, 2) + Math.pow(getY(), 2));
-        angle = new Angle(Angle.AngleMeasure.RADIAN, Math.atan2(getY(), x));
+        this.x = x;
     }
 
     /**
      * Gets the Y component of the vector
      *
-     * @return the Y component of the Vector
+     * @return the Y component of the vector
      */
     @Override
     public double getY() {
-        return magnitude * angle.sin();
+        return y;
     }
 
     /**
@@ -55,18 +58,17 @@ public class Polar implements Vector {
      */
     @Override
     public void setY(double y) {
-        magnitude = Math.sqrt(Math.pow(getX(), 2) + Math.pow(y, 2));
-        angle = new Angle(Angle.AngleMeasure.RADIAN, Math.atan2(y, getX()));
+        this.y = y;
     }
 
     /**
      * Gets the magnitude of the vector
      *
-     * @return the magnitude of the Vector
+     * @return the magnitude of the vector
      */
     @Override
     public double getManitude() {
-        return magnitude;
+        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
     /**
@@ -76,7 +78,8 @@ public class Polar implements Vector {
      */
     @Override
     public void setMagnitude(double magnitude) {
-        this.magnitude = magnitude;
+        this.x = getAngle().cos() * magnitude;
+        this.y = getAngle().sin() * magnitude;
     }
 
     /**
@@ -86,7 +89,7 @@ public class Polar implements Vector {
      */
     @Override
     public Angle getAngle() {
-        return angle;
+        return new Angle(Angle.AngleMeasure.RADIAN, Math.atan2(y, x));
     }
 
     /**
@@ -96,7 +99,8 @@ public class Polar implements Vector {
      */
     @Override
     public void setAngle(Angle angle) {
-        this.angle = angle;
+        this.x = getManitude() * angle.cos();
+        this.y = getManitude() * angle.sin();
     }
 
     /**
@@ -126,14 +130,14 @@ public class Polar implements Vector {
      */
     @Override
     public Vector add(Vector vector) {
-        return new XY(this.getX() + vector.getX(), this.getY() + vector.getY());
+        return new XY(x + vector.getX(), y + vector.getY());
     }
 
     /**
      * Subtracts a vector and returns the result
      * <p>
      * <p>
-     * Vector subtraction is similar to vector addition but the direction of the vector being subtracted
+     * vector subtraction is similar to vector addition but the direction of the vector being subtracted
      * is simply reversed <br />
      * EX: <br />
      * V1 = 3i + 4j <br />
@@ -159,7 +163,7 @@ public class Polar implements Vector {
      */
     @Override
     public Vector scale(double scalar) {
-        return new Polar(magnitude * scalar, angle);
+        return new XY(x * scalar, y * scalar);
     }
 
     /**
@@ -180,7 +184,7 @@ public class Polar implements Vector {
      */
     @Override
     public double cross(Vector vector) {
-        return this.getManitude() * vector.getManitude() * angleBetween(vector).sin();
+        return 0;
     }
 
     /**
@@ -194,7 +198,7 @@ public class Polar implements Vector {
      * Another mathematical representation of the dot product using its components is: <br />
      * A = {@literal <a1, a2>} <br />
      * B = {@literal <b1, b2>} <br />
-     * A . B = a1*b1 + a2*b2 <br />
+     * A . B = {@literal <a1*b1, a2*b2>} <br />
      * <link>https://en.wikipedia.org/wiki/Dot_product</link>
      * </p>
      *
@@ -203,7 +207,7 @@ public class Polar implements Vector {
      */
     @Override
     public double dot(Vector vector) {
-        return this.getX() * vector.getX() + this.getY() * vector.getY();
+        return 0;
     }
 
     /**
@@ -214,7 +218,7 @@ public class Polar implements Vector {
      */
     @Override
     public Vector rotate(Angle angle) {
-        return new Polar(magnitude, new Angle(this.angle.getDegrees() + angle.getDegrees()));
+        return new Polar(getManitude(), new Angle(getAngle().getDegrees() + angle.getDegrees()));
     }
 
     /**
@@ -225,7 +229,7 @@ public class Polar implements Vector {
      */
     @Override
     public Angle angleBetween(Vector vector) {
-        return new Angle(Math.abs(this.angle.getDegrees() - angle.getDegrees()));
+        return new Angle(Math.abs(vector.getAngle().getDegrees() - getAngle().getDegrees()));
     }
 
     /**
@@ -244,7 +248,7 @@ public class Polar implements Vector {
      */
     @Override
     public Vector normalize() {
-        return new Polar(1, angle);
+        return new XY(x/getManitude(), y/getManitude());
     }
 
     /**
@@ -254,6 +258,6 @@ public class Polar implements Vector {
      */
     @Override
     public Vector copy() {
-        return new Polar(magnitude, angle);
+        return new XY(x, y);
     }
 }

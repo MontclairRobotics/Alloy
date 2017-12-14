@@ -1,4 +1,4 @@
-package org.montclairrobotics.Alloy.Core;
+package org.montclairrobotics.alloy.core;
 
 /**
  * Created by MHS Robotics on 11/14/2017.
@@ -12,11 +12,11 @@ package org.montclairrobotics.Alloy.Core;
  */
 public enum Mode {
     /**
-     * FTC Telemetry Operated Mode
+     * ftc Telemetry Operated Mode
      */
     FTCTELEOP,
     /**
-     * FTC autonomous mode
+     * ftc autonomous mode
      */
     FTCAUTONOMOUS
 }

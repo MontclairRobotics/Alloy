@@ -1,11 +1,11 @@
-package org.montclairrobotics.Alloy.Core;
+package org.montclairrobotics.alloy.core;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 /**
  * Created by MHS Robotics on 11/13/2017.
  *
- * The main purpose behind the Alloy class is to controll how and when all of the mehotds in Robot are run
+ * The main purpose behind the alloy class is to controll how and when all of the mehotds in Robot are run
  * as well as initialize all global variables
  *
  * @author Garrett Burroughs

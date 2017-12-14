@@ -1,4 +1,4 @@
-package org.montclairrobotics.Alloy.Utils;
+package org.montclairrobotics.alloy.utils;
 
 /**
  * Created by MHS Robotics on 12/5/2017.

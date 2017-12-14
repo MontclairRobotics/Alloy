@@ -1,6 +1,6 @@
-package org.montclairrobotics.Alloy.FTC;
+package org.montclairrobotics.alloy.ftc;
 
-import org.montclairrobotics.Alloy.Core.Motor;
+import org.montclairrobotics.alloy.core.Motor;
 
 /**
  * Created by Garrett on 11/14/2017.

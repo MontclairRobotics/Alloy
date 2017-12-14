@@ -1,6 +1,6 @@
-package org.montclairrobotics.Alloy.FTC;
+package org.montclairrobotics.alloy.ftc;
 
-import org.montclairrobotics.Alloy.Core.Debug;
+import org.montclairrobotics.alloy.core.Debug;
 
 /**
  * Created by Garrett on 11/14/2017.
