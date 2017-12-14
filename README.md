@@ -3,7 +3,6 @@
 Status: **Beta**
 
 
-Alloy is a Robot Framework designed to work with FIRST Robotics Competition (FRC), as well as FIRST Tech Challenge
+Alloy is a robot framework designed specifically for the First Tech Challenge (FTC).
 
-The main purpose of Alloy is to implement powerful and useful  tools that are often used in coding robots as well 
-as making the overall process of coding a robot easier.
+Alloy is based off the FRC robot framework [Sprocket](https://github.com/MontclairRobotics/Sprocket), but redesigned to abstract away the more complex ideas but still allow for advanced robot functionality.
