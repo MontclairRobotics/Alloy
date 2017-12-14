@@ -20,7 +20,7 @@ public abstract class Alloy extends OpMode{
      * This includes driveTrain, motors, buttons, sensors etc.
      * The initialization method will be run right after the core components are set up (RobotCore)
      */
-    public abstract void initilazation();
+    public abstract void initialization();
 
     /**
      * Although most of the periodic actions are taken care by the updater, the user may want to
@@ -35,7 +35,7 @@ public abstract class Alloy extends OpMode{
     public void init() {
         // Set Up the core robot components, This allows them to be accessed throughout the project
         new RobotCore(telemetry, hardwareMap, gamepad1, gamepad2);
-        initilazation();
+        initialization();
     }
 
     @Override

@@ -32,11 +32,25 @@ public interface Vector {
     public double getX();
 
     /**
+     * Sets the x component of the vector
+     *
+     * @param x what the x value will be set to
+     */
+    public void setX(double x);
+
+    /**
      * Gets the Y component of the vector
      *
      * @return the Y component of the Vector
      */
     public double getY();
+
+    /**
+     * Sets the y component of the vector
+     *
+     * @param y what the y value will be set to
+     */
+    public void setY(double y);
 
     /**
      * Gets the magnitude of the vector
@@ -46,11 +60,25 @@ public interface Vector {
     public double getManitude();
 
     /**
+     * Sets the magnitude of the vector
+     *
+     * @param magnitude what the magnitude will be set to
+     */
+    public void setMagnitude(double magnitude);
+
+    /**
      * Gets the angle in standard position that the vector makes
      *
      * @return the angle in standard position that the vector makes
      */
     public Angle getAngle();
+
+    /**
+     * Sets the angle in standard position of the vector
+     *
+     * @param angle what the angle will be set to
+     */
+    public void setAngle(Angle angle);
 
     /**
      * Adds two vectors together and returns the result
@@ -159,7 +187,7 @@ public interface Vector {
      * @param vector the vector that will be used to find the angle between
      * @return the angle between the vectors
      */
-    public Vector angleBetween(Vector vector);
+    public Angle angleBetween(Vector vector);
 
     /**
      * Normalizes a vector and returns the result

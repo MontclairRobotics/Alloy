@@ -1,5 +1,6 @@
 package org.montclairrobotics.Alloy.Vector;
 
+
 /**
  * Created by MHS Robotics on 11/14/2017.
  *
@@ -7,5 +8,252 @@ package org.montclairrobotics.Alloy.Vector;
  * @version 0.1
  * @since 0.1
  */
-public class Polar {
+public class Polar implements Vector {
+    private double magnitude;
+    private Angle  angle;
+
+    public Polar(double magnitude, Angle angle) {
+        this.magnitude = magnitude;
+        this.angle = angle;
+    }
+
+    /**
+     * Gets the X component of the vector
+     *
+     * @return the X component of the Vector
+     */
+    @Override
+    public double getX() {
+        return magnitude * angle.cos();
+    }
+
+    /**
+     * Sets the x component of the vector
+     *
+     * @param x what the x value will be set to
+     */
+    @Override
+    public void setX(double x) {
+        magnitude = Math.sqrt(Math.pow(x, 2) + Math.pow(getY(), 2));
+        angle = new Angle(Angle.AngleMeasure.RADIAN, Math.atan2(getY(), x));
+    }
+
+    /**
+     * Gets the Y component of the vector
+     *
+     * @return the Y component of the Vector
+     */
+    @Override
+    public double getY() {
+        return magnitude * angle.sin();
+    }
+
+    /**
+     * Sets the y component of the vector
+     *
+     * @param y what the y value will be set to
+     */
+    @Override
+    public void setY(double y) {
+        magnitude = Math.sqrt(Math.pow(getX(), 2) + Math.pow(y, 2));
+        angle = new Angle(Angle.AngleMeasure.RADIAN, Math.atan2(y, getX()));
+    }
+
+    /**
+     * Gets the magnitude of the vector
+     *
+     * @return the magnitude of the Vector
+     */
+    @Override
+    public double getManitude() {
+        return magnitude;
+    }
+
+    /**
+     * Sets the magnitude of the vector
+     *
+     * @param magnitude what the magnitude will be set to
+     */
+    @Override
+    public void setMagnitude(double magnitude) {
+        this.magnitude = magnitude;
+    }
+
+    /**
+     * Gets the angle in standard position that the vector makes
+     *
+     * @return the angle in standard position that the vector makes
+     */
+    @Override
+    public Angle getAngle() {
+        return angle;
+    }
+
+    /**
+     * Sets the angle in standard position of the vector
+     *
+     * @param angle what the angle will be set to
+     */
+    @Override
+    public void setAngle(Angle angle) {
+        this.angle = angle;
+    }
+
+    /**
+     * Adds two vectors together and returns the result
+     * <p>
+     * <p>
+     * The result of a vector addition will be another vector,
+     * One way of adding two vectors together is splitting it up into it's x and y components and adding them
+     * together and making a new vector out of those components <br />
+     * EX: <br />
+     * V1 = 3i + 4j <br />
+     * V2 = 7i + 5j <br />
+     * <br />
+     * V1 + V2 = 3i + 7i + 4j + 5j = 10i + 9j
+     * <br />
+     * Geometric Visualization: <br />
+     * Vectors can also be added in a geometric way through the "Tip-To-Tail" method,
+     * In this method both the vectors are drawn using arrow vector notation <link>https://en.wikipedia.org/wiki/Vector_notation</link>
+     * one vector is then drawn at the edge of the first vector.
+     * The resultant vector is then drawn from the start of the first vector to the tip of the second vector
+     * This is where the name tip to tail comes from
+     * <p>
+     * </p>
+     *
+     * @param vector The vector to be added
+     * @return The result of the two vectors being added
+     */
+    @Override
+    public Vector add(Vector vector) {
+        return new XY(this.getX() + vector.getX(), this.getY() + vector.getY());
+    }
+
+    /**
+     * Subtracts a vector and returns the result
+     * <p>
+     * <p>
+     * Vector subtraction is similar to vector addition but the direction of the vector being subtracted
+     * is simply reversed <br />
+     * EX: <br />
+     * V1 = 3i + 4j <br />
+     * V2 = 7i + 5j <br />
+     * <br />
+     * V1 + V2 = 3i + 7i + 4j + 5j = 10i + 9j <br />
+     * V1 - V2 = 3i + (-7i) + 4j + (-5j) = -4i + -j <br />
+     * </p>
+     *
+     * @param vector The vector to be subtracted
+     * @return The result of the passed in vector being subtracted from the vector object
+     */
+    @Override
+    public Vector subtract(Vector vector) {
+        return add(vector.scale(-1));
+    }
+
+    /**
+     * Scales the vectors magnitude by a scalar value
+     *
+     * @param scalar double to scale the vector by
+     * @return The result of the vector being
+     */
+    @Override
+    public Vector scale(double scalar) {
+        return new Polar(magnitude * scalar, angle);
+    }
+
+    /**
+     * Returns the product of two vectors that have been crossed
+     * <p>
+     * <p>
+     * The result of the cross product is a vector,
+     * The cross product of a vector is the vector that is perpendicular to both vectors
+     * When crossing two 2dimensional vectors the result will be a 3dimensional vector
+     * Because of this this method only returns the magnitude (Z component) of the cross product
+     * The magnitude of the cross product is same as the area of the parallelogram that the two
+     * vectors make in the X/Y plane. <br />
+     * <link>https://en.wikipedia.org/wiki/Cross_product</link>
+     * </p>
+     *
+     * @param vector the vector to be multiplied using the cross product
+     * @return the magnitude of the cross product of the two vectors
+     */
+    @Override
+    public double cross(Vector vector) {
+        return this.getManitude() * vector.getManitude() * angleBetween(vector).sin();
+    }
+
+    /**
+     * Returns the dot product of two vectors
+     * <p>
+     * <p>
+     * The result of the dot product is a scalar value (number),
+     * The dot product can be viewed as the projection of one vector on to another times the magnitude of the
+     * original vector <br />
+     * This can be written mathematically as |A||B|cos(theta), where theta is the angle between A and B
+     * Another mathematical representation of the dot product using its components is: <br />
+     * A = {@literal <a1, a2>} <br />
+     * B = {@literal <b1, b2>} <br />
+     * A . B = a1*b1 + a2*b2 <br />
+     * <link>https://en.wikipedia.org/wiki/Dot_product</link>
+     * </p>
+     *
+     * @param vector The vector to be multiplied using the dot product
+     * @return the scalar result of the dot of the two vectors
+     */
+    @Override
+    public double dot(Vector vector) {
+        return this.getX() * vector.getX() + this.getY() * vector.getY();
+    }
+
+    /**
+     * returns a vector rotated by a given angle
+     *
+     * @param angle the angle that the vector is to be rotated by
+     * @return the result of the rotated vector
+     */
+    @Override
+    public Vector rotate(Angle angle) {
+        return new Polar(magnitude, new Angle(this.angle.getDegrees() + angle.getDegrees()));
+    }
+
+    /**
+     * gets the angle between two vectors
+     *
+     * @param vector the vector that will be used to find the angle between
+     * @return the angle between the vectors
+     */
+    @Override
+    public Angle angleBetween(Vector vector) {
+        return new Angle(Math.abs(this.angle.getDegrees() - angle.getDegrees()));
+    }
+
+    /**
+     * Normalizes a vector and returns the result
+     * <p>
+     * <p>
+     * A normalized vector is a vector with magnitude 1.
+     * Normalized vectors are also called unit vectors.
+     * A normalized vector keeps it's direction as well as the same proportions of its components.
+     * When a vector is defined by its components it can be normalized it can be expressed as <br />
+     * A = {@literal <a1, a2>} <br />
+     * A' = {@literal <a1/|A|, a2/|A|>} <br />
+     * </p>
+     *
+     * @return the normalized vector
+     */
+    @Override
+    public Vector normalize() {
+        return new Polar(1, angle);
+    }
+
+    /**
+     * Creates a copy of the vector
+     *
+     * @return a copy of the vector
+     */
+    @Override
+    public Vector copy() {
+        return new Polar(magnitude, angle);
+    }
 }
