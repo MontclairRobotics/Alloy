@@ -1,4 +1,4 @@
-# Alloy  [![Build Status](https://travis-ci.com/GarrettBurroughs/Alloy.svg?token=DBuvbHLxUBwdEunuddmo&branch=master)](https://travis-ci.com/GarrettBurroughs/Alloy)
+# Alloy  [![Build Status](https://travis-ci.org/GarrettBurroughs/Alloy.svg?branch=master)](https://travis-ci.org/GarrettBurroughs/Alloy)
 
 Status: **Beta**
 
