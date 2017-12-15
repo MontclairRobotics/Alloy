@@ -3,6 +3,13 @@ package org.montclairrobotics.alloy.vector;
 /**
  * Created by MHS Robotics on 11/14/2017.
  *
+ * A vector can be defined in rectangular(XY), or polar form. <br />
+ * This class is implementation for vectors in XY form<br />
+ * It controls the conversions from rectangular to polar and vice versa
+ *
+ * <link>https://en.wikipedia.org/wiki/Vector_notation</link>
+ * @see Vector
+ *
  * @author Garrett Burroughs
  * @version 0.1
  * @since 0.1
@@ -184,7 +191,7 @@ public class XY  implements Vector{
      */
     @Override
     public double cross(Vector vector) {
-        return 0;
+        return this.getManitude() * vector.getManitude() * angleBetween(vector).sin();
     }
 
     /**
@@ -207,7 +214,7 @@ public class XY  implements Vector{
      */
     @Override
     public double dot(Vector vector) {
-        return 0;
+        return this.getX() * vector.getX() + this.getY() * vector.getY();
     }
 
     /**

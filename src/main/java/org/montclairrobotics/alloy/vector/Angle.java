@@ -4,7 +4,7 @@ package org.montclairrobotics.alloy.vector;
  * Created by MHS Robotics on 11/13/2017.
  *
  *
- * The angle class allows for easy managment of angles aswell as easy conversion between degree and radian
+ * The angle class allows for easy management of angles as well as easy conversion between degree and radian
  * angle measure
  * The class keeps track of the angle in degrees but can easily be converted to radians
  *
@@ -68,6 +68,8 @@ public class Angle {
 
 
     /**
+     * Get the angle measure in degrees
+     *
      *  @return the degree angle measure
      */
     public double getDegrees(){
@@ -75,6 +77,8 @@ public class Angle {
     }
 
     /**
+     * Get the angle measure in radians
+     *
      *  @return the radian angle measure
      */
     public double getRadians(){
@@ -82,6 +86,8 @@ public class Angle {
     }
 
     /**
+     * set the angle in degrees
+     *
      * @param degrees the degree angle measure
      */
     public void setDegrees(double degrees){
@@ -89,6 +95,8 @@ public class Angle {
     }
 
     /**
+     * set the angle in radians
+     *
      * @param radians the degree angle measure
      */
     public void setRadians(double radians){
@@ -96,21 +104,27 @@ public class Angle {
     }
 
     /**
-     * @return the sin of the angle
+     * get the sine of the angle
+     *
+     * @return the sine of the angle
      */
     public double sin(){
         return Math.sin(getRadians());
     }
 
     /**
-     * @return the sin of the angle
+     * get the cosine of the angle
+     *
+     * @return the cosine of the angle
      */
     public double cos(){
         return Math.cos(getRadians());
     }
 
     /**
-     * @return the sin of the angle
+     * get the tangent of the angle
+     *
+     * @return the tangent of the angle
      */
     public double tan(){
         return Math.tan(getRadians());
