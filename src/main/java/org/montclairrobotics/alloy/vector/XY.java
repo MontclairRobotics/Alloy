@@ -184,7 +184,7 @@ public class XY  implements Vector{
      */
     @Override
     public double cross(Vector vector) {
-        return 0;
+        return this.getManitude() * vector.getManitude() * angleBetween(vector).sin();
     }
 
     /**
@@ -207,7 +207,7 @@ public class XY  implements Vector{
      */
     @Override
     public double dot(Vector vector) {
-        return 0;
+        return this.getX() * vector.getX() + this.getY() * vector.getY();
     }
 
     /**
