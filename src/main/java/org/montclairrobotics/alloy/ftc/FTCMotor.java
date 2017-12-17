@@ -1,11 +1,20 @@
 package org.montclairrobotics.alloy.ftc;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import org.montclairrobotics.alloy.core.Motor;
+import org.montclairrobotics.alloy.core.RobotCore;
 
 /**
  * Created by Garrett on 11/14/2017.
  */
 public class FTCMotor implements Motor {
+
+    DcMotor motor;
+
+    public FTCMotor(String motor){
+        this.motor = RobotCore.getHardwareMap().dcMotor.get(motor);
+    }
+
     /**
      * Sets the motor Power
      *
