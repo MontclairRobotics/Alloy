@@ -35,6 +35,8 @@ out/
 
 # Project
 src/test/
+src/main/java/META-INF/
+.idea/artifacts/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
