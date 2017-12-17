@@ -67,4 +67,13 @@ public abstract class AlloyAutonomous extends OpMode{
             auto.stop(); // Finally stop the state machine
         }
     }
+
+    /**
+     * A wrapper around the add state method to allow the user to add states to the auto mode
+     *
+     * @param state the state to be added
+     */
+    public void newState(State state){
+        auto.addState(state);
+    }
 }
