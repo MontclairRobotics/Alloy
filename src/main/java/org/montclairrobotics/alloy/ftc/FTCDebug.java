@@ -10,7 +10,7 @@ public class FTCDebug implements Debug {
 
     public static Telemetry telemetry;
 
-    public FTCDebug(){
+    public static init(){
         this.telemetry = RobotCore.getTelemetry();
     }
 
