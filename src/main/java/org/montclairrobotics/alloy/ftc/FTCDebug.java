@@ -8,19 +8,19 @@ import org.montclairrobotics.alloy.core.Debug;
  */
 public class FTCDebug implements Debug {
 
-    Telemetry telemetry;
+    public static Telemetry telemetry;
 
-    public FTCDebug(Telemetry telemetry){
-        this.telemetry = telemetry;
+    public FTCDebug(){
+        this.telemetry = RobotCore.getTelemetry();
     }
 
     @Override
-    public void log(String key, Object value) {
-
+    public static void log(String key, Object value) {
+        telemetry.addData(key, object);
     }
 
     @Override
-    public void msg(Object value) {
-
+    public static void msg(Object value) {
+        telemetry.addData("Debug", value);
     }
 }
