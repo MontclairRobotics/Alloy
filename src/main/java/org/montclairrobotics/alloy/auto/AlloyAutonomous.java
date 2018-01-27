@@ -7,7 +7,18 @@ import org.montclairrobotics.alloy.core.RobotCore;
 /**
  * Created by MHS Robotics on 12/5/2017.
  *
+ * AlloyAutonomous is the core framework for coding auto modes
+ * When an auto mode extends AlloyAutonomous, it needs to override
+ * the setup() method, and has the option of overriding the userLoop()
+ * method. In the setup method, <code>auto<code/> needs to be set to a
+ * state machine, that will be run during the auto mode
+ *
+ * The optional userLoop() method can be used to update or perform
+ * actions every loop, it is called before the state in the state machine
+ *
  * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
  */
 public abstract class AlloyAutonomous extends OpMode{
     /**
@@ -53,12 +64,20 @@ public abstract class AlloyAutonomous extends OpMode{
         setup();
 
     }
-
+    
+    /**
+     * The user loop can be overridden in the auto mode and is called every loop before the
+     * state is run. This can be useful for updating information used in states.
+     */
+    public void userLoop(){}
+    
+    
     /**
      * the Loop method takes care of running the state machine
      */
     @Override
     public void loop() {
+        userLoop();
         if(running){
             auto.run(); // Run the state machine, which will in turn run the states
         }
