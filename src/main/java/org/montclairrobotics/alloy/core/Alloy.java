@@ -36,6 +36,7 @@ public abstract class Alloy extends OpMode{
         // Set Up the core robot components, This allows them to be accessed throughout the project
         new RobotCore(telemetry, hardwareMap, gamepad1, gamepad2);
         initialization();
+        FTCDebug.init();
     }
 
     @Override
