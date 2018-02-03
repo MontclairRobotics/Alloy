@@ -84,7 +84,7 @@ public class StateMachine extends State {
         this.name       = name;
         this.states     = new ArrayList<>(Arrays.asList(states));
         this.finalState = finalState;
-        d = new FTCDebug(RobotCore.getTelemetry());
+        d = new FTCDebug();
         description = "A state machine";
     }
 
