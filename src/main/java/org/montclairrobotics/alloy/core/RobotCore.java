@@ -64,7 +64,7 @@ public class RobotCore {
      *
      * @return telemetry
      */
-    public static Telemetry getTelemetry() {
+    public static Telemetry getTelemetry() throws NullPointerException{
         return telemetry;
     }
 
