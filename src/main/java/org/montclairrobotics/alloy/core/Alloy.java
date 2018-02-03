@@ -14,11 +14,19 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
  *
  */
 public abstract class Alloy extends OpMode{
-
+    
+    
     /**
-     * The initialization method is were everything for the robot should be set up
-     * This includes driveTrain, motors, buttons, sensors etc.
-     * The initialization method will be run right after the core components are set up (RobotCore)
+     * The robotSetup is where all code specific to robot setup is placed
+     * If you only have one teleop this can be done in the initialization 
+     * Method. robotSetup is called right after the robot core is initialized
+     */
+    public abstract void robotSetup();
+    
+    /**
+     * The initialization method is were everything specific to the OpMode
+     * Should be set up. Initialization will be the first thing called after
+     * The robot setup. 
      */
     public abstract void initialization();
 
@@ -35,6 +43,7 @@ public abstract class Alloy extends OpMode{
     public void init() {
         // Set Up the core robot components, This allows them to be accessed throughout the project
         new RobotCore(telemetry, hardwareMap, gamepad1, gamepad2);
+        robotSetup();
         initialization();
         FTCDebug.init();
     }
