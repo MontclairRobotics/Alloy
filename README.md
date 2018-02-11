@@ -1,4 +1,6 @@
-# Alloy  [![Build Status](https://travis-ci.org/GarrettBurroughs/Alloy.svg?branch=master)](https://travis-ci.org/GarrettBurroughs/Alloy) [![CodeFactor](https://www.codefactor.io/repository/github/garrettburroughs/alloy/badge)](https://www.codefactor.io/repository/github/garrettburroughs/alloy)
+# Alloy  [![Build Status](https://travis-ci.org/GarrettBurroughs/Alloy.svg?branch=master)](https://travis-ci.org/GarrettBurroughs/Alloy) [![CodeFactor](https://www.codefactor.io/repository/github/garrettburroughs/alloy/badge)](https://www.codefactor.io/repository/github/garrettburroughs/alloy) 
+
+![AlloyLogo](http://gdurl.com/AFl8)
 
 Status: **Beta**
 
