@@ -1,10 +1,11 @@
 package org.montclairrobotics.alloy.utils;
 
 /**
- * Created by MHS Robotics on 12/5/2017.
+ * Created by MHS Robotics on 2/11/2018.
  *
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class Updater {
+public interface Updatable {
+    public void update();
 }
