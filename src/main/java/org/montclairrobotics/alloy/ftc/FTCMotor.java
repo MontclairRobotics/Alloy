@@ -1,11 +1,16 @@
 package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.configuration.MotorConfigurationType;
 import org.montclairrobotics.alloy.core.Motor;
 import org.montclairrobotics.alloy.core.RobotCore;
 
 /**
- * Created by Garrett on 11/14/2017.
+ * Created by MHS Robotics on 11/14/2017.
+ *
+ * @author Garrett Burroughs
+ * @since 0.1
  */
 public class FTCMotor implements Motor {
 
@@ -22,7 +27,7 @@ public class FTCMotor implements Motor {
      */
     @Override
     public void setPower(double power) {
-
+        motor.setPower(power);
     }
 
     /**
@@ -32,7 +37,7 @@ public class FTCMotor implements Motor {
      */
     @Override
     public double getPower() {
-        return 0;
+        return motor.getPower();
     }
 
     /**
@@ -42,7 +47,8 @@ public class FTCMotor implements Motor {
      */
     @Override
     public void setPosition(int position) {
-
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor.setTargetPosition(position);
     }
 
     /**
@@ -52,7 +58,7 @@ public class FTCMotor implements Motor {
      */
     @Override
     public double getPosition() {
-        return 0;
+        return motor.getCurrentPosition();
     }
 
     /**
@@ -62,7 +68,11 @@ public class FTCMotor implements Motor {
      */
     @Override
     public void setInverted(boolean inverted) {
-
+        if(inverted){
+            motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        }else{
+            motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        }
     }
 
     /**
@@ -72,6 +82,6 @@ public class FTCMotor implements Motor {
      */
     @Override
     public boolean getInverted() {
-        return false;
+        return motor.getDirection() == DcMotorSimple.Direction.FORWARD ? false : true;
     }
 }
