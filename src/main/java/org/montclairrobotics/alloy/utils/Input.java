@@ -6,6 +6,6 @@ package org.montclairrobotics.alloy.utils;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public interface Input<T> {
+public interface Input<T>{
     T get();
 }

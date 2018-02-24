@@ -13,13 +13,23 @@ import org.montclairrobotics.alloy.utils.Input;
 public class FTCButton implements Button {
     
     Input<Boolean> buttonInput;
+    private boolean inverted;
     
     public FTCButton(Input<Boolean> buttonInput){
-        this.buttonInput = buttonInput;
+        this(buttonInput, false);
     }
-    
+
+    public FTCButton(Input<Boolean> buttonInput, boolean invert){
+        this.buttonInput = buttonInput;
+        this.inverted = invert;
+    }
+
     @Override
     public boolean getValue() {
-        return buttonInput.get();
+        if(inverted) {
+            return !buttonInput.get();
+        }else{
+            return buttonInput.get();
+        }
     }
 }

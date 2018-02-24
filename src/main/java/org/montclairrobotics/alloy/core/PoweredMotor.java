@@ -10,7 +10,7 @@ package org.montclairrobotics.alloy.core;
  * @since 0.1
  *
  */
-public interface Motor {
+public interface PoweredMotor {
     /**
      * Sets the motor Power
      *
@@ -24,21 +24,6 @@ public interface Motor {
      * @return the current motor power, a value between (0-1)
      */
     public double getPower();
-
-
-    /**
-     * Sets the motor position
-     *
-     * @param position the position the motor will be set to (in encoder ticks)
-     */
-    public void setPosition(int position);
-
-    /**
-     * Gets the motors position
-     *
-     * @return the position that the motor is at (in encoder ticks)
-     */
-    public double getPosition();
 
 
     /**

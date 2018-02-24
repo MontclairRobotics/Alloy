@@ -2,6 +2,7 @@ package org.montclairrobotics.alloy.control;
 
 import org.montclairrobotics.alloy.core.Button;
 import org.montclairrobotics.alloy.utils.Updatable;
+import org.montclairrobotics.alloy.utils.Updater;
 
 /**
  * Created by MHS Robotics on 2/11/2018.
@@ -18,6 +19,7 @@ public abstract class ButtonAction implements Updatable{
     
     public ButtonAction(Button button){
         this.button = button;
+        Updater.add(this);
         // TODO: add to updater
     }
     
@@ -42,7 +44,7 @@ public abstract class ButtonAction implements Updatable{
      */
     public abstract void whileReleased();
     
-    public boolean wasPressed;
+    public boolean wasPressed = false;
     
     @Override
     public void update() {

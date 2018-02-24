@@ -7,5 +7,9 @@ package org.montclairrobotics.alloy.utils;
  * @since 0.1
  */
 public interface Updatable {
+
+    /**
+     * The update method should be defined for every updatable, and is called every loop if added to the updater
+     */
     public void update();
 }

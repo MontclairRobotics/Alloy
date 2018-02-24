@@ -1,6 +1,7 @@
 package org.montclairrobotics.alloy.core;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import org.montclairrobotics.alloy.utils.Updater;
 
 /**
  * Created by MHS Robotics on 11/13/2017.
@@ -48,7 +49,9 @@ public abstract class Alloy extends OpMode{
     }
 
     @Override
-    public void loop() {
+    public void loop()
+    {
+        Updater.update();
         periodic();
     }
 }
