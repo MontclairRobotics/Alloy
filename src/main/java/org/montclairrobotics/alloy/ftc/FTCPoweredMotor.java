@@ -35,7 +35,7 @@ public class FTCPoweredMotor implements PoweredMotor {
      * @param power the power that the motor will be set to (0-1 inclusive )
      */
     @Override
-    public void setPower(double power) {
+    public void setMotorPower(double power) {
         motor.setPower(power);
     }
 
@@ -45,7 +45,7 @@ public class FTCPoweredMotor implements PoweredMotor {
      * @return the current motor power, a value between (0-1)
      */
     @Override
-    public double getPower() {
+    public double getMotorPower() {
         return motor.getPower();
     }
 
