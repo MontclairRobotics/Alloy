@@ -16,16 +16,10 @@ import org.montclairrobotics.alloy.core.UniversalMotor;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCMotor implements UniversalMotor {
-    
-    /**
-     * The motor being controlled
-     */
-    DcMotor motor;
-    
+public class FTCMotor extends FTCMotorBase implements UniversalMotor {
     
     public FTCMotor(String motorConfiguration) {
-        motor = RobotCore.getHardwareMap().dcMotor.get(motorConfiguration);
+        super(motorConfiguration);
     }
     
     /**
@@ -68,30 +62,6 @@ public class FTCMotor implements UniversalMotor {
     @Override
     public double getTargetPower() {
         return motor.getPower();
-    }
-    
-    /**
-     * Sets whether the motor runs the default way , or inverted
-     *
-     * @param inverted true for inverted, false for normal
-     */
-    @Override
-    public void setInverted(boolean inverted) {
-        if(inverted) {
-            motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        } else{
-            motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        }
-    }
-    
-    /**
-     * Gets whether the motor is inverted
-     *
-     * @return true if the motor is inverted
-     */
-    @Override
-    public boolean getInverted() {
-        return motor.getDirection() == DcMotorSimple.Direction.REVERSE ? true : false;
     }
     
     /**
