@@ -86,7 +86,7 @@ public class FTCTargetMotor implements TargetMotor, Updatable {
      * @param power the power that the motor will be set to (0-1 inclusive )
      */
     @Override
-    public void setPower(double power) {
+    public void setTargetPower(double power) {
         motor.setPower(power);
     }
 
@@ -96,7 +96,7 @@ public class FTCTargetMotor implements TargetMotor, Updatable {
      * @return the current motor power, a value between (0-1)
      */
     @Override
-    public double getPower() {
+    public double getTargetPower() {
         return motor.getPower();
     }
 

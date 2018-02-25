@@ -16,14 +16,14 @@ public interface PoweredMotor {
      *
      * @param power the power that the motor will be set to (0-1 inclusive )
      */
-    public void setPower(double power);
+    public void setMotorPower(double power);
 
     /**
      * Gets the motor power
      *
      * @return the current motor power, a value between (0-1)
      */
-    public double getPower();
+    public double getMotorPower();
 
 
     /**
