@@ -1,8 +1,8 @@
 package org.montclairrobotics.alloy.control;
 
 import org.montclairrobotics.alloy.core.Button;
-import org.montclairrobotics.alloy.utils.Updatable;
-import org.montclairrobotics.alloy.utils.Updater;
+import org.montclairrobotics.alloy.update.Updatable;
+import org.montclairrobotics.alloy.update.Updater;
 
 /**
  * Created by MHS Robotics on 2/11/2018.

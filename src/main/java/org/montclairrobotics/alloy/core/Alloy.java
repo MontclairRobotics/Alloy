@@ -1,7 +1,7 @@
 package org.montclairrobotics.alloy.core;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import org.montclairrobotics.alloy.utils.Updater;
+import org.montclairrobotics.alloy.update.Updater;
 
 /**
  * Created by MHS Robotics on 11/13/2017.

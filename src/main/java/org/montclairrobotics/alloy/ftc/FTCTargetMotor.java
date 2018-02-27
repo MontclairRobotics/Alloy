@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.montclairrobotics.alloy.core.RobotCore;
 import org.montclairrobotics.alloy.core.TargetMotor;
 import org.montclairrobotics.alloy.utils.PID;
-import org.montclairrobotics.alloy.utils.Updatable;
+import org.montclairrobotics.alloy.update.Updatable;
 
 
 /**
