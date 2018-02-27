@@ -21,7 +21,12 @@ import org.montclairrobotics.alloy.update.Updatable;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCTargetMotor implements TargetMotor, Updatable {
+public class FTCTargetMotor extends FTCMotorBase implements TargetMotor, Updatable {
+    public FTCTargetMotor(String motorConfiguration) {
+        super(motorConfiguration);
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+    
     enum Mode{
         /**
          * Defualt target motor runmode
@@ -40,23 +45,13 @@ public class FTCTargetMotor implements TargetMotor, Updatable {
      * PID being used to control the motor in custom mode
      */
     private PID pid;
-
-    /**
-     * The DCMotor being controlled
-     */
-    private DcMotor motor;
+    
     /**
      * Current target motor runmode
      * NOTE: not equal to the DCMotor runmode
      */
     private Mode runmode = Mode.DEFAULT;
-
-    public FTCTargetMotor(String motorConfiguration){
-        motor = RobotCore.getHardwareMap().dcMotor.get(motorConfiguration);
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-
-
+    
     /**
      * Sets the motor position
      *
@@ -86,7 +81,7 @@ public class FTCTargetMotor implements TargetMotor, Updatable {
      * @param power the power that the motor will be set to (0-1 inclusive )
      */
     @Override
-    public void setPower(double power) {
+    public void setTargetPower(double power) {
         motor.setPower(power);
     }
 
@@ -96,32 +91,8 @@ public class FTCTargetMotor implements TargetMotor, Updatable {
      * @return the current motor power, a value between (0-1)
      */
     @Override
-    public double getPower() {
+    public double getTargetPower() {
         return motor.getPower();
-    }
-
-    /**
-     * Sets weather the motor runs the default way , or inverted
-     *
-     * @param inverted true for inverted, false for normal
-     */
-    @Override
-    public void setInverted(boolean inverted) {
-        if(inverted) {
-            motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        } else{
-            motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        }
-    }
-
-    /**
-     * Gets weather the motor is inverted
-     *
-     * @return true if the motor is inverted
-     */
-    @Override
-    public boolean getInverted() {
-        return motor.getDirection() == DcMotorSimple.Direction.REVERSE ? true : false;
     }
 
     /**

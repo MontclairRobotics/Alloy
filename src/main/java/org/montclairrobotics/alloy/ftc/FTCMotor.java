@@ -5,41 +5,65 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.montclairrobotics.alloy.core.PoweredMotor;
 import org.montclairrobotics.alloy.core.RobotCore;
 import org.montclairrobotics.alloy.core.TargetMotor;
+import org.montclairrobotics.alloy.core.UniversalMotor;
 
 /**
  * Created by MHS Robotics on 11/14/2017.
  *
+ * FTCMotor is a class that dynamically switches a motor's runmode
+ * depending on what functionality is being used
+ *
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCMotor implements TargetMotor {
-
-    DcMotor motor;
-
-    public FTCMotor(String motor){
-        this.motor = RobotCore.getHardwareMap().dcMotor.get(motor);
+public class FTCMotor extends FTCMotorBase implements UniversalMotor {
+    
+    public FTCMotor(String motorConfiguration) {
+        super(motorConfiguration);
     }
-
+    
     /**
      * Sets the motor Power
      *
-     * @param power the power that the motor will be set to (0-1 inclusive)
+     * @param power the power that the motor will be set to (0-1 inclusive )
      */
     @Override
-    public void setPower(double power) {
+    public void setMotorPower(double power) {
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motor.setPower(power);
     }
-
+    
     /**
      * Gets the motor power
      *
      * @return the current motor power, a value between (0-1)
      */
     @Override
-    public double getPower() {
+    public double getMotorPower() {
         return motor.getPower();
     }
-
+    
+    /**
+     * Sets the power at which the motor will move when set to a position
+     *
+     * @param power the power that the motor will be set to (0-1 inclusive )
+     */
+    @Override
+    public void setTargetPower(double power) {
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor.setPower(power);
+    }
+    
+    /**
+     * Gets the motor power
+     *
+     * @return the current motor power, a value between (0-1)
+     */
+    @Override
+    public double getTargetPower() {
+        return motor.getPower();
+    }
+    
     /**
      * Sets the motor position
      *
@@ -50,7 +74,7 @@ public class FTCMotor implements TargetMotor {
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setTargetPosition(position);
     }
-
+    
     /**
      * Gets the motors position
      *
@@ -59,29 +83,5 @@ public class FTCMotor implements TargetMotor {
     @Override
     public double getPosition() {
         return motor.getCurrentPosition();
-    }
-
-    /**
-     * Sets weather the motor runs the default way , or inverted
-     *
-     * @param inverted true for inverted, false for normal
-     */
-    @Override
-    public void setInverted(boolean inverted) {
-        if(inverted){
-            motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        }else{
-            motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        }
-    }
-
-    /**
-     * Gets weather the motor is inverted
-     *
-     * @return true if the motor is inverted
-     */
-    @Override
-    public boolean getInverted() {
-        return motor.getDirection() == DcMotorSimple.Direction.FORWARD ? false : true;
     }
 }

@@ -11,13 +11,13 @@ public class Shooter extends Toggleable {
 
     @Override
     public void enableAction() {
-        motorR.setPower(1);
-        motorL.setPower(1);
+        motorR.setMotorPower(1);
+        motorL.setMotorPower(1);
     }
 
     @Override
     public void disableAction() {
-        motorR.setPower(0);
-        motorL.setPower(0);
+        motorR.setMotorPower(0);
+        motorL.setMotorPower(0);
     }
 }

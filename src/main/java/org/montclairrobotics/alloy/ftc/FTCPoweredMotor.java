@@ -18,24 +18,19 @@ import org.montclairrobotics.alloy.core.RobotCore;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCPoweredMotor implements PoweredMotor {
-    /**
-     * The DCMotor being controlled
-     */
-    DcMotor motor;
-
-    public FTCPoweredMotor(String motorConfiguration){
-        motor = RobotCore.getHardwareMap().dcMotor.get(motorConfiguration);
-        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+public class FTCPoweredMotor extends FTCMotorBase implements PoweredMotor {
+    
+    public FTCPoweredMotor(String motorConfiguration) {
+        super(motorConfiguration);
     }
-
+    
     /**
      * Sets the motor Power
      *
      * @param power the power that the motor will be set to (0-1 inclusive )
      */
     @Override
-    public void setPower(double power) {
+    public void setMotorPower(double power) {
         motor.setPower(power);
     }
 
@@ -45,7 +40,7 @@ public class FTCPoweredMotor implements PoweredMotor {
      * @return the current motor power, a value between (0-1)
      */
     @Override
-    public double getPower() {
+    public double getMotorPower() {
         return motor.getPower();
     }
 
@@ -54,24 +49,7 @@ public class FTCPoweredMotor implements PoweredMotor {
      *
      * @param inverted true for inverted, false for normal
      */
-    @Override
-    public void setInverted(boolean inverted) {
-        if(inverted) {
-            motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        } else{
-            motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        }
-    }
-
-    /**
-     * Gets weather the motor is inverted
-     *
-     * @return true if the motor is inverted
-     */
-    @Override
-    public boolean getInverted() {
-        return motor.getDirection() == DcMotorSimple.Direction.REVERSE ? true : false;
-    }
+    
 
     /**
      * @return the motor being controlled
