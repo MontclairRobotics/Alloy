@@ -60,6 +60,7 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
         if(runmode == Mode.DEFAULT){
             motor.setTargetPosition(position);
         }else{
+            pid.setTarget(position);
         }
     }
 
@@ -116,7 +117,7 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
     @Update
     public void update() {
         if(runmode == Mode.CUSTOM){
-
+            setTargetPower(pid.get());
         }
     }
 

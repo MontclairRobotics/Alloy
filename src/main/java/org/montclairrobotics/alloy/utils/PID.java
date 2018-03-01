@@ -2,6 +2,25 @@ package org.montclairrobotics.alloy.utils;
 
 import org.montclairrobotics.alloy.update.Update;
 
+/**
+ * Created by Montclair robotics on 2/27/2018
+ *
+ * A PID controller is able to control a component that has a target, current state, and can be controlled for example:
+ * - A robots heading using a Gryo
+ * - A motors position using encoders
+ *
+ * PID stands for Proportion, Integral and Derivative control.
+ * It uses the error of a component and then calculates the correction
+ * the PID values must be tuned in order to have a working PID loop
+ * A properly tuned implementation of a PID controller should result in a correction that goes fast, and accurate to
+ * its target, and does not overshoot it.
+ *
+ * You can read more about implementing PID control here <link>https://github.com/GarrettBurroughs/Alloy/wiki/Using-PID-control</link>
+ * You can read more about how PID works here <link>https://en.wikipedia.org/wiki/PID_controller</link>
+ *
+ * @author Garrett Burroughs
+ * @since 0.1
+ */
 public class PID implements Input<Double> {
     private double p;
     private double i;
@@ -24,14 +43,27 @@ public class PID implements Input<Double> {
     private double timeDifference;
     /** The difference in error between update loops*/
     private double errorDifference;
-
-
+    
+    /**
+     * Create a new PID
+     * @param p proportional constant
+     * @param i integral constant
+     * @param d derivative constant
+     */
     public PID(double p, double i, double d){
         this.p = p;
         this.i = i;
         this.d = d;
     }
-
+    
+    /**
+     * Create a new PID with the input and target defined
+     * @param p proportional constan
+     * @param i integral constant
+     * @param d derivative constant
+     * @param input the input of the component being controlled (current status)
+     * @param target the desired target (status) of the component being controlled
+     */
     public PID(double p, double i, double d, Input<Double> input, double target) {
         this.p = p;
         this.i = i;

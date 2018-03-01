@@ -2,6 +2,7 @@ package org.montclairrobotics.alloy.control;
 
 import org.montclairrobotics.alloy.core.Button;
 import org.montclairrobotics.alloy.update.Updatable;
+import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.update.Updater;
 
 /**
@@ -13,14 +14,12 @@ import org.montclairrobotics.alloy.update.Updater;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public abstract class ButtonAction implements Updatable {
+public abstract class ButtonAction  {
     
     public Button button;
     
     public ButtonAction(Button button){
         this.button = button;
-        Updater.add(this);
-        // TODO: add to updater
     }
     
     
@@ -46,7 +45,7 @@ public abstract class ButtonAction implements Updatable {
     
     public boolean wasPressed = false;
     
-    @Override
+    @Update
     public void update() {
         if(button.getValue()){
             whilePressed();

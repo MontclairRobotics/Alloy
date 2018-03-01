@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies{
+     testCompile 'junit:junit:4.12'
      compile fileTree(dir: "src/main/libs/", include: ['*.jar'])
      compile 'org.reflections:reflections:0.9.11'
 }

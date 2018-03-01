@@ -35,7 +35,7 @@ public class Updater {
         Reflections alloyReflections = new Reflections("org.montclairrobotics", new MethodAnnotationsScanner(), new SubTypesScanner());
         // Reflections userRefelecitons = new Reflections(userFiles);
         System.out.println(alloyReflections.getMethodsAnnotatedWith(Update.class));
-        
+
         Set<Method> methods = alloyReflections.getMethodsAnnotatedWith(Update.class);
         for(Method method : methods){
             int updateRate = 1;
