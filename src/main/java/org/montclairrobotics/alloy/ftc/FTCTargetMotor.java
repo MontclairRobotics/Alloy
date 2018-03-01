@@ -1,11 +1,9 @@
 package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import org.montclairrobotics.alloy.core.RobotCore;
 import org.montclairrobotics.alloy.core.TargetMotor;
+import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.utils.PID;
-import org.montclairrobotics.alloy.update.Updatable;
 
 
 /**
@@ -21,7 +19,7 @@ import org.montclairrobotics.alloy.update.Updatable;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCTargetMotor extends FTCMotorBase implements TargetMotor, Updatable {
+public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
     public FTCTargetMotor(String motorConfiguration) {
         super(motorConfiguration);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -115,7 +113,7 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor, Updatab
     /**
      * If the mode is custom, then the update method will set the motor power using the custom PID
      */
-    @Override
+    @Update
     public void update() {
         if(runmode == Mode.CUSTOM){
 

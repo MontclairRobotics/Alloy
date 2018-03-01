@@ -15,8 +15,10 @@ repositories {
         
      maven { url "http://repo.maven.apache.org/maven2" }
 
+
 }
 
 dependencies{
      compile fileTree(dir: "src/main/libs/", include: ['*.jar'])
+     compile 'org.reflections:reflections:0.9.11'
 }

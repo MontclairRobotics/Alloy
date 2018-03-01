@@ -1,8 +1,8 @@
 package org.montclairrobotics.alloy.utils;
 
-import org.montclairrobotics.alloy.update.Updatable;
+import org.montclairrobotics.alloy.update.Update;
 
-public class PID implements Updatable, Input<Double> {
+public class PID implements Input<Double> {
     private double p;
     private double i;
     private double d;
@@ -58,7 +58,8 @@ public class PID implements Updatable, Input<Double> {
     /**
      * The update method should be defined for every updatable, and is called every loop if added to the updater
      */
-    @Override
+
+    @Update
     public void update() {
 
         // Calculate Error

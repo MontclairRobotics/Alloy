@@ -13,7 +13,7 @@ import org.montclairrobotics.alloy.update.Updater;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public abstract class ButtonAction implements Updatable{
+public abstract class ButtonAction implements Updatable {
     
     public Button button;
     
