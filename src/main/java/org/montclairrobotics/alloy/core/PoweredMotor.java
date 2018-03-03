@@ -1,5 +1,7 @@
 package org.montclairrobotics.alloy.core;
 
+import java.util.ArrayList;
+
 /**
  * Created by MHS Robotics on 11/13/2017.
  *
@@ -39,4 +41,11 @@ public interface PoweredMotor {
      * @return true if the motor is inverted
      */
     public boolean getInverted();
+
+    /**
+     * gets the debug information for the motor
+     *
+     * @return the motor debugs
+     */
+    public ArrayList<Debug> getDebugs();
 }

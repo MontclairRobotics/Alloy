@@ -1,8 +1,5 @@
 package org.montclairrobotics.alloy.auto;
 
-import org.montclairrobotics.alloy.core.RobotCore;
-import org.montclairrobotics.alloy.ftc.FTCDebug;
-
 import java.util.ArrayList;
 
 /**

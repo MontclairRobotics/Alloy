@@ -1,5 +1,7 @@
 package org.montclairrobotics.alloy.vector;
 
+import org.junit.Test;
+
 /**
  * Created by MHS Robotics on 11/13/2017.
  *

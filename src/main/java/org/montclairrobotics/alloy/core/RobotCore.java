@@ -22,8 +22,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class RobotCore {
     /**
      * Telemetry is used for reading out information on the phones and is useful for debugging,
-     * The telemetry is also used in Debug
-     * @see Debug
+     * The telemetry is also used in Debugger
+     * @see Debugger
      */
     public static Telemetry telemetry;
 

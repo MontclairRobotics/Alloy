@@ -1,9 +1,13 @@
 package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import org.montclairrobotics.alloy.core.Debug;
 import org.montclairrobotics.alloy.core.TargetMotor;
 import org.montclairrobotics.alloy.update.Update;
+import org.montclairrobotics.alloy.utils.Input;
 import org.montclairrobotics.alloy.utils.PID;
+
+import java.util.ArrayList;
 
 
 /**
@@ -72,6 +76,34 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
     @Override
     public double getPosition() {
         return motor.getCurrentPosition();
+    }
+
+    /**
+     * Gets the debug information of the motor
+     *
+     * @return the debugs for the motor
+     */
+    @Override
+    public ArrayList<Debug> getDebugs() {
+        ArrayList<Debug> motorDebugs = new ArrayList<>();
+
+        motorDebugs.add(new Debug("Motor Position", new Input<Double>(){
+
+            @Override
+            public Double get() {
+                return getPosition();
+            }
+        }));
+
+        motorDebugs.add(new Debug("Motor Power", new Input<Double>(){
+
+            @Override
+            public Double get() {
+                return getTargetPower();
+            }
+        }));
+
+        return motorDebugs;
     }
 
     /**

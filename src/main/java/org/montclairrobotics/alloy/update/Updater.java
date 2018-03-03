@@ -46,7 +46,7 @@ public class Updater {
                     priority = ((Update) annotation).priority();
                 }
             }
-            updateables.put(priority, new Updatable(method, updateRate, method.getClass(), method.getParameters()));
+            updateables.put(priority, new Updatable(method, updateRate, method.getDeclaringClass(), method.getParameters()));
         }
     }
 

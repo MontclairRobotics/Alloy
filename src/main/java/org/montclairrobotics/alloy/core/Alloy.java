@@ -1,6 +1,8 @@
 package org.montclairrobotics.alloy.core;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import org.montclairrobotics.alloy.components.Component;
+import org.montclairrobotics.alloy.ftc.FTCDebugger;
 import org.montclairrobotics.alloy.update.Updater;
 
 /**
@@ -44,6 +46,7 @@ public abstract class Alloy extends OpMode{
     public void init() {
         // Set Up the core robot components, This allows them to be accessed throughout the project
         new RobotCore(telemetry, hardwareMap, gamepad1, gamepad2);
+        Component.debugger = new FTCDebugger();
         robotSetup();
         initialization();
     }

@@ -28,10 +28,10 @@ public abstract class Toggleable {
     /**
      * The status of the toggleable, to keep track of weather it is enabled, or disabled
      */
-    Status status;
+    public Status status;
     
     
-    enum Status{
+    public enum Status{
         ENABLED(true),
         DISABLED(false);
         

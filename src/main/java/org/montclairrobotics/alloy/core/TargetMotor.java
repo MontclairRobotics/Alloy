@@ -1,6 +1,8 @@
 package org.montclairrobotics.alloy.core;
 
 
+import java.util.ArrayList;
+
 /**
  * Target motor is a motor interface for motors that have encoders.
  * Target motors can set encoder positions using PID control
@@ -48,4 +50,11 @@ public interface TargetMotor{
      * @return the position that the motor is at (in encoder ticks)
      */
     public double getPosition();
+
+    /**
+     * Gets the debug information of the motor
+     *
+     * @return the debugs for the motor
+     */
+    public ArrayList<Debug> getDebugs();
 }

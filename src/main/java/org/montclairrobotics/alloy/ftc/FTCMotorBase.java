@@ -2,6 +2,7 @@ package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.RobotCore;
 
 /**
@@ -13,7 +14,7 @@ import org.montclairrobotics.alloy.core.RobotCore;
  * @author Garrett Burroughs
  * @since
  */
-public class FTCMotorBase {
+public class FTCMotorBase extends Component{
     DcMotor motor;
     
     public FTCMotorBase(String motorConfiguration) {
@@ -40,5 +41,21 @@ public class FTCMotorBase {
      */
     public boolean getInverted() {
         return motor.getDirection() == DcMotorSimple.Direction.REVERSE ? true : false;
+    }
+
+    /**
+     * Method to be called when the toggleable is enabled
+     */
+    @Override
+    public void enableAction() {
+
+    }
+
+    /**
+     * Method to be called when the toggleable is disabled
+     */
+    @Override
+    public void disableAction() {
+
     }
 }

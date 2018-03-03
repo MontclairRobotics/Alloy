@@ -1,5 +1,7 @@
 package org.montclairrobotics.alloy.update;
 
+import org.montclairrobotics.alloy.components.Component;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -24,8 +26,15 @@ public class Updatable {
     }
 
     public void run(){
+        if(parameters.length != 0){
+            throw new RuntimeException("UPDATED METHODS CAN NOT HAVE PARAMETERS");
+        }
         try {
-            update.invoke(clazz, parameters);
+            for(Component component : Component.getComponents()) {
+                if (component.getClass().equals(clazz)) {
+                    update.invoke(component, parameters);
+                }
+            }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

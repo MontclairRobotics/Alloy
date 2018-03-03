@@ -11,19 +11,44 @@ import org.montclairrobotics.alloy.utils.Input;
  * @since 0.1
  */
 public class FTCButton implements Button {
-    
+
+
+    /**
+     * Will return the value of the button
+     */
     Input<Boolean> buttonInput;
+
+    /**
+     * If true inverts the value of the button.
+     */
     private boolean inverted;
-    
+
+    /**
+     * Creates a new button using a buttonInput
+     *
+     * @param buttonInput an input that returns true if the button is being pressed, and false if unpressed
+     */
     public FTCButton(Input<Boolean> buttonInput){
         this(buttonInput, false);
     }
 
+    /**
+     *  Creates a new button specifying a button input and an invert
+     *
+     * @param buttonInput an input that returns true if the button is being pressed, and false if unpressed
+     * @param invert if true inverts the value of buttonInput
+     */
     public FTCButton(Input<Boolean> buttonInput, boolean invert){
         this.buttonInput = buttonInput;
         this.inverted = invert;
     }
 
+
+    /**
+     * Gets the values for a button
+     *
+     * @return the value of the button if inverted is false, or returns the opposite if it is true
+     */
     @Override
     public boolean getValue() {
         if(inverted) {

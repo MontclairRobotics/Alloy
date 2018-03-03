@@ -1,5 +1,6 @@
 package org.montclairrobotics.alloy.utils;
 
+import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.update.Update;
 
 /**
@@ -21,13 +22,11 @@ import org.montclairrobotics.alloy.update.Update;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class PID implements Input<Double> {
+public class PID extends InputComponent<Double> {
     private double p;
     private double i;
     private double d;
-    private Input<Double> input;
     private double target;
-    private double correction;
 
     /** The error of the PID, calculated by the target - input*/
     private double error;
@@ -68,7 +67,7 @@ public class PID implements Input<Double> {
         this.p = p;
         this.i = i;
         this.d = d;
-        this.input = input;
+        super.input = input;
         this.target = target;
     }
 
@@ -77,14 +76,8 @@ public class PID implements Input<Double> {
         return this;
     }
 
-    public PID setInput(Input<Double> input){
+    public void setInput(Input<Double> input){
         this.input = input;
-        return this;
-    }
-
-    @Override
-    public Double get() {
-        return correction;
     }
 
     /**
@@ -117,10 +110,29 @@ public class PID implements Input<Double> {
         // Calculate Error Integral
         totalError += error;
 
-        // Calculate Correction
-        correction = p * error + i * totalError + d * errorRate;
-
+        // Calculate Correction and set the output
+        if(status.booleanValue()) {
+            output = p * error + i * totalError + d * errorRate;
+        }else{
+            output = 0d;
+        }
         prevError = error;
         prevTime = System.currentTimeMillis()/1000d;
+    }
+
+    /**
+     * Method to be called when the toggleable is enabled
+     */
+    @Override
+    public void enableAction() {
+
+    }
+
+    /**
+     * Method to be called when the toggleable is disabled
+     */
+    @Override
+    public void disableAction() {
+
     }
 }

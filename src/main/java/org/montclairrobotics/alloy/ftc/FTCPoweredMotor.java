@@ -2,8 +2,13 @@ package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import org.montclairrobotics.alloy.core.Debug;
 import org.montclairrobotics.alloy.core.PoweredMotor;
 import org.montclairrobotics.alloy.core.RobotCore;
+import org.montclairrobotics.alloy.utils.Input;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by MHS Robotics on 2/24/2018.
@@ -42,6 +47,26 @@ public class FTCPoweredMotor extends FTCMotorBase implements PoweredMotor {
     @Override
     public double getMotorPower() {
         return motor.getPower();
+    }
+
+    /**
+     * gets the debug information for the motor
+     *
+     * @return the motor debugs
+     */
+    @Override
+    public ArrayList<Debug> getDebugs() {
+        ArrayList<Debug> motorDebugs = new ArrayList<>();
+
+        motorDebugs.add(new Debug("Motor Power", new Input<Double>(){
+
+            @Override
+            public Double get() {
+                return getMotorPower();
+            }
+        }));
+
+        return motorDebugs;
     }
 
     /**
