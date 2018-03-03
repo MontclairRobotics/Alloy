@@ -3,6 +3,7 @@ package org.montclairrobotics.alloy.ftc;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.montclairrobotics.alloy.core.*;
+import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.utils.Input;
 
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ import java.util.ArrayList;
  * @since 0.1
  */
 public class FTCMotor extends FTCMotorBase implements UniversalMotor {
-    
+
+    private double power;
+
     public FTCMotor(String motorConfiguration) {
         super(motorConfiguration);
     }
@@ -30,7 +33,7 @@ public class FTCMotor extends FTCMotorBase implements UniversalMotor {
     @Override
     public void setMotorPower(double power) {
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motor.setPower(power);
+        this.power = power;
     }
     
     /**
@@ -51,7 +54,7 @@ public class FTCMotor extends FTCMotorBase implements UniversalMotor {
     @Override
     public void setTargetPower(double power) {
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor.setPower(power);
+        this.power = power;
     }
     
     /**
@@ -83,6 +86,16 @@ public class FTCMotor extends FTCMotorBase implements UniversalMotor {
     @Override
     public double getPosition() {
         return motor.getCurrentPosition();
+    }
+
+
+    @Update
+    public void updateMotor(){
+        if(status.booleanValue()){
+            motor.setPower(power);
+        }else{
+            motor.setPower(0);
+        }
     }
 
     /**

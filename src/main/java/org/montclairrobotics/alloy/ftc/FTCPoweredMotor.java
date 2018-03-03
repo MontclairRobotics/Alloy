@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.montclairrobotics.alloy.core.Debug;
 import org.montclairrobotics.alloy.core.PoweredMotor;
 import org.montclairrobotics.alloy.core.RobotCore;
+import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.utils.Input;
 
 import java.util.ArrayList;
@@ -24,7 +25,9 @@ import java.util.Arrays;
  * @since 0.1
  */
 public class FTCPoweredMotor extends FTCMotorBase implements PoweredMotor {
-    
+
+    private double power;
+
     public FTCPoweredMotor(String motorConfiguration) {
         super(motorConfiguration);
     }
@@ -36,7 +39,7 @@ public class FTCPoweredMotor extends FTCMotorBase implements PoweredMotor {
      */
     @Override
     public void setMotorPower(double power) {
-        motor.setPower(power);
+        this.power = power;
     }
 
     /**
@@ -69,11 +72,14 @@ public class FTCPoweredMotor extends FTCMotorBase implements PoweredMotor {
         return motorDebugs;
     }
 
-    /**
-     * Sets weather the motor runs the default way , or inverted
-     *
-     * @param inverted true for inverted, false for normal
-     */
+    @Update
+    public void motorUpdate(){
+        if(status.booleanValue()){
+            motor.setPower(power);
+        }else{
+            motor.setPower(0);
+        }
+    }
     
 
     /**

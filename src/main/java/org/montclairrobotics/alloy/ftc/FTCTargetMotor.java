@@ -24,6 +24,9 @@ import java.util.ArrayList;
  * @since 0.1
  */
 public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
+
+    private double power;
+
     public FTCTargetMotor(String motorConfiguration) {
         super(motorConfiguration);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -113,7 +116,7 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
      */
     @Override
     public void setTargetPower(double power) {
-        motor.setPower(power);
+        this.power = power;
     }
 
     /**
@@ -148,8 +151,13 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
      */
     @Update
     public void update() {
-        if(runmode == Mode.CUSTOM){
-            setTargetPower(pid.get());
+        if(status.booleanValue()) {
+            if (runmode == Mode.CUSTOM) {
+                setTargetPower(pid.get());
+            }
+            motor.setPower(power);
+        }else{
+            motor.setPower(0);
         }
     }
 
