@@ -25,7 +25,7 @@ public class Updatable {
 
     public void run(){
         try {
-            update.invoke(clazz, parameters);
+            update.invoke(clazz);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
