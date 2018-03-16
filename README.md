@@ -23,7 +23,7 @@ can be found in the project [Wiki](). As well as a quick start guide.
 
 # FAQ 
 
-### Q. What is the purpose/how do I use ___?
+### Q. What is the purpose of/how do I use ___?
 
 A. Every class is heavily documented as well as wiki articles explaining the use of more complex/important parts of alloy
 
