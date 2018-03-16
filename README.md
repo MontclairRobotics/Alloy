@@ -17,7 +17,7 @@ with expandibility in mind. FRC implementation is possible and will be coming in
 Alloy is based off the FRC robot framework [Sprocket](https://github.com/MontclairRobotics/Sprocket), but redesigned to abstract away the more complex ideas but still allow for advanced robot functionality.
 
 Any information regarding Alloy, including how it works, project structure, as well as in depth explanation on how to use all of the components
-can be found in the project [Wiki](). As well as a quick start guide.
+can be found in the project [Wiki](https://github.com/GarrettBurroughs/Alloy/wiki). As well as a quick start guide.
 
 
 
@@ -30,7 +30,7 @@ A. Every class is heavily documented as well as wiki articles explaining the use
 ### Q. I tried to update ___ method using @Update, but it isn't working?
 
 A. The way alloy is designed, is that everything is split up into components, and a method can only be updated if it is within a component. 
-you can read more about this topic [Here]() 
+you can read more about this topic [Here](https://github.com/GarrettBurroughs/Alloy/wiki/Alloy-Update-System) 
 
 ### Q. What is a component/what is the difference between the components?
 A. Different components have different purposes, for example, a control component would be used for an advanced control system, 
@@ -44,6 +44,6 @@ easier debugging, and updateable methods. But again, all of this can be done wit
 
 ### Q. ___ isn't working.
 
-A. If you have a problem first see our [Troubleshooting guide](). If that does not fix your problem you can file an [Issue]() 
+A. If you have a problem first see our [Troubleshooting guide](https://github.com/GarrettBurroughs/Alloy/wiki/Troubleshooting-Guide). If that does not fix your problem you can file an [Issue](https://github.com/GarrettBurroughs/Alloy/issues/new) 
 using our issue template, please provide as much information as possible so we can fully understand the probelm and fix the issue. 
 
