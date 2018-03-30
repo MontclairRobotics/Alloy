@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
  * @author Garrett Burroughs
  */
 public abstract class AlloyAutonomous extends OpMode{
-
-
+    
+    
     @Override
     public void init() {
 
