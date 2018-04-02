@@ -19,7 +19,7 @@ import org.montclairrobotics.alloy.utils.PID;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
+public class FTCTargetMotor extends FTCMotor implements TargetMotor {
     public FTCTargetMotor(String motorConfiguration) {
         super(motorConfiguration);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -58,6 +58,7 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
     @Override
     public void setPosition(int position) {
         if(runmode == Mode.DEFAULT){
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setTargetPosition(position);
         }else{
             pid.setTarget(position);
@@ -117,6 +118,7 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
     @Update
     public void update() {
         if(runmode == Mode.CUSTOM){
+            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             setTargetPower(pid.get());
         }
     }

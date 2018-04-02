@@ -10,7 +10,7 @@ package org.montclairrobotics.alloy.core;
  * @since 0.1
  *
  */
-public interface PoweredMotor {
+public interface Motor {
     /**
      * Sets the motor Power
      *

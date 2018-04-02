@@ -5,7 +5,7 @@ package org.montclairrobotics.alloy.core;
  * Target motor is a motor interface for motors that have encoders.
  * Target motors can set encoder positions using PID control
  */
-public interface TargetMotor{
+public interface TargetMotor extends Motor{
     /**
      * Sets the motor Power
      *
@@ -19,21 +19,6 @@ public interface TargetMotor{
      * @return the current motor power, a value between (0-1)
      */
     public double getTargetPower();
-    
-    
-    /**
-     * Sets weather the motor runs the default way , or inverted
-     *
-     * @param inverted true for inverted, false for normal
-     */
-    public void setInverted(boolean inverted);
-    
-    /**
-     * Gets weather the motor is inverted
-     *
-     * @return true if the motor is inverted
-     */
-    public boolean getInverted();
     
     /**
      * Sets the motor position

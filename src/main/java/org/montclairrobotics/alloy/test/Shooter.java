@@ -1,12 +1,12 @@
 package org.montclairrobotics.alloy.test;
 
-import org.montclairrobotics.alloy.core.PoweredMotor;
+import org.montclairrobotics.alloy.core.Motor;
 import org.montclairrobotics.alloy.ftc.FTCMotor;
 import org.montclairrobotics.alloy.utils.Toggleable;
 
 public class Shooter extends Toggleable {
-    PoweredMotor motorR = new FTCMotor("Right PoweredMotor");
-    PoweredMotor motorL = new FTCMotor("Left PoweredMotor");
+    Motor motorR = new FTCMotor("Right PoweredMotor");
+    Motor motorL = new FTCMotor("Left PoweredMotor");
 
 
     @Override

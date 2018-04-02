@@ -2,24 +2,28 @@ package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import org.montclairrobotics.alloy.core.PoweredMotor;
+import org.montclairrobotics.alloy.core.Motor;
 import org.montclairrobotics.alloy.core.RobotCore;
 import org.montclairrobotics.alloy.core.TargetMotor;
-import org.montclairrobotics.alloy.core.UniversalMotor;
 
 /**
  * Created by MHS Robotics on 11/14/2017.
  *
- * FTCMotor is a class that dynamically switches a motor's runmode
- * depending on what functionality is being used
+ * FTCMotor is a basic implementation of a motor used for FTC.
+ * Basic FTC motors can be controlled using motor power but can
+ * not have their positions set using encoders. If you wish to
+ * set a motors position
+ * @see FTCTargetMotor
  *
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCMotor extends FTCMotorBase implements UniversalMotor {
+public class FTCMotor implements Motor {
+    
+    DcMotor motor;
     
     public FTCMotor(String motorConfiguration) {
-        super(motorConfiguration);
+        motor = RobotCore.getHardwareMap().dcMotor.get(motorConfiguration);
     }
     
     /**
@@ -44,44 +48,24 @@ public class FTCMotor extends FTCMotorBase implements UniversalMotor {
     }
     
     /**
-     * Sets the power at which the motor will move when set to a position
+     * Sets weather the motor runs the default way , or inverted
      *
-     * @param power the power that the motor will be set to (0-1 inclusive )
+     * @param inverted true for inverted, false for normal
      */
-    @Override
-    public void setTargetPower(double power) {
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor.setPower(power);
+    public void setInverted(boolean inverted) {
+        if(inverted) {
+            motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        } else{
+            motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        }
     }
     
     /**
-     * Gets the motor power
+     * Gets weather the motor is inverted
      *
-     * @return the current motor power, a value between (0-1)
+     * @return true if the motor is inverted
      */
-    @Override
-    public double getTargetPower() {
-        return motor.getPower();
-    }
-    
-    /**
-     * Sets the motor position
-     *
-     * @param position the position the motor will be set to (in encoder ticks)
-     */
-    @Override
-    public void setPosition(int position) {
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor.setTargetPosition(position);
-    }
-    
-    /**
-     * Gets the motors position
-     *
-     * @return the position that the motor is at (in encoder ticks)
-     */
-    @Override
-    public double getPosition() {
-        return motor.getCurrentPosition();
+    public boolean getInverted() {
+        return motor.getDirection() == DcMotorSimple.Direction.REVERSE ? true : false;
     }
 }
