@@ -1,30 +1,33 @@
-package org.montclairrobotics.alloy.virtualRobot;
+package org.montclairrobotics.alloy.test.virtualTest;
 
-import org.montclairrobotics.alloy.components.Component;
-import org.montclairrobotics.alloy.update.Updater;
-import org.montclairrobotics.alloy.virtualRobot.components.TestDebugger;
+import org.montclairrobotics.alloy.virtualRobot.AlloyTestBot;
 
 /**
- * Created by MHS Robotics on 4/2/2018.
+ * Created by MHS Robotics on 4/3/2018.
  *
  * @author Garrett Burroughs
  * @since
  */
-public abstract class AlloyTestBot {
-    
+public class RelicRecovery extends AlloyTestBot {
     /**
      * The robotSetup is where all code specific to robot setup is placed
      * If you only have one teleop this can be done in the initialization
      * Method. robotSetup is called right after the robot core is initialized
      */
-    public abstract void robotSetup();
+    @Override
+    public void robotSetup() {
+    
+    }
     
     /**
      * The initialization method is were everything specific to the OpMode
      * Should be set up. Initialization will be the first thing called after
      * The robot setup.
      */
-    public abstract void initialization();
+    @Override
+    public void initialization() {
+    
+    }
     
     /**
      * Although most of the periodic actions are taken care by the updater, the user may want to
@@ -32,24 +35,18 @@ public abstract class AlloyTestBot {
      * the periodic() method
      * periodic will be run every loop.
      */
-    public abstract void periodic();
+    @Override
+    public void periodic() {
     
-    
-    public void init() {
-        Component.debugger = new TestDebugger();
-        robotSetup();
-        initialization();
-    }
-    
-    public void loop()
-    {
-        Updater.update();
-        periodic();
     }
     
     /**
      * For use in the virtual robot, should return the name of the robot so it can be selected
+     *
      * @return the name of the robot
      */
-    public abstract String getName();
+    @Override
+    public String getName() {
+        return "Relic Recovery";
+    }
 }

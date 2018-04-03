@@ -18,5 +18,15 @@ public enum Mode {
     /**
      * ftc autonomous mode
      */
-    FTCAUTONOMOUS
+    FTCAUTONOMOUS,
+    
+    /**
+     * Mode for the robot simulation teleop
+     */
+    TESTTELEOP,
+    
+    /**
+     * Mode for the robot simulation autonomous
+     */
+    TESTAUTONOMOUS
 }

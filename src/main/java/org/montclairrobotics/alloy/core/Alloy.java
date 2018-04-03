@@ -18,8 +18,6 @@ import org.montclairrobotics.alloy.update.Updater;
  */
 public abstract class Alloy extends OpMode{
     
-    public String name = "";
-    
     /**
      * The robotSetup is where all code specific to robot setup is placed
      * If you only have one teleop this can be done in the initialization 
@@ -58,4 +56,6 @@ public abstract class Alloy extends OpMode{
         Updater.update();
         periodic();
     }
+    
+    
 }
