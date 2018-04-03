@@ -18,6 +18,7 @@ import org.montclairrobotics.alloy.update.Updater;
  */
 public abstract class Alloy extends OpMode{
     
+    public String name = "";
     
     /**
      * The robotSetup is where all code specific to robot setup is placed
