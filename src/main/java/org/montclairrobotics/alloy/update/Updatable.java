@@ -32,7 +32,7 @@ public class Updatable {
         try {
             for(Component component : Component.getComponents()) {
                 if (component.getClass().equals(clazz)) {
-                    update.invoke(component, parameters);
+                    update.invoke(component, (Object[]) parameters);
                 }
             }
         } catch (IllegalAccessException e) {
