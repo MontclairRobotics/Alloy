@@ -6,8 +6,8 @@ Status: **Beta**
 
 Developed by FTC147 and FRC555
 
-The goal of alloy is to provide a robot framework that allows anyone, including new programmers, to be able to implement
-high functioning and quality code for their robots. In other terms, Alloy aims toprevent robot code from being a limiting
+The goal of Alloy is to provide a robot framework that allows anyone, including new programmers, to be able to implement
+high functioning and quality code for their robots. In other terms, Alloy aims to prevent robot code from being a limiting
 factor on the performance of the robot. 
 
 
@@ -16,8 +16,8 @@ with expandibility in mind. FRC implementation is possible and will be coming in
 
 Alloy is based off the FRC robot framework [Sprocket](https://github.com/MontclairRobotics/Sprocket), but redesigned to abstract away the more complex ideas but still allow for advanced robot functionality.
 
-Any information regarding Alloy, including how it works, project structure, as well as in depth explanation on how to use all of the components
-can be found in the project [Wiki](https://github.com/GarrettBurroughs/Alloy/wiki). As well as a quick start guide.
+Any information regarding Alloy, including how it works, project structure, as well as in-depth explanation on how to use all of the components
+can be found in the project [Wiki](https://github.com/GarrettBurroughs/Alloy/wiki) as well as a [quick start guide]().
 
 
 
