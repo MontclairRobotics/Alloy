@@ -1,21 +1,15 @@
 package org.montclairrobotics.alloy.test;
 
 import org.montclairrobotics.alloy.components.Component;
-import org.montclairrobotics.alloy.core.Debug;
-import org.montclairrobotics.alloy.core.PoweredMotor;
+import org.montclairrobotics.alloy.core.Motor;
 import org.montclairrobotics.alloy.ftc.FTCMotor;
-import org.montclairrobotics.alloy.utils.Toggleable;
-
-import java.util.ArrayList;
 
 public class Shooter extends Component {
-    PoweredMotor motorR = new FTCMotor("Right PoweredMotor");
-    PoweredMotor motorL = new FTCMotor("Left PoweredMotor");
+    Motor motorR = new FTCMotor("Right Motor");
+    Motor motorL = new FTCMotor("Left Motor");
 
     public Shooter(){
         super();
-        addDebugs(motorL.getDebugs());
-        addDebugs(motorR.getDebugs());
     }
 
     @Override

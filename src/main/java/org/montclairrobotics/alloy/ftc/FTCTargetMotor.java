@@ -2,6 +2,7 @@ package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.montclairrobotics.alloy.core.Debug;
+import org.montclairrobotics.alloy.core.Encoder;
 import org.montclairrobotics.alloy.core.TargetMotor;
 import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.utils.Input;
@@ -23,13 +24,16 @@ import java.util.ArrayList;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
+public class FTCTargetMotor extends FTCMotor implements TargetMotor {
 
-    private double power;
+    private double targetPower;
 
     public FTCTargetMotor(String motorConfiguration) {
         super(motorConfiguration);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        addDebug(new Debug(motorConfiguration + " Motor Power: ", (Input<Double>) () -> power));
+        addDebug(new Debug(motorConfiguration + " Motor Position: ", (Input<Integer>) () -> getPosition()));
+        addDebug(new Debug(motorConfiguration + " Target Motor Power: ", (Input<Double>) () -> targetPower));
     }
     
     enum Mode{
@@ -67,7 +71,7 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
         if(runmode == Mode.DEFAULT){
             motor.setTargetPosition(position);
         }else{
-            pid.setTarget(position);
+            pid.setTarget((double)position);
         }
     }
 
@@ -77,36 +81,8 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
      * @return the position that the motor is at (in encoder ticks)
      */
     @Override
-    public double getPosition() {
+    public int getPosition() {
         return motor.getCurrentPosition();
-    }
-
-    /**
-     * Gets the debug information of the motor
-     *
-     * @return the debugs for the motor
-     */
-    @Override
-    public ArrayList<Debug> getDebugs() {
-        ArrayList<Debug> motorDebugs = new ArrayList<>();
-
-        motorDebugs.add(new Debug("Motor Position", new Input<Double>(){
-
-            @Override
-            public Double get() {
-                return getPosition();
-            }
-        }));
-
-        motorDebugs.add(new Debug("Motor Power", new Input<Double>(){
-
-            @Override
-            public Double get() {
-                return getTargetPower();
-            }
-        }));
-
-        return motorDebugs;
     }
 
     /**
@@ -116,7 +92,8 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
      */
     @Override
     public void setTargetPower(double power) {
-        this.power = power;
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.targetPower = power;
     }
 
     /**
@@ -151,13 +128,18 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
      */
     @Update
     public void update() {
-        if(status.booleanValue()) {
-            if (runmode == Mode.CUSTOM) {
-                setTargetPower(pid.get());
+        if(status.booleanValue()) { // Check if enabled
+            if(motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION){
+                if (runmode == Mode.CUSTOM) {
+                    setTargetPower(pid.get()); // If running using custom PID mode, set power to PID output
+                }else{
+                    motor.setPower(targetPower); // If running in default target mode, set the target power
+                }
+            }else{
+                motor.setPower(power); // If running by power, set the power
             }
-            motor.setPower(power);
         }else{
-            motor.setPower(0);
+            motor.setPower(0); // If disabled, set power to 0
         }
     }
 
@@ -181,5 +163,19 @@ public class FTCTargetMotor extends FTCMotorBase implements TargetMotor {
      */
     public Mode getRunmode() {
         return runmode;
+    }
+
+    /**
+     * Allows for the creation of an encoder object that is aware of the amount of ticks the motor has gone
+     *
+     * @return a new encoder object that will return the amount of encoder ticks the motor is at
+     */
+    public Encoder getEncoder(){
+        return new Encoder() {
+            @Override
+            public int getTicks() {
+                return getPosition();
+            }
+        };
     }
 }

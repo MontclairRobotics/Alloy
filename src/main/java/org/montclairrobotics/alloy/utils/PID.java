@@ -22,7 +22,7 @@ import org.montclairrobotics.alloy.update.Update;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class PID extends InputComponent<Double> {
+public class PID extends InputComponent<Double> implements ErrorCorrection<Double> {
     private double p;
     private double i;
     private double d;
@@ -71,18 +71,16 @@ public class PID extends InputComponent<Double> {
         this.target = target;
     }
 
-    public PID setTarget(double target){
+    @Override
+    public void setTarget(Double target){
         this.target = target;
-        return this;
     }
 
+    @Override
     public void setInput(Input<Double> input){
         this.input = input;
     }
 
-    /**
-     * The update method should be defined for every updatable, and is called every loop if added to the updater
-     */
 
     @Update
     public void update() {
@@ -120,19 +118,8 @@ public class PID extends InputComponent<Double> {
         prevTime = System.currentTimeMillis()/1000d;
     }
 
-    /**
-     * Method to be called when the toggleable is enabled
-     */
     @Override
-    public void enableAction() {
-
-    }
-
-    /**
-     * Method to be called when the toggleable is disabled
-     */
-    @Override
-    public void disableAction() {
-
+    public Double getCorrection(){
+        return output;
     }
 }

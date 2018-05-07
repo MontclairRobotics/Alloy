@@ -2,27 +2,39 @@ package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.*;
 import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.utils.Input;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
  * Created by MHS Robotics on 11/14/2017.
  *
- * FTCMotor is a class that dynamically switches a motor's runmode
- * depending on what functionality is being used
+ * The basic motor for use in FTC. Basic motors are not aware of encoders and
+ * are not recommended for use in FTC as all motors come with encoders
+ * 
  *
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCMotor extends FTCMotorBase implements UniversalMotor {
+public class FTCMotor extends Component implements Motor {
 
-    private double power;
+    /**
+     * The physical hardware motor reference to the motor being controlled
+     */
+    public DcMotor motor;
+
+    /**
+     * The power that the motor should be running at
+     */
+    public double power;
 
     public FTCMotor(String motorConfiguration) {
-        super(motorConfiguration);
+        motor = RobotCore.getHardwareMap().dcMotor.get(motorConfiguration);
+        addDebug(new Debug(motorConfiguration + " Motor Power: ", (Input<Double>) () -> power));
     }
     
     /**
@@ -45,90 +57,46 @@ public class FTCMotor extends FTCMotorBase implements UniversalMotor {
     public double getMotorPower() {
         return motor.getPower();
     }
-    
+
     /**
-     * Sets the power at which the motor will move when set to a position
+     * Sets whether the motor runs the default way , or inverted
      *
-     * @param power the power that the motor will be set to (0-1 inclusive )
+     * @param inverted true for inverted, false for normal
      */
     @Override
-    public void setTargetPower(double power) {
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        this.power = power;
+    public void setInverted(boolean inverted) {
+        if (inverted) {
+            motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        } else {
+            motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        }
     }
-    
+
     /**
-     * Gets the motor power
+     * Gets weather the motor is inverted
      *
-     * @return the current motor power, a value between (0-1)
+     * @return true if the motor is inverted
      */
     @Override
-    public double getTargetPower() {
-        return motor.getPower();
-    }
-    
-    /**
-     * Sets the motor position
-     *
-     * @param position the position the motor will be set to (in encoder ticks)
-     */
-    @Override
-    public void setPosition(int position) {
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor.setTargetPosition(position);
-    }
-    
-    /**
-     * Gets the motors position
-     *
-     * @return the position that the motor is at (in encoder ticks)
-     */
-    @Override
-    public double getPosition() {
-        return motor.getCurrentPosition();
+    public boolean getInverted() {
+        return motor.getDirection() == DcMotorSimple.Direction.REVERSE ? true : false;
     }
 
 
     @Update
     public void updateMotor(){
+
+        // Set Motor Power if it is enabled
         if(status.booleanValue()){
             motor.setPower(power);
         }else{
             motor.setPower(0);
         }
+
     }
 
-    /**
-     * @return the motor position, and powers
-     */
     @Override
-    public ArrayList<Debug> getDebugs(){
-        ArrayList<Debug> motorDebugs = new ArrayList<>();
-
-        motorDebugs.add(new Debug("Motor Power", new Input<Double>(){
-
-            @Override
-            public Double get() {
-                return getMotorPower();
-            }
-        }));
-
-        motorDebugs.add(new Debug("Motor Position", new Input<Double>(){
-
-            @Override
-            public Double get() {
-                return getPosition();
-            }
-        }));
-
-        motorDebugs.add(new Debug("Target Power", new Input<Double>(){
-
-            @Override
-            public Double get() {
-                return getTargetPower();
-            }
-        }));
-
-        return motorDebugs;
+    public void disableAction() {
+        motor.setPower(0);
     }
 }

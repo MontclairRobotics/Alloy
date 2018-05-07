@@ -1,5 +1,8 @@
 package org.montclairrobotics.alloy.core;
 
+
+import org.montclairrobotics.alloy.components.Component;
+
 import java.util.ArrayList;
 
 /**
@@ -12,7 +15,7 @@ import java.util.ArrayList;
  * @since 0.1
  *
  */
-public interface PoweredMotor {
+public interface Motor {
     /**
      * Sets the motor Power
      *
@@ -41,11 +44,4 @@ public interface PoweredMotor {
      * @return true if the motor is inverted
      */
     public boolean getInverted();
-
-    /**
-     * gets the debug information for the motor
-     *
-     * @return the motor debugs
-     */
-    public ArrayList<Debug> getDebugs();
 }
