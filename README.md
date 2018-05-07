@@ -20,7 +20,7 @@ Any information regarding Alloy, including how it works, project structure, as w
 can be found in the project [Wiki](https://github.com/GarrettBurroughs/Alloy/wiki) as well as a [quick start guide]().
 
 
-##Formatting
+## Formatting
 Alloy uses the [Spotless]() code formatter to ensure that 
 all of the code follows a specific format. It is added as a build step for a gradle
 build so this means that all code in alloy must be compliant to be merged. 
