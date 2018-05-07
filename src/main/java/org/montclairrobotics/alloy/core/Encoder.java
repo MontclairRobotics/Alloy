@@ -1,42 +1,60 @@
+/*
+MIT License
+
+Copyright (c) 2018 Garrett Burroughs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 package org.montclairrobotics.alloy.core;
 
 import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.utils.Differential;
 import org.montclairrobotics.alloy.utils.Input;
 
-
 /**
  * A motor encoder that keeps track of kinematic information about the motor
  *
- * At a basic level hardware encoders are able to get how far a motor has gone
- * as a unit of encoder ticks. The encoder class also calculates the acceleration
- * anc velocity of the motor in terms of encoder ticks, and then the user can
- * define the distance of unit to measure the motor in
+ * <p>At a basic level hardware encoders are able to get how far a motor has gone as a unit of
+ * encoder ticks. The encoder class also calculates the acceleration anc velocity of the motor in
+ * terms of encoder ticks, and then the user can define the distance of unit to measure the motor in
  */
 public abstract class Encoder extends InputComponent<Integer> {
 
     /**
-     * An Object that calculates the change in position with respect to time (Velocity)
-     * Measured in Ticks per Second
+     * An Object that calculates the change in position with respect to time (Velocity) Measured in
+     * Ticks per Second
      */
     Differential calcVelocity;
 
     /**
-     * An Object that calculates the change in velocity with respect to time (Acceleration)
-     * Measured in Ticks per Second per Second
+     * An Object that calculates the change in velocity with respect to time (Acceleration) Measured
+     * in Ticks per Second per Second
      */
     Differential calcAcceleration;
 
     /**
-     * How far the motor goes for each encoder tick
-     * NOTE : It is very important that distances are consistent
+     * How far the motor goes for each encoder tick NOTE : It is very important that distances are
+     * consistent
      */
     private double distancePerTick;
 
-    /**
-     * Max speed that the motor can go
-     * Measured in Ticks per Second
-     */
+    /** Max speed that the motor can go Measured in Ticks per Second */
     private double maxSpeed;
 
     /**
@@ -49,31 +67,28 @@ public abstract class Encoder extends InputComponent<Integer> {
     public Encoder(double distancePerTick, double maxSpeed) {
         this.distancePerTick = distancePerTick;
         setInput(() -> getTicks());
-        calcVelocity = new Differential((Input<Double>) () -> (double)getTicks());
+        calcVelocity = new Differential((Input<Double>) () -> (double) getTicks());
         calcAcceleration = new Differential(calcVelocity);
     }
 
-    /**
-     * Create a new encoder with default values
-     */
-    public Encoder(){
+    /** Create a new encoder with default values */
+    public Encoder() {
         this(1.0, 1.0);
     }
 
     /**
      * Set the distance per tick
      *
-     * The distance per tick is the amount of distance the motor will move (or
-     * what the motor is attached to, eg wheel/lift)
-     * The distance unit should stay consistent throughout the robot project
-     * This method can also be daisychained as it returns a reference to itself
+     * <p>The distance per tick is the amount of distance the motor will move (or what the motor is
+     * attached to, eg wheel/lift) The distance unit should stay consistent throughout the robot
+     * project This method can also be daisychained as it returns a reference to itself
      *
      * @param distancePerTick how far the motor moves for 1 encoder tick
      * @return the encoder
      */
     public Encoder setDistancePerTick(double distancePerTick) {
         this.distancePerTick = distancePerTick;
-        return  this;
+        return this;
     }
 
     /**
@@ -82,7 +97,7 @@ public abstract class Encoder extends InputComponent<Integer> {
      * @param maxSpeed max speed that the motor can run
      * @return the encoder
      */
-    public Encoder setMaxSpeed(double maxSpeed){
+    public Encoder setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
         return this;
     }
@@ -92,7 +107,7 @@ public abstract class Encoder extends InputComponent<Integer> {
      *
      * @return velocity in ticks per second
      */
-    public double getRawVelocity(){
+    public double getRawVelocity() {
         return calcVelocity.get();
     }
 
@@ -101,41 +116,36 @@ public abstract class Encoder extends InputComponent<Integer> {
      *
      * @return acceleration in ticks per second per second
      */
-    private double getRawAcceleration(){
+    private double getRawAcceleration() {
         return calcAcceleration.get();
     }
 
     /**
-     * Get the velocity in distance per second
-     * The distance is set by the distance per tick method,
-     * it is important to keep distances consistent throughout
-     * the project.
+     * Get the velocity in distance per second The distance is set by the distance per tick method,
+     * it is important to keep distances consistent throughout the project.
      *
      * @return velocity in distance per second
      */
-    public double getVelocity(){
+    public double getVelocity() {
         return getRawVelocity() / distancePerTick;
     }
 
     /**
-     * Get the acceleration in distance per second
-     * The distance is set by the distance per tick method,
-     * it is important to keep distances consistent throughout
+     * Get the acceleration in distance per second The distance is set by the distance per tick
+     * method, it is important to keep distances consistent throughout
      *
      * @return acceleration in distance per second
      */
-    public double getAcceleration(){
+    public double getAcceleration() {
         return getRawAcceleration() / distancePerTick;
     }
-
 
     /**
      * Get a scaled value (0 - 1) of how fast the motor is going
      *
      * @return a value 0 - 1 depending on how fast the motor is going
      */
-    public double getScaledVelocity(){
+    public double getScaledVelocity() {
         return getRawVelocity() / maxSpeed;
     }
-
 }

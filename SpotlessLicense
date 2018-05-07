@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2018 Garrett Burroughs
+Copyright (c) $YEAR Garrett Burroughs
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,31 +21,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.utils;
-
-import org.montclairrobotics.alloy.components.InputComponent;
-import org.montclairrobotics.alloy.update.Update;
-
-public class Differential extends InputComponent<Double> {
-    Input<Double> input;
-
-    double prevTime;
-    double prevIn;
-
-    public Differential(Input in) {
-        input = in;
-    }
-
-    @Update
-    public void calculateDifferential() {
-        double elapsedTime = System.nanoTime() - prevTime;
-        double elapsedIn = input.get() - prevIn;
-        if (System.nanoTime() != 0) {
-            output = elapsedIn / elapsedTime;
-        } else {
-            output = 0.0;
-        }
-        prevIn = input.get();
-        prevTime = System.nanoTime();
-    }
-}

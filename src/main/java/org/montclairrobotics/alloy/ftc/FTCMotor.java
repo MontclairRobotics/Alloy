@@ -1,42 +1,59 @@
+/*
+MIT License
+
+Copyright (c) 2018 Garrett Burroughs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import java.awt.*;
 import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.*;
 import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.utils.Input;
 
-import java.awt.*;
-import java.util.ArrayList;
-
 /**
  * Created by MHS Robotics on 11/14/2017.
  *
- * The basic motor for use in FTC. Basic motors are not aware of encoders and
- * are not recommended for use in FTC as all motors come with encoders
- * 
+ * <p>The basic motor for use in FTC. Basic motors are not aware of encoders and are not recommended
+ * for use in FTC as all motors come with encoders
  *
+ * @see FTCTargetMotor
  * @author Garrett Burroughs
  * @since 0.1
  */
 public class FTCMotor extends Component implements Motor {
 
-    /**
-     * The physical hardware motor reference to the motor being controlled
-     */
+    /** The physical hardware motor reference to the motor being controlled */
     public DcMotor motor;
 
-    /**
-     * The power that the motor should be running at
-     */
+    /** The power that the motor should be running at */
     public double power;
 
     public FTCMotor(String motorConfiguration) {
         motor = RobotCore.getHardwareMap().dcMotor.get(motorConfiguration);
         addDebug(new Debug(motorConfiguration + " Motor Power: ", (Input<Double>) () -> power));
     }
-    
+
     /**
      * Sets the motor Power
      *
@@ -47,7 +64,7 @@ public class FTCMotor extends Component implements Motor {
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.power = power;
     }
-    
+
     /**
      * Gets the motor power
      *
@@ -82,17 +99,15 @@ public class FTCMotor extends Component implements Motor {
         return motor.getDirection() == DcMotorSimple.Direction.REVERSE ? true : false;
     }
 
-
     @Update
-    public void updateMotor(){
+    public void updateMotor() {
 
         // Set Motor Power if it is enabled
-        if(status.booleanValue()){
+        if (status.booleanValue()) {
             motor.setPower(power);
-        }else{
+        } else {
             motor.setPower(0);
         }
-
     }
 
     @Override
