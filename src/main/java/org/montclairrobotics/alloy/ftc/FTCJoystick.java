@@ -1,6 +1,28 @@
+/*
+MIT License
+
+Copyright (c) 2018 Garrett Burroughs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 package org.montclairrobotics.alloy.ftc;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import org.montclairrobotics.alloy.core.Joystick;
 import org.montclairrobotics.alloy.vector.Vector;
@@ -12,24 +34,24 @@ import org.montclairrobotics.alloy.vector.XY;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCJoystick implements Joystick{
-    
-    public enum Side{
+public class FTCJoystick implements Joystick {
+
+    public enum Side {
         RIGHT,
         LEFT
     }
-    
+
     Gamepad gamepad;
     Side side;
-    
+
     public FTCJoystick(Gamepad gamepad, Side side) {
         this.gamepad = gamepad;
         this.side = side;
     }
-    
+
     @Override
-    public Vector getValue(){
-        switch (side){
+    public Vector getValue() {
+        switch (side) {
             case RIGHT:
                 return new XY(gamepad.right_stick_x, gamepad.right_stick_y);
             case LEFT:
@@ -38,6 +60,4 @@ public class FTCJoystick implements Joystick{
                 return new XY(0, 0);
         }
     }
-    
-    
 }
