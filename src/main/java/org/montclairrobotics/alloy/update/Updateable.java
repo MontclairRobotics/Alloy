@@ -26,11 +26,18 @@ package org.montclairrobotics.alloy.update;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+
 import org.montclairrobotics.alloy.components.Component;
 
 /**
- * Created by MHS Robotics on 2/11/2018.
+ * A class used for creating objects that can be updated by the Updater
  *
+ * An updateable conatins a method to be updates along with any
+ * extra information needed for it to be properly called and updated
+ * like the update rate, parameters and objects that it should be invoked on
+ *
+ * @see Updater
  * @author Garrett Burroughs
  * @since 0.1
  */
@@ -39,6 +46,7 @@ public class Updatable {
     private int updateRate;
     private Class clazz;
     private Parameter[] parameters;
+    private ArrayList<Object> objects;
 
     Updatable(Method update, int updateRate, Class clazz, Parameter[] parameters) {
         this.update = update;
@@ -47,15 +55,21 @@ public class Updatable {
         this.parameters = parameters;
     }
 
+    public void getReferences(){
+        for(Component c : Component.getComponents()){
+            if(c.getClass().equals(clazz)){
+                objects.add(c);
+            }
+        }
+    }
+
     public void run() {
         if (parameters.length != 0) {
             throw new RuntimeException("UPDATED METHODS CAN NOT HAVE PARAMETERS");
         }
         try {
-            for (Component component : Component.getComponents()) {
-                if (component.getClass().equals(clazz)) {
-                    update.invoke(component, (Object[]) parameters);
-                }
+            for(Object o : objects){
+                update.invoke(o, (Object[]) parameters);
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
