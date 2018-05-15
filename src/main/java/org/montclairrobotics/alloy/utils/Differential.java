@@ -26,11 +26,26 @@ package org.montclairrobotics.alloy.utils;
 import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.update.Update;
 
+/**
+ * A class to calculate how an input varies with time
+ *
+ * <p>A differential is the rate of change of a certain variable with respect to another one. In
+ * simplper terms is is the slope. The Differential class takes an input and calculates the average
+ * rate of change over a very small interval of the input with respect to time
+ *
+ * <p>This concept is a calculus concept when and can be most easily understood when looking at a
+ * graph where time is the independent variable and the input is dependant on the time
+ *
+ * <p>For example, a time differential of position would be velocity because velocity is how much
+ * the position changes over time (eg. meters per second) @Author Garrett Burroughs @Since
+ * 0.1 @Version 0.1
+ */
 public class Differential extends InputComponent<Double> {
-    Input<Double> input;
+    /** The dependant variable in the situation */
+    public Input<Double> input;
 
-    double prevTime;
-    double prevIn;
+    private double prevTime;
+    private double prevIn;
 
     public Differential(Input in) {
         input = in;
@@ -38,14 +53,18 @@ public class Differential extends InputComponent<Double> {
 
     @Update
     public void calculateDifferential() {
-        double elapsedTime = System.nanoTime() - prevTime;
-        double elapsedIn = input.get() - prevIn;
-        if (System.nanoTime() != 0) {
-            output = elapsedIn / elapsedTime;
+        double elapsedTime = System.nanoTime() - prevTime; // Calculate how much time has passed
+        double elapsedIn = input.get() - prevIn; // Caclulate how much the input has changed
+        if (System.nanoTime() != 0) { // Avoid a divide by zero error
+            output = elapsedIn / elapsedTime; // Return the slope (Delta Input / Delta time)
         } else {
             output = 0.0;
         }
-        prevIn = input.get();
-        prevTime = System.nanoTime();
+        prevIn = input.get(); // set previous input to current input for next calculation
+        prevTime = System.nanoTime(); // Set previous time to current time for next calculation
+    }
+
+    public Double getInput() {
+        return input.get();
     }
 }

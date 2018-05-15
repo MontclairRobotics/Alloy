@@ -30,7 +30,7 @@ import org.montclairrobotics.alloy.core.Encoder;
 import org.montclairrobotics.alloy.core.Motor;
 import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.utils.ConstantInput;
-import org.montclairrobotics.alloy.utils.PID;
+import org.montclairrobotics.alloy.utils.ErrorCorrection;
 import org.montclairrobotics.alloy.vector.Vector;
 
 /**
@@ -38,8 +38,8 @@ import org.montclairrobotics.alloy.vector.Vector;
  *
  * <p>A motor module consists of multiple motors that run together in the same direction. Modules
  * are aware of what direction the run in so they can be used in MoroGroups to be run together with
- * other modules. Modules can also be controlled with an encoder and a PID to ensure that the are
- * going the right speed. @Author Garrett Burroughs @Version 0.1 @Since 0.1
+ * other modules. Modules can also be controlled with an encoder and a ErrorCorrection to ensure
+ * that the are going the right speed. @Author Garrett Burroughs @Version 0.1 @Since 0.1
  */
 public class MotorModule extends Component {
     /** The motors that the module will control */
@@ -51,13 +51,17 @@ public class MotorModule extends Component {
      */
     public Vector direction;
 
-    /** A PID controller that will control the */
-    public PID powerControl;
+    /** An error correction that will control the power */
+    public ErrorCorrection<Double> powerControl;
 
     public Encoder encoder;
     public double targetPower;
 
-    public MotorModule(Vector direction, Encoder encoder, PID powerControl, Motor... motors) {
+    public MotorModule(
+            Vector direction,
+            Encoder encoder,
+            ErrorCorrection<Double> powerControl,
+            Motor... motors) {
         this.direction = direction;
         this.motors = new ArrayList<>(Arrays.asList(motors));
         this.powerControl = powerControl;
@@ -78,7 +82,7 @@ public class MotorModule extends Component {
         return this;
     }
 
-    public MotorModule setPID(PID powerControl) {
+    public MotorModule setErrorCorrection(ErrorCorrection powerControl) {
         this.powerControl = powerControl;
         return this;
     }
@@ -88,7 +92,7 @@ public class MotorModule extends Component {
         if (status.booleanValue()) { // Check if its enabled
             for (Motor m : motors) {
                 if (powerControl != null) {
-                    m.setMotorPower(targetPower + powerControl.get());
+                    m.setMotorPower(targetPower + powerControl.getCorrection());
                 } else {
                     m.setMotorPower(targetPower);
                 }

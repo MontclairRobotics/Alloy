@@ -23,10 +23,43 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.utils;
 
+/**
+ * A interface that defines the process of correcting an error
+ *
+ * <p>Error correction can be implemented in different ways but is very important in creating a
+ * funcitonal robot. The most common
+ *
+ * <p>Most error corrections calculate the error based on the difference of the input and the target
+ * and then return an output correction based on that.
+ *
+ * <p>Some common examples of error corrections are - PID Loop - Bang Bang control
+ *
+ * @see PID
+ * @param <T> the type of error that will be corrected
+ * @version 0.1
+ * @since 0.1
+ */
 public interface ErrorCorrection<T> {
+
+    /**
+     * Set the input of the error correction the input should be the source of what correction is
+     * correcting. For example in a motor the input would be the encoder
+     *
+     * @param input the input to the error correction
+     */
     public void setInput(Input<T> input);
 
+    /**
+     * Set the target for the correction When the input is equal to the target the error is 0
+     *
+     * @param target the goal of the error correction
+     */
     public void setTarget(T target);
 
+    /**
+     * Get the value to apply the correction
+     *
+     * @return the correction
+     */
     public T getCorrection();
 }

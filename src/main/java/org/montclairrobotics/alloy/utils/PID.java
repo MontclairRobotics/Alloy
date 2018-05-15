@@ -43,6 +43,7 @@ import org.montclairrobotics.alloy.update.Update;
  *
  * @author Garrett Burroughs
  * @since 0.1
+ * @version 0.1
  */
 public class PID extends InputComponent<Double> implements ErrorCorrection<Double> {
     private double p;

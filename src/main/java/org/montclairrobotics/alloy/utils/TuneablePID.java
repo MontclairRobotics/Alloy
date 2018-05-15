@@ -23,4 +23,42 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.utils;
 
-public class TuneablePID {}
+import org.montclairrobotics.alloy.components.InputComponent;
+
+/**
+ * A PID class that takes in tunable inputs to make PID tuning easier
+ *
+ * <p>Using a standard PID model, the user would have to re-deploy an test code which can end up
+ * becoming a very long and drawn out process. By making them inputs, it is able to change these
+ * values at runtime This could be done easily in FRC using smartdashboard or in FTC by using
+ * buttons or joysticks to change values
+ */
+public class TuneablePID extends InputComponent<Double> implements ErrorCorrection {
+
+    /**
+     * Set the input of the error correction the input should be the source of what correction is
+     * correcting. For example in a motor the input would be the encoder
+     *
+     * @param input the input to the error correction
+     */
+    @Override
+    public void setInput(Input input) {}
+
+    /**
+     * Set the target for the correction When the input is equal to the target the error is 0
+     *
+     * @param target the goal of the error correction
+     */
+    @Override
+    public void setTarget(Object target) {}
+
+    /**
+     * Get the value to apply the correction
+     *
+     * @return the correction
+     */
+    @Override
+    public Object getCorrection() {
+        return null;
+    }
+}

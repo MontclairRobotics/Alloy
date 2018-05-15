@@ -27,37 +27,47 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
-
 import org.montclairrobotics.alloy.components.Component;
 
 /**
  * A class used for creating objects that can be updated by the Updater
  *
- * An updateable conatins a method to be updates along with any
- * extra information needed for it to be properly called and updated
- * like the update rate, parameters and objects that it should be invoked on
+ * <p>An updateable conatins a method to be updates along with any extra information needed for it
+ * to be properly called and updated like the update rate, parameters and objects that it should be
+ * invoked on
  *
  * @see Updater
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class Updatable {
+public class Updateable {
+
+    /** The method that will be called when it is updated */
     private Method update;
+
+    /** How often the updateable should be updated */
     private int updateRate;
+
+    /** The class that contains the method */
     private Class clazz;
+
+    /** Any parameters for the method (This should be empty) */
     private Parameter[] parameters;
+
+    /** All objects that the method needs to be called on */
     private ArrayList<Object> objects;
 
-    Updatable(Method update, int updateRate, Class clazz, Parameter[] parameters) {
+    Updateable(Method update, int updateRate, Class clazz, Parameter[] parameters) {
         this.update = update;
         this.updateRate = updateRate;
         this.clazz = clazz;
         this.parameters = parameters;
     }
 
-    public void getReferences(){
-        for(Component c : Component.getComponents()){
-            if(c.getClass().equals(clazz)){
+    /** Gets references to all of the object that the update method should be called on */
+    public void getReferences() {
+        for (Component c : Component.getComponents()) {
+            if (c.getClass().equals(clazz)) {
                 objects.add(c);
             }
         }
@@ -68,7 +78,7 @@ public class Updatable {
             throw new RuntimeException("UPDATED METHODS CAN NOT HAVE PARAMETERS");
         }
         try {
-            for(Object o : objects){
+            for (Object o : objects) {
                 update.invoke(o, (Object[]) parameters);
             }
         } catch (IllegalAccessException e) {

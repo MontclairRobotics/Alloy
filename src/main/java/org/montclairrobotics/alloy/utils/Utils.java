@@ -23,7 +23,27 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.utils;
 
+/**
+ * A set of common methods that are useful in writing robot code
+ *
+ * <p>The Utils class contains static methods that can perform basic functions that can be useful
+ *
+ * @author garrettburroughs
+ * @version 0.1
+ * @since 0.1
+ */
 public class Utils {
+    /**
+     * Makes sure that a value is between 2 different values
+     *
+     * <p>The constrain method will return the passed in value if it is between the boundaries (min
+     * & max), amd will return the min or the max depending on which side it runs out on
+     *
+     * @param in the value being passed in
+     * @param min minimum the value can be
+     * @param max maximum the value can be
+     * @return a value between the maximum and minimum value
+     */
     public static double constrain(double in, double min, double max) {
         if (in > max) {
             return max;
@@ -31,5 +51,26 @@ public class Utils {
             return min;
         }
         return in;
+    }
+
+    /**
+     * The map function takes an input value that can be between a certain range and maps it to a
+     * specified output range
+     *
+     * @param in the value being passed in
+     * @param inputMin the minimum value the input can be
+     * @param inputMax the maximum value the input can be
+     * @param outputMin the minimum value the output can be
+     * @param outputMax the maximum value the output can be
+     * @return a mapped value from the input range to the output range
+     */
+    public static double map(
+            double in, double inputMin, double inputMax, double outputMin, double outputMax) {
+        double scaled =
+                (in - inputMin) / (inputMax - inputMin); // scale the input to a value from 0-1
+        double output =
+                (outputMax - outputMin) * scaled
+                        + outputMin; // adjust the scaled value to fit the output
+        return output;
     }
 }
