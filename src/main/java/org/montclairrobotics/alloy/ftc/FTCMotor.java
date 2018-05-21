@@ -87,6 +87,6 @@ public class FTCMotor implements Motor {
      * @return true if the motor is inverted
      */
     public boolean getInverted() {
-        return motor.getDirection() == DcMotorSimple.Direction.REVERSE ? true : false;
+        return motor.getDirection() == DcMotorSimple.Direction.REVERSE;
     }
 }
