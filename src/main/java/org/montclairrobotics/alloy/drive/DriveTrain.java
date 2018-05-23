@@ -29,4 +29,6 @@ package org.montclairrobotics.alloy.drive;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class DriveTrain {}
+public class DriveTrain {
+
+}

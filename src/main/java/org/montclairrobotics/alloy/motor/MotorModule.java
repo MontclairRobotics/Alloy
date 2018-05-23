@@ -26,6 +26,8 @@ package org.montclairrobotics.alloy.motor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.montclairrobotics.alloy.components.Component;
+import org.montclairrobotics.alloy.components.InputComponent;
+import org.montclairrobotics.alloy.components.Step;
 import org.montclairrobotics.alloy.core.Encoder;
 import org.montclairrobotics.alloy.core.Motor;
 import org.montclairrobotics.alloy.update.Update;
@@ -39,24 +41,55 @@ import org.montclairrobotics.alloy.vector.Vector;
  * <p>A motor module consists of multiple motors that run together in the same direction. Modules
  * are aware of what direction the run in so they can be used in MoroGroups to be run together with
  * other modules. Modules can also be controlled with an encoder and a ErrorCorrection to ensure
- * that the are going the right speed. @Author Garrett Burroughs @Version 0.1 @Since 0.1
+ * that the are going the right speed.
+ *
+ * You can also add steps to the Module that can alter the amount of power that the
+ * module will receive. This can be useful for modules that are being controlled by
+ * a separate entity such as a motor group.
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
  */
 public class MotorModule extends Component {
     /** The motors that the module will control */
     public ArrayList<Motor> motors;
 
     /**
-     * The direction that the modules run This is for use in a motor group running with different
-     * modules
+     * The direction that the modules run for use in a motor group
      */
     public Vector direction;
+
+    public Vector offset;
 
     /** An error correction that will control the power */
     public ErrorCorrection<Double> powerControl;
 
+    /**
+     *  The encoder that keeps track of the position and controls the motors
+      */
     public Encoder encoder;
+
+    /**
+     * how fast the module should be running
+     */
     public double targetPower;
 
+
+    public InputComponent<Double> modifier;
+
+    /**
+     * Create a fully functioning motor module
+     *
+     * Modules created like this will be able to adjust
+     * their speed based on an error correction to
+     * maintain a more accurate speed.
+     *
+     * @param direction the direction that the module runs (for use in motor groups)
+     * @param encoder the encoder that keeps track of the motors position
+     * @param powerControl an error correction to adjust the speed of the module
+     * @param motors the motors that the module controls
+     */
     public MotorModule(
             Vector direction,
             Encoder encoder,
@@ -69,19 +102,41 @@ public class MotorModule extends Component {
         try {
             powerControl.setInput(() -> encoder.getScaledVelocity());
         } catch (NullPointerException e) {
-            powerControl.setInput(new ConstantInput<Double>(0.0));
+            powerControl.setInput(new ConstantInput<>(0.0));
         }
+
+        modifier = new InputComponent<Double>(){};
     }
 
+    /**
+     * Create motor module without the use of an encoder
+     *
+     * Modules created like this will not be abe to monitor or
+     * adjust their speed to maintain a constant and more exact
+     * speed.
+     *
+     * @param direction what direction the module runs
+     * @param motors the motors the module controls
+     */
     public MotorModule(Vector direction, Motor... motors) {
         this(direction, null, null, motors);
     }
 
+    /**
+     * Set an encoder for the module
+     *
+     * @param encoder the encoder that keeps track of the position of the module
+     */
     public MotorModule setEncoder(Encoder encoder) {
         this.encoder = encoder;
         return this;
     }
 
+    /**
+     * set the power control for the module
+     *
+     * @param powerControl an error correction to adjust the speed of the module
+     */
     public MotorModule setErrorCorrection(ErrorCorrection powerControl) {
         this.powerControl = powerControl;
         return this;
@@ -104,9 +159,26 @@ public class MotorModule extends Component {
         }
     }
 
+    /**
+     * Set the target power of the module
+     *
+     * @param power how fast the module will go (-1 to 1)
+     */
     public void setPower(double power) {
-        targetPower = power;
-        powerControl.setTarget(power);
+        modifier.setInput(new ConstantInput<>(power));
+        modifier.applySteps();
+        targetPower = modifier.get();
+        powerControl.setTarget(modifier.get());
+    }
+
+    public MotorModule setPowerModifier(InputComponent<Double> modifier){
+        this.modifier = modifier;
+        return this;
+    }
+
+    public MotorModule addStep(Step s){
+        modifier.addStep(s);
+        return this;
     }
 
     /** Method to be called when the toggleable is disabled */
@@ -115,5 +187,47 @@ public class MotorModule extends Component {
         for (Motor m : motors) {
             m.setMotorPower(0);
         }
+    }
+
+    /**
+     * @return the motor arraylist in the module
+     */
+    public ArrayList<Motor> getMotors() {
+        return motors;
+    }
+
+    /**
+     * @return the direction the module runs in
+     */
+    public Vector getDirection() {
+        return direction;
+    }
+
+    /**
+     * @return the error correction used for the module
+     */
+    public ErrorCorrection<Double> getPowerControl() {
+        return powerControl;
+    }
+
+    /**
+     * @return the encoder that monitors the position of the monitor
+     */
+    public Encoder getEncoder() {
+        return encoder;
+    }
+
+    /**
+     * @return the current target power of the module
+     */
+    public double getTargetPower() {
+        return targetPower;
+    }
+
+    /**
+     * @return the power modifier of the motor
+     */
+    public InputComponent<Double> getModifier() {
+        return modifier;
     }
 }

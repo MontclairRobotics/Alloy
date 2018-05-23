@@ -49,7 +49,12 @@ public abstract class InputComponent<T> extends Component implements Input {
         output = calculation;
     }
 
-    public void setInput(Input<T> input) {
+    public InputComponent addStep(Step s){
+        steps.add(s);
+        return this;
+    }
+    public InputComponent<T> setInput(Input<T> input) {
         this.input = input;
+        return this;
     }
 }

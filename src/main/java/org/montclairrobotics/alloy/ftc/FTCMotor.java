@@ -99,6 +99,16 @@ public class FTCMotor extends Component implements Motor {
         return motor.getDirection() == DcMotorSimple.Direction.REVERSE ? true : false;
     }
 
+    public Encoder getEncoder(){
+        return new Encoder() {
+            @Override
+            public int getTicks() {
+                return motor.getCurrentPosition();
+            }
+        };
+    }
+
+
     @Update
     public void updateMotor() {
 
@@ -114,4 +124,6 @@ public class FTCMotor extends Component implements Motor {
     public void disableAction() {
         motor.setPower(0);
     }
+
+
 }

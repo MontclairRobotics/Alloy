@@ -24,7 +24,14 @@ SOFTWARE.
 package org.montclairrobotics.alloy.motor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.montclairrobotics.alloy.components.Component;
+import org.montclairrobotics.alloy.components.InputComponent;
+import org.montclairrobotics.alloy.core.Motor;
+import org.montclairrobotics.alloy.update.Update;
+import org.montclairrobotics.alloy.utils.Input;
 
 /**
  * A motor group is a group of motor modules that run together
@@ -37,8 +44,41 @@ import org.montclairrobotics.alloy.components.Component;
  * lift. This could work with other things like an intake, shooter or other manipulator that
  * requires multiple motors running together from one input
  */
-public class MotorGroup extends Component {
+public class MotorGroup<T> extends Component {
 
+    /**
+     * The mapper that will be used for power assignment and calculation
+     */
     public Mapper mapper;
+
+    /**
+     * The modules contained in the motor group
+     */
     public ArrayList<MotorModule> modules;
+
+    /**
+     * The control input for the motor group
+     */
+    public InputComponent<T> input;
+
+    public MotorGroup(InputComponent input, Mapper mapper, MotorModule ... modules){
+        this.input = input;
+        this.mapper = mapper;
+        this.modules = (ArrayList)Arrays.asList(modules);
+    }
+
+    /**
+     * Creates a motor group with a default mapper that simply
+     * @param input
+     * @param modules
+     */
+    public MotorGroup(InputComponent<Double> input, MotorModule ... modules){
+        this(input, new DefaultMapper(), modules);
+    }
+
+    @Update
+    public void controlPower(){
+        mapper.map(input, modules.toArray(new MotorModule[modules.size()]));
+    }
+
 }

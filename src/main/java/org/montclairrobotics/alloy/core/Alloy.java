@@ -27,6 +27,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.ftc.FTCDebugger;
 import org.montclairrobotics.alloy.update.Updater;
+import org.montclairrobotics.alloy.utils.Initializeable;
+
+import java.util.ArrayList;
 
 /**
  * Created by MHS Robotics on 11/13/2017.
@@ -39,6 +42,8 @@ import org.montclairrobotics.alloy.update.Updater;
  * @since 0.1
  */
 public abstract class Alloy extends OpMode {
+
+    public static ArrayList<Initializeable> initObjects = new ArrayList<>();
 
     /**
      * The robotSetup is where all code specific to robot setup is placed If you only have one
@@ -65,6 +70,11 @@ public abstract class Alloy extends OpMode {
         // Set Up the core robot components, This allows them to be accessed throughout the project
         new RobotCore(telemetry, hardwareMap, gamepad1, gamepad2);
         Component.debugger = new FTCDebugger();
+
+        for(Initializeable i : initObjects){
+            i.init();
+        }
+
         robotSetup();
         initialization();
     }

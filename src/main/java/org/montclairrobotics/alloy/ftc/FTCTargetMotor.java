@@ -28,8 +28,8 @@ import org.montclairrobotics.alloy.core.Debug;
 import org.montclairrobotics.alloy.core.Encoder;
 import org.montclairrobotics.alloy.core.TargetMotor;
 import org.montclairrobotics.alloy.update.Update;
+import org.montclairrobotics.alloy.utils.ErrorCorrection;
 import org.montclairrobotics.alloy.utils.Input;
-import org.montclairrobotics.alloy.utils.PID;
 
 /**
  * Created by MHS Robotics on 2/24/2018.
@@ -76,7 +76,7 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
     }
 
     /** PID being used to control the motor in custom mode */
-    private PID pid;
+    private ErrorCorrection<Double> correction;
 
     /** Current target motor runmode NOTE: not equal to the DCMotor runmode */
     private Mode runmode = Mode.DEFAULT;
@@ -92,7 +92,7 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setTargetPosition(position);
         } else {
-            pid.setTarget((double) position);
+            correction.setTarget((double) position);
         }
     }
 
@@ -130,16 +130,16 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
     /**
      * Set the motor to run using a custom PID
      *
-     * @param pid the PID that the motor will be controlled with
+     * @param correction the PID that the motor will be controlled with
      */
-    public void setPID(PID pid) {
-        this.pid = pid;
+    public void setErrorCorrection(ErrorCorrection correction) {
+        this.correction = correction.copy();
         runmode = runmode.CUSTOM;
     }
 
     /** Stop using the custom PID and return to using the default mode */
-    public void disablePID() {
-        this.pid = null;
+    public void disableErrorCorrection() {
+        this.correction = null;
         runmode = Mode.DEFAULT;
     }
 
@@ -152,7 +152,7 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
             if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {
                 if (runmode == Mode.CUSTOM) {
                     setTargetPower(
-                            pid.get()); // If running using custom PID mode, set power to PID output
+                            correction.getCorrection()); // If running using custom PID mode, set power to PID output
                 } else {
                     motor.setPower(
                             targetPower); // If running in default target mode, set the target power
@@ -166,8 +166,8 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
     }
 
     /** @return the PID being used to control the motor */
-    public PID getPid() {
-        return pid;
+    public ErrorCorrection<Double> getErrorCorrection() {
+        return correction;
     }
 
     /** @return the motor being controlled */

@@ -47,14 +47,14 @@ public interface ErrorCorrection<T> {
      *
      * @param input the input to the error correction
      */
-    public void setInput(Input<T> input);
+    public ErrorCorrection<T> setInput(Input<T> input);
 
     /**
      * Set the target for the correction When the input is equal to the target the error is 0
      *
      * @param target the goal of the error correction
      */
-    public void setTarget(T target);
+    public ErrorCorrection setTarget(T target);
 
     /**
      * Get the value to apply the correction
@@ -62,4 +62,9 @@ public interface ErrorCorrection<T> {
      * @return the correction
      */
     public T getCorrection();
+
+    /**
+     * @return A copy of the error correction
+     */
+    public ErrorCorrection copy();
 }

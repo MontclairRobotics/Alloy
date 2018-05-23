@@ -24,7 +24,9 @@ SOFTWARE.
 package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
+import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.core.Joystick;
+import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.utils.Input;
 import org.montclairrobotics.alloy.vector.Vector;
 import org.montclairrobotics.alloy.vector.XY;
@@ -41,7 +43,7 @@ import org.montclairrobotics.alloy.vector.XY;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCJoystick implements Joystick, Input<Vector> {
+public class FTCJoystick extends InputComponent<Vector> implements Joystick {
 
     /**
      * The side in a FTCJoystick is referring to the side of the controller is on, there are 2
@@ -91,8 +93,8 @@ public class FTCJoystick implements Joystick, Input<Vector> {
         }
     }
 
-    @Override
-    public Vector get() {
-        return getValue();
+    @Update
+    public void updateControls(){
+        output = getValue();
     }
 }

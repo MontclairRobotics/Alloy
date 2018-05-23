@@ -103,13 +103,15 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
     }
 
     @Override
-    public void setTarget(Double target) {
+    public PID setTarget(Double target) {
         this.target = target;
+        return this;
     }
 
     @Override
-    public void setInput(Input<Double> input) {
+    public PID setInput(Input<Double> input) {
         this.input = input;
+        return this;
     }
 
     @Update
@@ -152,5 +154,13 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
     @Override
     public Double getCorrection() {
         return output;
+    }
+
+    /**
+     * @return A copy of the error correction
+     */
+    @Override
+    public ErrorCorrection copy() {
+        return new PID(p, i, d).setTarget(target).setInput(input);
     }
 }

@@ -48,8 +48,15 @@ public class BangBang extends InputComponent<Double> implements ErrorCorrection<
      * @param target the goal of the error correction
      */
     @Override
-    public void setTarget(Double target) {
+    public BangBang setTarget(Double target) {
         this.target = target;
+        return this;
+    }
+
+    @Override
+    public BangBang setInput(Input input){
+        this.input = input;
+        return this;
     }
 
     /**
@@ -60,6 +67,14 @@ public class BangBang extends InputComponent<Double> implements ErrorCorrection<
     @Override
     public Double getCorrection() {
         return output;
+    }
+
+    /**
+     * @return A copy of the error correction
+     */
+    @Override
+    public BangBang copy() {
+        return new BangBang(lowOut, highOut).setTarget(target).setInput(input);
     }
 
     @Update
