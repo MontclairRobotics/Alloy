@@ -1,9 +1,7 @@
-# Alloy
-
 version: 0.0.1
 
 
-See the full documentation [Here]()
+See the full documentation [Here](https://garrettburroughs.github.io/Alloy/javadoc/)
 
 
 ## What is alloy
