@@ -43,9 +43,9 @@ import org.montclairrobotics.alloy.vector.Vector;
  * other modules. Modules can also be controlled with an encoder and a ErrorCorrection to ensure
  * that the are going the right speed.
  *
- * You can also add steps to the Module that can alter the amount of power that the
- * module will receive. This can be useful for modules that are being controlled by
- * a separate entity such as a motor group.
+ * <p>You can also add steps to the Module that can alter the amount of power that the module will
+ * receive. This can be useful for modules that are being controlled by a separate entity such as a
+ * motor group.
  *
  * @author Garrett Burroughs
  * @version 0.1
@@ -55,9 +55,7 @@ public class MotorModule extends Component {
     /** The motors that the module will control */
     public ArrayList<Motor> motors;
 
-    /**
-     * The direction that the modules run for use in a motor group
-     */
+    /** The direction that the modules run for use in a motor group */
     public Vector direction;
 
     public Vector offset;
@@ -65,25 +63,19 @@ public class MotorModule extends Component {
     /** An error correction that will control the power */
     public ErrorCorrection<Double> powerControl;
 
-    /**
-     *  The encoder that keeps track of the position and controls the motors
-      */
+    /** The encoder that keeps track of the position and controls the motors */
     public Encoder encoder;
 
-    /**
-     * how fast the module should be running
-     */
+    /** how fast the module should be running */
     public double targetPower;
-
 
     public InputComponent<Double> modifier;
 
     /**
      * Create a fully functioning motor module
      *
-     * Modules created like this will be able to adjust
-     * their speed based on an error correction to
-     * maintain a more accurate speed.
+     * <p>Modules created like this will be able to adjust their speed based on an error correction
+     * to maintain a more accurate speed.
      *
      * @param direction the direction that the module runs (for use in motor groups)
      * @param encoder the encoder that keeps track of the motors position
@@ -105,15 +97,14 @@ public class MotorModule extends Component {
             powerControl.setInput(new ConstantInput<>(0.0));
         }
 
-        modifier = new InputComponent<Double>(){};
+        modifier = new InputComponent<Double>() {};
     }
 
     /**
      * Create motor module without the use of an encoder
      *
-     * Modules created like this will not be abe to monitor or
-     * adjust their speed to maintain a constant and more exact
-     * speed.
+     * <p>Modules created like this will not be abe to monitor or adjust their speed to maintain a
+     * constant and more exact speed.
      *
      * @param direction what direction the module runs
      * @param motors the motors the module controls
@@ -171,12 +162,12 @@ public class MotorModule extends Component {
         powerControl.setTarget(modifier.get());
     }
 
-    public MotorModule setPowerModifier(InputComponent<Double> modifier){
+    public MotorModule setPowerModifier(InputComponent<Double> modifier) {
         this.modifier = modifier;
         return this;
     }
 
-    public MotorModule addStep(Step s){
+    public MotorModule addStep(Step s) {
         modifier.addStep(s);
         return this;
     }
@@ -189,44 +180,32 @@ public class MotorModule extends Component {
         }
     }
 
-    /**
-     * @return the motor arraylist in the module
-     */
+    /** @return the motor arraylist in the module */
     public ArrayList<Motor> getMotors() {
         return motors;
     }
 
-    /**
-     * @return the direction the module runs in
-     */
+    /** @return the direction the module runs in */
     public Vector getDirection() {
         return direction;
     }
 
-    /**
-     * @return the error correction used for the module
-     */
+    /** @return the error correction used for the module */
     public ErrorCorrection<Double> getPowerControl() {
         return powerControl;
     }
 
-    /**
-     * @return the encoder that monitors the position of the monitor
-     */
+    /** @return the encoder that monitors the position of the monitor */
     public Encoder getEncoder() {
         return encoder;
     }
 
-    /**
-     * @return the current target power of the module
-     */
+    /** @return the current target power of the module */
     public double getTargetPower() {
         return targetPower;
     }
 
-    /**
-     * @return the power modifier of the motor
-     */
+    /** @return the power modifier of the motor */
     public InputComponent<Double> getModifier() {
         return modifier;
     }

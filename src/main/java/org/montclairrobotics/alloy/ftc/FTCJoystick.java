@@ -27,7 +27,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.core.Joystick;
 import org.montclairrobotics.alloy.update.Update;
-import org.montclairrobotics.alloy.utils.Input;
 import org.montclairrobotics.alloy.vector.Vector;
 import org.montclairrobotics.alloy.vector.XY;
 
@@ -94,7 +93,7 @@ public class FTCJoystick extends InputComponent<Vector> implements Joystick {
     }
 
     @Update
-    public void updateControls(){
+    public void updateControls() {
         output = getValue();
     }
 }

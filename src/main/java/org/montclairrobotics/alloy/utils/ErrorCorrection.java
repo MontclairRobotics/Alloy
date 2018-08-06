@@ -63,8 +63,6 @@ public interface ErrorCorrection<T> {
      */
     public T getCorrection();
 
-    /**
-     * @return A copy of the error correction
-     */
+    /** @return A copy of the error correction */
     public ErrorCorrection copy();
 }

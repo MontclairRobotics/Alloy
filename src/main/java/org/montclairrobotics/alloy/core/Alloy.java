@@ -24,12 +24,11 @@ SOFTWARE.
 package org.montclairrobotics.alloy.core;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import java.util.ArrayList;
 import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.ftc.FTCDebugger;
 import org.montclairrobotics.alloy.update.Updater;
 import org.montclairrobotics.alloy.utils.Initializeable;
-
-import java.util.ArrayList;
 
 /**
  * Created by MHS Robotics on 11/13/2017.
@@ -71,7 +70,7 @@ public abstract class Alloy extends OpMode {
         new RobotCore(telemetry, hardwareMap, gamepad1, gamepad2);
         Component.debugger = new FTCDebugger();
 
-        for(Initializeable i : initObjects){
+        for (Initializeable i : initObjects) {
             i.init();
         }
 

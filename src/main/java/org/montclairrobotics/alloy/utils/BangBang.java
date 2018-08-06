@@ -54,7 +54,7 @@ public class BangBang extends InputComponent<Double> implements ErrorCorrection<
     }
 
     @Override
-    public BangBang setInput(Input input){
+    public BangBang setInput(Input input) {
         this.input = input;
         return this;
     }
@@ -69,9 +69,7 @@ public class BangBang extends InputComponent<Double> implements ErrorCorrection<
         return output;
     }
 
-    /**
-     * @return A copy of the error correction
-     */
+    /** @return A copy of the error correction */
     @Override
     public BangBang copy() {
         return new BangBang(lowOut, highOut).setTarget(target).setInput(input);

@@ -23,8 +23,6 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.motor;
 
-import org.montclairrobotics.alloy.components.InputComponent;
-
 public interface Mapper<T> {
-    public void map(T input, MotorModule ... modules);
+    public void map(T input, MotorModule... modules);
 }

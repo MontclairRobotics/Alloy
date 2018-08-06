@@ -34,5 +34,5 @@ import org.montclairrobotics.alloy.utils.Input;
  * @since 0.1
  */
 public interface DTMapper extends Mapper {
-    public void map(Input<DTInput> input, MotorModule ... modules);
+    public void map(Input<DTInput> input, MotorModule... modules);
 }

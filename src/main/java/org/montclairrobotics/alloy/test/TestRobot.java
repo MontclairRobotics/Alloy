@@ -24,19 +24,15 @@ SOFTWARE.
 package org.montclairrobotics.alloy.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.montclairrobotics.alloy.control.ToggleButton;
 import org.montclairrobotics.alloy.core.Alloy;
 import org.montclairrobotics.alloy.core.Button;
-import org.montclairrobotics.alloy.core.Motor;
 import org.montclairrobotics.alloy.ftc.FTCButton;
 import org.montclairrobotics.alloy.ftc.FTCJoystick;
 import org.montclairrobotics.alloy.ftc.FTCMotor;
 import org.montclairrobotics.alloy.motor.MotorGroup;
 import org.montclairrobotics.alloy.motor.MotorModule;
 import org.montclairrobotics.alloy.motor.steps.Deadzone;
-import org.montclairrobotics.alloy.utils.Input;
 import org.montclairrobotics.alloy.utils.PID;
-import org.montclairrobotics.alloy.vector.Vector;
 import org.montclairrobotics.alloy.vector.XY;
 
 @TeleOp
@@ -54,22 +50,31 @@ public class TestRobot extends Alloy {
     @Override
     public void robotSetup() {
 
-        rightIntakeMotor =  new FTCMotor(Hardware.DeviceID.intakeMotorRight);
-        leftIntakeMotor =  new FTCMotor(Hardware.DeviceID.intakeMotorLeft);
+        rightIntakeMotor = new FTCMotor(Hardware.DeviceID.intakeMotorRight);
+        leftIntakeMotor = new FTCMotor(Hardware.DeviceID.intakeMotorLeft);
 
         motorCorrection = new PID(1, 0, 0);
 
-        intake = new MotorGroup(
-                new FTCJoystick(gamepad1, FTCJoystick.Side.RIGHT).addStep(new Deadzone()),
-                new ShooterMapper(),
-                new MotorModule(new XY(0, 1),
-                        rightIntakeMotor.getEncoder().setMaxSpeed(100).setDistancePerTick(30),
-                        motorCorrection,
-                        rightIntakeMotor),
-                new MotorModule(new XY(0, -1),
-                        leftIntakeMotor.getEncoder().setMaxSpeed(100).setDistancePerTick(30),
-                        motorCorrection,
-                        leftIntakeMotor));
+        intake =
+                new MotorGroup(
+                        new FTCJoystick(gamepad1, FTCJoystick.Side.RIGHT).addStep(new Deadzone()),
+                        new ShooterMapper(),
+                        new MotorModule(
+                                new XY(0, 1),
+                                rightIntakeMotor
+                                        .getEncoder()
+                                        .setMaxSpeed(100)
+                                        .setDistancePerTick(30),
+                                motorCorrection,
+                                rightIntakeMotor),
+                        new MotorModule(
+                                new XY(0, -1),
+                                leftIntakeMotor
+                                        .getEncoder()
+                                        .setMaxSpeed(100)
+                                        .setDistancePerTick(30),
+                                motorCorrection,
+                                leftIntakeMotor));
     }
 
     @Override

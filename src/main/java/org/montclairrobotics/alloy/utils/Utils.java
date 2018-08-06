@@ -80,7 +80,7 @@ public class Utils {
      * @param in the number whose sign will be calculated
      * @return 1 if the number is positive and -1 if it is negative
      */
-    public static int sign(double in){
+    public static int sign(double in) {
         return in > 0 ? 1 : -1;
     }
 
@@ -91,7 +91,7 @@ public class Utils {
      * @param pow the power the number will be raised to
      * @return in^pow while keeping the sign of in
      */
-    public static double pow2(double in, int pow){
+    public static double pow2(double in, int pow) {
         double regularResult = Math.pow(in, pow);
         return pow % 2 == 0 ? regularResult * sign(in) : regularResult;
     }
