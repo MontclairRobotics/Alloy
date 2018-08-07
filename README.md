@@ -17,11 +17,11 @@ with expandibility in mind. FRC implementation is possible and will be coming in
 Alloy is based off the FRC robot framework [Sprocket](https://github.com/MontclairRobotics/Sprocket), but redesigned to abstract away the more complex ideas but still allow for advanced robot functionality.
 
 Any information regarding Alloy, including how it works, project structure, as well as in-depth explanation on how to use all of the components
-can be found in the project [Wiki](https://github.com/GarrettBurroughs/Alloy/wiki) as well as a [quick start guide]().
+can be found in the project [Wiki](https://github.com/GarrettBurroughs/Alloy/wiki) as well as a [quick start guide](https://github.com/GarrettBurroughs/Alloy/wiki/Getting-Started).
 
 
 ## Formatting
-Alloy uses the [Spotless]() code formatter to ensure that 
+Alloy uses the [Spotless](https://github.com/diffplug/spotless/tree/master/plugin-gradle) code formatter to ensure that 
 all of the code follows a specific format. It is added as a build step for a gradle
 build so this means that all code in alloy must be compliant to be merged. 
 Spotless allows for automatic code formatting, just run:

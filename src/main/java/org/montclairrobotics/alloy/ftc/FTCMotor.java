@@ -96,7 +96,7 @@ public class FTCMotor extends Component implements Motor {
      */
     @Override
     public boolean getInverted() {
-        return motor.getDirection() == DcMotorSimple.Direction.REVERSE ? true : false;
+        return motor.getDirection() == DcMotorSimple.Direction.REVERSE;
     }
 
     public Encoder getEncoder() {
