@@ -33,7 +33,7 @@ import org.montclairrobotics.alloy.components.InputComponent;
  * values at runtime This could be done easily in FRC using smartdashboard or in FTC by using
  * buttons or joysticks to change values
  */
-public class TuneablePID extends InputComponent<Double> implements ErrorCorrection {
+public class TuneablePID extends InputComponent<Double> implements ErrorCorrection<Double> {
 
     /**
      * Set the input of the error correction the input should be the source of what correction is
@@ -42,7 +42,9 @@ public class TuneablePID extends InputComponent<Double> implements ErrorCorrecti
      * @param input the input to the error correction
      */
     @Override
-    public void setInput(Input input) {}
+    public TuneablePID setInput(Input input) {
+        return this;
+    }
 
     /**
      * Set the target for the correction When the input is equal to the target the error is 0
@@ -50,7 +52,9 @@ public class TuneablePID extends InputComponent<Double> implements ErrorCorrecti
      * @param target the goal of the error correction
      */
     @Override
-    public void setTarget(Object target) {}
+    public TuneablePID setTarget(Double target) {
+        return this;
+    }
 
     /**
      * Get the value to apply the correction
@@ -58,7 +62,12 @@ public class TuneablePID extends InputComponent<Double> implements ErrorCorrecti
      * @return the correction
      */
     @Override
-    public Object getCorrection() {
+    public Double getCorrection() {
         return null;
+    }
+
+    @Override
+    public ErrorCorrection copy() {
+        return new TuneablePID();
     }
 }

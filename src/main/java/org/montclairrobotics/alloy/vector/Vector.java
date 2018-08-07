@@ -48,7 +48,7 @@ package org.montclairrobotics.alloy.vector;
  * @version 0.1
  * @since 0.1
  */
-public interface Vector extends Comparable {
+public interface Vector {
 
     Vector ZERO = new XY(0, 0);
 

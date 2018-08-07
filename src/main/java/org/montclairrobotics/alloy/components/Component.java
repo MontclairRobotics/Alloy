@@ -50,11 +50,15 @@ import org.montclairrobotics.alloy.utils.Toggleable;
  *     addint the @Update annotation @Author Garrett Burroughs @Version 0.1 @Since 0.1
  */
 public abstract class Component extends Toggleable {
-
+    /** The object used for debugging information about all components */
     public static Debugger debugger;
-    private boolean debugMode = true; //
 
-    // All components are added to the component arraylist so they can be updated
+    /** Will debug out information if true */
+    private boolean debugMode = true;
+    /** The debugs that will be printed for this component out each loop */
+    private ArrayList<Debug> debugs;
+
+    /** */
     public static ArrayList<Component> components;
 
     public Component() {
@@ -64,8 +68,6 @@ public abstract class Component extends Toggleable {
     public static ArrayList<Component> getComponents() {
         return components;
     }
-
-    private ArrayList<Debug> debugs;
 
     public void addDebug(Debug debug) {
         debugs.add(debug);
