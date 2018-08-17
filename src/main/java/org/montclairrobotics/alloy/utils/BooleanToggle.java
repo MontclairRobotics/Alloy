@@ -27,7 +27,7 @@ public class BooleanToggle extends Toggleable implements Input<Boolean> {
 
     @Override
     public Boolean get() {
-        return status.booleanValue();
+        return status.isEnabled();
     }
 
     /** Method to be called when the toggleable is enabled */

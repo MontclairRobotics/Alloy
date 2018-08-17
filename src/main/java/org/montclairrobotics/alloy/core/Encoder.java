@@ -40,13 +40,13 @@ public abstract class Encoder extends InputComponent<Integer> {
      * An Object that calculates the change in position with respect to time (Velocity) Measured in
      * Ticks per Second
      */
-    Differential calcVelocity;
+    private Differential calcVelocity;
 
     /**
      * An Object that calculates the change in velocity with respect to time (Acceleration) Measured
      * in Ticks per Second per Second
      */
-    Differential calcAcceleration;
+    private Differential calcAcceleration;
 
     /**
      * How far the motor goes for each encoder tick NOTE : It is very important that distances are
@@ -66,6 +66,7 @@ public abstract class Encoder extends InputComponent<Integer> {
 
     public Encoder(double distancePerTick, double maxSpeed) {
         this.distancePerTick = distancePerTick;
+        this.maxSpeed = maxSpeed;
         setInput(() -> getTicks());
         calcVelocity = new Differential((Input<Double>) () -> (double) getTicks());
         calcAcceleration = new Differential(calcVelocity);
@@ -147,5 +148,15 @@ public abstract class Encoder extends InputComponent<Integer> {
      */
     public double getScaledVelocity() {
         return getRawVelocity() / maxSpeed;
+    }
+
+    /** @return the differential object that calculates the velocity */
+    public Differential getVelocityDifferential() {
+        return calcVelocity;
+    }
+
+    /** @return the differential object that calculates the acceleration */
+    public Differential getAccelerationDifferential() {
+        return calcAcceleration;
     }
 }

@@ -23,7 +23,6 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.utils;
 
-import java.lang.Double;
 import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.update.Update;
 

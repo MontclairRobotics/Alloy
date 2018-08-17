@@ -27,7 +27,9 @@ spotless {
     java {
         googleJavaFormat('1.1').aosp()
 
+
         licenseHeaderFile 'SpotlessLicense'
+		paddedCell()
     }
 }
 

@@ -50,6 +50,7 @@ public abstract class InputComponent<T> extends Component implements Input {
     }
 
     public InputComponent addStep(Step s) {
+        // addDebug(new Debug(), );
         steps.add(s);
         return this;
     }

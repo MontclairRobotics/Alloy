@@ -135,7 +135,7 @@ public class MotorModule extends Component {
 
     @Update
     public void powerCorrection() {
-        if (status.booleanValue()) { // Check if its enabled
+        if (status.isEnabled()) { // Check if its enabled
             for (Motor m : motors) {
                 if (powerControl != null) {
                     m.setMotorPower(targetPower + powerControl.getCorrection());

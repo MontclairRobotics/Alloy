@@ -51,11 +51,11 @@ public abstract class Toggleable {
 
         boolean enabled;
 
-        private Status(boolean enabled) {
+        Status(boolean enabled) {
             this.enabled = enabled;
         }
 
-        public boolean booleanValue() {
+        public boolean isEnabled() {
             return enabled;
         }
     }

@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import org.montclairrobotics.alloy.components.Component;
+import org.montclairrobotics.alloy.exceptions.UpdateException;
 
 /**
  * A class used for creating objects that can be updated by the Updater
@@ -75,7 +76,7 @@ public class Updateable {
 
     public void run() {
         if (parameters.length != 0) {
-            throw new RuntimeException("UPDATED METHODS CAN NOT HAVE PARAMETERS");
+            throw new UpdateException("UPDATED METHODS CAN NOT HAVE PARAMETERS");
         }
         try {
             for (Object o : objects) {

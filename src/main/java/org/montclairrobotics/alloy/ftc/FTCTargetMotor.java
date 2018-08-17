@@ -148,7 +148,7 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
      */
     @Update
     public void update() {
-        if (status.booleanValue()) { // Check if enabled
+        if (status.isEnabled()) { // Check if enabled
             if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {
                 if (runmode == Mode.CUSTOM) {
                     setTargetPower(

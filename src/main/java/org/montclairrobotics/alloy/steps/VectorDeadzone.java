@@ -21,23 +21,35 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.motor.steps;
+package org.montclairrobotics.alloy.steps;
 
 import org.montclairrobotics.alloy.components.Step;
+import org.montclairrobotics.alloy.utils.Toggleable;
+import org.montclairrobotics.alloy.vector.Vector;
 
-public class Deadzone implements Step<Double> {
+public class VectorDeadzone extends Toggleable implements Step<Vector> {
     double tolerance;
 
-    public Deadzone(double tolerance) {
+    public VectorDeadzone(double tolerance) {
         this.tolerance = tolerance;
     }
 
-    public Deadzone() {
-        this(0.05);
+    @Override
+    public Vector getOutput(Vector input) {
+        if(status.isEnabled()) {
+            return input.getManitude() < tolerance ? Vector.ZERO : input;
+        }else{
+            return input;
+        }
     }
 
     @Override
-    public Double getOutput(Double input) {
-        return (double) input < tolerance ? 0 : input;
+    public void enableAction() {
+
+    }
+
+    @Override
+    public void disableAction() {
+
     }
 }

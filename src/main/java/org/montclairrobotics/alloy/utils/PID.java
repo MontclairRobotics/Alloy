@@ -142,7 +142,7 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
         totalError += error;
 
         // Calculate Correction and set the output
-        if (status.booleanValue()) {
+        if (status.isEnabled()) {
             output = p * error + i * totalError + d * errorRate;
         } else {
             output = 0d;
@@ -151,6 +151,7 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
         prevTime = System.currentTimeMillis() / 1000d;
     }
 
+    /** @return the calculated correction */
     @Override
     public Double getCorrection() {
         return output;

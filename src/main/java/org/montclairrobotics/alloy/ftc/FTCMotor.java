@@ -110,9 +110,8 @@ public class FTCMotor extends Component implements Motor {
 
     @Update
     public void updateMotor() {
-
         // Set Motor Power if it is enabled
-        if (status.booleanValue()) {
+        if (status.isEnabled()) {
             motor.setPower(power);
         } else {
             motor.setPower(0);

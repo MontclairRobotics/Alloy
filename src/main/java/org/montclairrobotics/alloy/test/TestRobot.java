@@ -31,7 +31,7 @@ import org.montclairrobotics.alloy.ftc.FTCJoystick;
 import org.montclairrobotics.alloy.ftc.FTCMotor;
 import org.montclairrobotics.alloy.motor.MotorGroup;
 import org.montclairrobotics.alloy.motor.MotorModule;
-import org.montclairrobotics.alloy.motor.steps.Deadzone;
+import org.montclairrobotics.alloy.steps.Deadzone;
 import org.montclairrobotics.alloy.utils.PID;
 import org.montclairrobotics.alloy.vector.XY;
 

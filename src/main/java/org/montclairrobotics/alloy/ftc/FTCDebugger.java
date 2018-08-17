@@ -24,9 +24,9 @@ SOFTWARE.
 package org.montclairrobotics.alloy.ftc;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.montclairrobotics.alloy.core.Debug;
 import org.montclairrobotics.alloy.core.Debugger;
 import org.montclairrobotics.alloy.core.RobotCore;
+import org.montclairrobotics.alloy.exceptions.InvalidConfigurationException;
 
 /**
  * Created by MHS Robotics on 11/14/2017.
@@ -37,7 +37,7 @@ import org.montclairrobotics.alloy.core.RobotCore;
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class FTCDebugger implements Debugger {
+public class FTCDebugger extends Debugger {
 
     /** The telemetry used for debugging */
     Telemetry telemetry;
@@ -48,49 +48,19 @@ public class FTCDebugger implements Debugger {
             this.telemetry = RobotCore.getTelemetry();
         } catch (NullPointerException e) {
             e.printStackTrace();
-            throw new RuntimeException(
+            throw new InvalidConfigurationException(
                     "You tried to access the telemetry before the robotcore has been initialized");
         }
     }
 
     /**
-     * Debugger out information
+     * The most basic debug that simply outputs information given a key and value
      *
-     * @param key Name of the value
+     * @param key Key of the value being debugged
      * @param value Value to be debugged
      */
     @Override
-    public void log(String key, Object value) {
+    public void out(String key, Object value) {
         telemetry.addData(key, value);
-    }
-
-    /**
-     * Debugger out a message
-     *
-     * @param value Value to be debugged
-     */
-    @Override
-    public void msg(Object value) {
-        telemetry.addData("Debugger", value);
-    }
-
-    /**
-     * Debugs out a debug object
-     *
-     * @param debug the object to be debugged
-     */
-    @Override
-    public void debug(Debug debug) {
-        log(debug.key, debug.value.get());
-    }
-
-    /**
-     * Gives a warning to the user
-     *
-     * @param warning the warning
-     */
-    @Override
-    public void warning(String warning) {
-        log("WARNING", warning);
     }
 }

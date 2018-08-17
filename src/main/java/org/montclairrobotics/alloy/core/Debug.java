@@ -23,26 +23,24 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.core;
 
+import org.montclairrobotics.alloy.utils.ConstantInput;
 import org.montclairrobotics.alloy.utils.Input;
 
 public class Debug {
+    /** The key, label, or name of the information */
+    public String key;
+    /** The information, or object to be debugged */
+    public Input<Object> value;
 
+    /** debug a changing value */
     public Debug(String key, Input<Object> value) {
         this.key = key;
         this.value = value;
     }
 
+    /** debug a constant value */
     public Debug(String key, Object value) {
         this.key = key;
-        this.value =
-                new Input<Object>() {
-                    @Override
-                    public Object get() {
-                        return value;
-                    }
-                };
+        this.value = new ConstantInput<>(value);
     }
-
-    public String key;
-    public Input<Object> value;
 }

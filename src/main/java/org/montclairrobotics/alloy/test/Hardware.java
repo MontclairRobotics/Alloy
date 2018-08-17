@@ -25,8 +25,9 @@ package org.montclairrobotics.alloy.test;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.montclairrobotics.alloy.core.RobotCore;
+import org.montclairrobotics.alloy.utils.Initializeable;
 
-public class Hardware {
+public class Hardware extends Initializeable {
 
     // ============
     //     IDS
@@ -52,7 +53,7 @@ public class Hardware {
     static DcMotor intakeMotorRight;
     static DcMotor intakeMotorLeft;
 
-    public static void init() {
+    public void init() {
         shooterMotorRight = RobotCore.getHardwareMap().dcMotor.get(DeviceID.shooterMotorRight);
         shooterMotorLeft = RobotCore.getHardwareMap().dcMotor.get(DeviceID.shooterMotorLeft);
 

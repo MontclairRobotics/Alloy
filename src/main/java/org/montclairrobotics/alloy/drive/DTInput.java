@@ -29,4 +29,9 @@ import org.montclairrobotics.alloy.vector.Vector;
 public class DTInput {
     public Vector translation;
     public Angle rotation;
+
+    public DTInput(Vector translation, Angle rotation) {
+        this.translation = translation;
+        this.rotation = rotation;
+    }
 }

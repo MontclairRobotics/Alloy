@@ -36,7 +36,7 @@ package org.montclairrobotics.alloy.utils;
 public class ConstantInput<T> implements Input<T> {
 
     /** The constant to be returned by the input */
-    T constant;
+    private T constant;
 
     public ConstantInput(T constant) {
         this.constant = constant;
@@ -45,5 +45,10 @@ public class ConstantInput<T> implements Input<T> {
     @Override
     public T get() {
         return null;
+    }
+
+    /** Sets the value that the input will return */
+    public void setConstantValue(T constant) {
+        this.constant = constant;
     }
 }

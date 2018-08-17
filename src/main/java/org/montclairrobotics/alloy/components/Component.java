@@ -55,10 +55,11 @@ public abstract class Component extends Toggleable {
 
     /** Will debug out information if true */
     private boolean debugMode = true;
+
     /** The debugs that will be printed for this component out each loop */
     private ArrayList<Debug> debugs;
 
-    /** */
+    /** a static reference of all the components that are made */
     public static ArrayList<Component> components;
 
     public Component() {
@@ -89,16 +90,18 @@ public abstract class Component extends Toggleable {
 
     @Update
     public void debug() {
-        if (status.booleanValue() && debugMode) {
+        if (status.isEnabled() && debugMode) {
             for (Debug debug : debugs) {
                 debugger.debug(debug);
             }
         }
     }
 
+    /** The action that is taken when the component is enabled should be overridden bu the user */
     @Override
     public void enableAction() {}
 
+    /** The action that is taken when the component is disabled, should be overridden by the user */
     @Override
     public void disableAction() {}
 }
