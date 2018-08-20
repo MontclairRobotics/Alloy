@@ -3,6 +3,7 @@
 ![AlloyLogo](http://gdurl.com/AFl8)
 
 Status: **Beta**
+Note: Alloy is still under heavy development, and not ready or suggested for use in creating a robot
 
 Developed by FTC147 and FRC555
 
