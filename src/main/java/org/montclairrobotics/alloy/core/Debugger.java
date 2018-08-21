@@ -24,7 +24,7 @@ SOFTWARE.
 package org.montclairrobotics.alloy.core;
 
 /**
- * Created by MHS Robotics on 11/13/2017.
+ * Controls the flow of how debug information is read out
  *
  * <p>Debugs are used for debugging information to the user In ftc the debugs use Telemetry to read
  * an output to the phone The debug allows for easier usage of the telemetry methods That are most

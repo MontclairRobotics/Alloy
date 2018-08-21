@@ -23,6 +23,13 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.utils;
 
+/**
+ * An input that can be toggled between true and false
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
+ */
 public class BooleanToggle extends Toggleable implements Input<Boolean> {
 
     @Override

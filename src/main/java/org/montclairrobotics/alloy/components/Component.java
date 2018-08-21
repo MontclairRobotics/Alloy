@@ -33,7 +33,9 @@ import org.montclairrobotics.alloy.utils.Toggleable;
  * The main component class that all components of alloy should extend
  *
  * <p>Alloy is built of a system of components that all work together to operate a robot Components
- * can be broken down into 2 simple parts -Physical Component -Input Component
+ * can be broken down into 2 simple parts <br>
+ * -Physical Component <br>
+ * -Input Component <br>
  *
  * <p>A physical component would include any part, feature, or function that is physically on the
  * robot This can include things like motors, manipulators shooters, drivetrain, etc.
@@ -42,12 +44,17 @@ import org.montclairrobotics.alloy.utils.Toggleable;
  * triggers, sensors, flow camera, optical control and anything else that would send an input to a
  * physical component
  *
+ * <p>All components have the ability to be toggled on and off as well as built in debug capability
+ * for easier testing and debugging of specific components.
+ *
+ * <p>There is also a static list of all components that are created so that the updater can
+ * reference them. This means that you can have a method in a component be updated just by adding
+ * the @Update annotation
+ *
  * @see InputComponent
- *     <p>All components have the ability to be toggled on and off as well as built in debug
- *     capability for easier testing and debugging of specific components.
- *     <p>There is also a static list of all components that are created so that the updater can
- *     reference them. This means that you can have a method in a component be updated just by
- *     addint the @Update annotation @Author Garrett Burroughs @Version 0.1 @Since 0.1
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
  */
 public abstract class Component extends Toggleable {
     /** The object used for debugging information about all components */
@@ -62,7 +69,6 @@ public abstract class Component extends Toggleable {
     /** a static reference of all the components that are made */
     public static ArrayList<Component> components;
 
-
     public Component() {
         components.add(this);
     }
@@ -71,12 +77,17 @@ public abstract class Component extends Toggleable {
         return components;
     }
 
-    /** Adds a debug to the component, this will be debugged out every loop if debug mode is enabled */
+    /**
+     * Adds a debug to the component, this will be debugged out every loop if debug mode is enabled
+     */
     public void addDebug(Debug debug) {
         debugs.add(debug);
     }
 
-    /** Adds multiple debugs to the components, they will be debugged out every loop if debug mode is enabled*/
+    /**
+     * Adds multiple debugs to the components, they will be debugged out every loop if debug mode is
+     * enabled
+     */
     public void addDebugs(Iterable<? extends Debug> debugs) {
         for (Debug debug : debugs) {
             this.debugs.add(debug);

@@ -27,7 +27,7 @@ package org.montclairrobotics.alloy.utils;
  * A interface that defines the process of correcting an error
  *
  * <p>Error correction can be implemented in different ways but is very important in creating a
- * funcitonal robot. The most common
+ * functional robot. The most common
  *
  * <p>Most error corrections calculate the error based on the difference of the input and the target
  * and then return an output correction based on that.

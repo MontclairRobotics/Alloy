@@ -31,7 +31,8 @@ package org.montclairrobotics.alloy.utils;
  * implementations
  *
  * @author Garrett Burroughs
- * @since
+ * @version 0.1
+ * @since 0.1
  */
 public class ConstantInput<T> implements Input<T> {
 

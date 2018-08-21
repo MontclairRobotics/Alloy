@@ -23,6 +23,18 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.components;
 
+/**
+ * A step is a manipulation or calculation performed on an input
+ *
+ * <p>When used in conjunction with an InputComponent, the steps will be applied in order, passing
+ * in the output of one step, into the input of the next step.
+ *
+ * @param <T> the type that the step will be manipulating
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
+ */
 public interface Step<T> {
+    /** The operation to be performed on the input, to get the output */
     public T getOutput(T input);
 }

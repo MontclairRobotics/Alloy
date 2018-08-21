@@ -27,8 +27,9 @@ import org.montclairrobotics.alloy.components.Component;
 
 /**
  * An exception that is thrown when a robot is improperly setup An invalid configuration can be
- * thrown when: - Global robot properties are accessed before they exist - Motor, or controller
- * ports are improperly specified or accessed
+ * thrown when: <br>
+ * - Global robot properties are accessed before they exist <br>
+ * - Motor, or controller ports are improperly specified or accessed <br>
  */
 public class InvalidConfigurationException extends RuntimeException {
     public InvalidConfigurationException(String message) {

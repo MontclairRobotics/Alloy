@@ -32,7 +32,7 @@ import org.montclairrobotics.alloy.utils.ErrorCorrection;
 import org.montclairrobotics.alloy.utils.Input;
 
 /**
- * Created by MHS Robotics on 2/24/2018.
+ * Implementation of a target motor for the FTC competition
  *
  * <p>A target motor is a motor that can use encoders to be set to a certain position Since FTC
  * motors have their own PIDs that they are controlled with by default, the user has the ability to
@@ -41,6 +41,7 @@ import org.montclairrobotics.alloy.utils.Input;
  * more about PIDs here <link>https://en.wikipedia.org/wiki/PID_controller</link>
  *
  * @author Garrett Burroughs
+ * @version 0.1
  * @since 0.1
  */
 public class FTCTargetMotor extends FTCMotor implements TargetMotor {
@@ -57,13 +58,13 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
     /**
      * Creates a new FTC Target motor, using the motor id from the FTC configuration
      *
-     * The configuration must be set on the phone before accessing it in code
+     * <p>The configuration must be set on the phone before accessing it in code
      *
-     * A target motor created like this will have the default FTC motor regulation,
-     * to set a custom error correction, you can do this by calling 'setErrorCorrection(ErrorCorrection)'
-     * You should only do this if you know what you are doing
+     * <p>A target motor created like this will have the default FTC motor regulation, to set a
+     * custom error correction, you can do this by calling 'setErrorCorrection(ErrorCorrection)' You
+     * should only do this if you know what you are doing
+     *
      * @see ErrorCorrection
-     *
      * @param motorConfiguration
      */
     public FTCTargetMotor(String motorConfiguration) {
@@ -164,9 +165,12 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
         if (status.isEnabled()) { // Check if enabled
             if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {
                 if (runmode == Mode.CUSTOM) {
-                    setTargetPower(correction.getCorrection()); // If running using custom PID mode, set power to PID output
+                    setTargetPower(
+                            correction
+                                    .getCorrection()); // If running using custom PID mode, set power to PID output
                 } else {
-                    motor.setPower(targetPower); // If running in default target mode, set the target power
+                    motor.setPower(
+                            targetPower); // If running in default target mode, set the target power
                 }
             } else {
                 motor.setPower(power); // If running by power, set the power

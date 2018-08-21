@@ -25,7 +25,6 @@ package org.montclairrobotics.alloy.auto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by MHS Robotics on 12/16/2017.
@@ -38,7 +37,7 @@ import java.util.List;
  * pre coded instructions that make driving easier.
  *
  * @author Garrett Burroughs
- * @since
+ * @since 0.1
  */
 public class StateMachine extends State {
 

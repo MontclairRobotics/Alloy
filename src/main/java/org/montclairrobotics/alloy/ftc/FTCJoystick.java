@@ -31,7 +31,7 @@ import org.montclairrobotics.alloy.vector.Vector;
 import org.montclairrobotics.alloy.vector.XY;
 
 /**
- * Created by MHS Robotics on 11/14/2017.
+ * Implementation of the Joystick class for FTC
  *
  * <p>There are a total of 4 accessible joysticks when controlling an FTC robot, There are 2
  * controllers and each one has 2 joysticks, (One right, one left). A joystick can be defined using
@@ -40,6 +40,7 @@ import org.montclairrobotics.alloy.vector.XY;
  * <p>Joysticks can also be used as inputs that return a vector
  *
  * @author Garrett Burroughs
+ * @version 0.1
  * @since 0.1
  */
 public class FTCJoystick extends InputComponent<Vector> implements Joystick {

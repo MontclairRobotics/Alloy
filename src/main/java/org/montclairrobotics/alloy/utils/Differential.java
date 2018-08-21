@@ -30,15 +30,18 @@ import org.montclairrobotics.alloy.update.Update;
  * A class to calculate how an input varies with time
  *
  * <p>A differential is the rate of change of a certain variable with respect to another one. In
- * simplper terms is is the slope. The Differential class takes an input and calculates the average
+ * simpler terms is is the slope. The Differential class takes an input and calculates the average
  * rate of change over a very small interval of the input with respect to time
  *
  * <p>This concept is a calculus concept when and can be most easily understood when looking at a
  * graph where time is the independent variable and the input is dependant on the time
  *
  * <p>For example, a time differential of position would be velocity because velocity is how much
- * the position changes over time (eg. meters per second) @Author Garrett Burroughs @Since
- * 0.1 @Version 0.1
+ * the position changes over time (eg. meters per second)
+ *
+ * @author Garrett Burroughs
+ * @since 0.1
+ * @version 0.1
  */
 public class Differential extends InputComponent<Double> {
     /** The dependant variable in the situation */

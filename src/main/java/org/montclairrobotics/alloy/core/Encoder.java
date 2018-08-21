@@ -33,6 +33,10 @@ import org.montclairrobotics.alloy.utils.Input;
  * <p>At a basic level hardware encoders are able to get how far a motor has gone as a unit of
  * encoder ticks. The encoder class also calculates the acceleration anc velocity of the motor in
  * terms of encoder ticks, and then the user can define the distance of unit to measure the motor in
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
  */
 public abstract class Encoder extends InputComponent<Integer> {
 

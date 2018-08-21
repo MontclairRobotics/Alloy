@@ -58,6 +58,7 @@ public class MotorModule extends Component {
     /** The direction that the modules run for use in a motor group */
     public Vector direction;
 
+    /** the position of the motor, relative to the center of the motor group */
     public Vector offset;
 
     /** An error correction that will control the power */
@@ -129,7 +130,7 @@ public class MotorModule extends Component {
      * @param powerControl an error correction to adjust the speed of the module
      */
     public MotorModule setErrorCorrection(ErrorCorrection powerControl) {
-        this.powerControl = powerControl;
+        this.powerControl = powerControl.copy();
         return this;
     }
 

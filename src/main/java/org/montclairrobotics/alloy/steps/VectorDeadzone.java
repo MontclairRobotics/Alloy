@@ -26,19 +26,33 @@ package org.montclairrobotics.alloy.steps;
 import org.montclairrobotics.alloy.components.Step;
 import org.montclairrobotics.alloy.utils.Toggleable;
 import org.montclairrobotics.alloy.vector.Vector;
-
+/**
+ * A step that returns 0 if the inputs magnitude is under a certain threshold
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
+ */
 public class VectorDeadzone extends Toggleable implements Step<Vector> {
+
+    /** the threshold value that the input has to be lower than for the step to return 0 */
     private double tolerance;
 
+    /** Create a VectorDeadzone specifying the tolerance */
     public VectorDeadzone(double tolerance) {
         this.tolerance = tolerance;
     }
 
+    /** Create a VectorDeadzone with a default tolerance of 0.05 */
+    public VectorDeadzone() {
+        this(0.05);
+    }
+
     @Override
     public Vector getOutput(Vector input) {
-        if(status.isEnabled()) {
+        if (status.isEnabled()) {
             return input.getManitude() < tolerance ? Vector.ZERO : input;
-        }else{
+        } else {
             return input;
         }
     }
@@ -53,11 +67,13 @@ public class VectorDeadzone extends Toggleable implements Step<Vector> {
         // Do nothing because all action is taken care of
     }
 
-    public double getTolerance(){
+    /** @return the threshold value */
+    public double getTolerance() {
         return tolerance;
     }
 
-    public void setTolerance(double tolerance){
+    /** set the threshold value */
+    public void setTolerance(double tolerance) {
         this.tolerance = tolerance;
     }
 }

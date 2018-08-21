@@ -26,6 +26,21 @@ package org.montclairrobotics.alloy.core;
 import org.montclairrobotics.alloy.utils.ConstantInput;
 import org.montclairrobotics.alloy.utils.Input;
 
+/**
+ * Contains the necessary information for a debug
+ *
+ * <p>Every debug has a key, which is a title or label of the information being debugged This can be
+ * the type of information ex. 'ERROR', where the information is coming from and what it is ex.
+ * "Right Left Motor encoder value", or any other descriptor of the information
+ *
+ * <p>Every debug also has the actual value that is being debugged The part where it is actually
+ * debugged is taken care of the Debugger
+ *
+ * @see Debugger
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
+ */
 public class Debug {
     /** The key, label, or name of the information */
     public String key;

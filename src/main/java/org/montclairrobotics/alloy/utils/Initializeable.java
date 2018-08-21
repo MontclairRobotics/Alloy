@@ -25,11 +25,18 @@ package org.montclairrobotics.alloy.utils;
 
 import org.montclairrobotics.alloy.core.Alloy;
 
+/**
+ * An object that gets initialized once at the beginning of the teleop mode
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
+ */
 public abstract class Initializeable {
 
     public Initializeable() {
         Alloy.initObjects.add(this);
     }
-
+    /** the method that is called at the beginning of the teleop mode */
     public abstract void init();
 }

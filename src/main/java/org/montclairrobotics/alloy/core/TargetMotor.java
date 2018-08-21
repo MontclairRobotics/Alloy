@@ -26,6 +26,14 @@ package org.montclairrobotics.alloy.core;
 /**
  * Target motor is a motor interface for motors that have encoders. Target motors can set encoder
  * positions using PID control
+ *
+ * <p>Target motors define the action for more advanced motors, that have access to more information
+ * and are able to be more finely tuned. Because they have encoders, more advanced control
+ * mechanisms can be used such as PID control, to gain better, more accurate control over the motors
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
  */
 public interface TargetMotor extends Motor {
     /**

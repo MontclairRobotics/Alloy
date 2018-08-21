@@ -23,6 +23,18 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.motor;
 
+/**
+ * A mapper takes an input, and maps it to the set of motor modules
+ *
+ * <p>For example, a tank drive mapper might map a 2D vector to the drive modules by calculating the
+ * rotation, and the power based on the x&y components of the vector
+ *
+ * @param <T> the type of input the mapper takes in
+ * @author Garrett Burroughs
+ * @since 0.1
+ * @version 0.1
+ */
 public interface Mapper<T> {
+    /** map the input to the modules */
     public void map(T input, MotorModule... modules);
 }

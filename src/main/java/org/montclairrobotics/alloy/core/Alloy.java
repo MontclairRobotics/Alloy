@@ -31,10 +31,14 @@ import org.montclairrobotics.alloy.update.Updater;
 import org.montclairrobotics.alloy.utils.Initializeable;
 
 /**
- * Created by MHS Robotics on 11/13/2017.
+ * The main class that takes care of setting up the environment, and running all of the main methods
  *
- * <p>The main purpose behind the alloy class is to controll how and when all of the mehotds in
- * Robot are run as well as initialize all global variables
+ * <p>The alloy class is an extension of the FTC OpMode class, and takes care of preliminary setup
+ * of: <br>
+ * - Setting up the global FTC variables in RobotCore <br>
+ * - Setting up the global Debugger <br>
+ * - Initializing any "initializeables" in the project <br>
+ * - Running the users defined methods <br>
  *
  * @author Garrett Burroughs
  * @version 0.1

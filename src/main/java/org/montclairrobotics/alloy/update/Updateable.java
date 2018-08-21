@@ -33,7 +33,7 @@ import org.montclairrobotics.alloy.exceptions.UpdateException;
 /**
  * A class used for creating objects that can be updated by the Updater
  *
- * <p>An updateable conatins a method to be updates along with any extra information needed for it
+ * <p>An updateable contains a method to be updates along with any extra information needed for it
  * to be properly called and updated like the update rate, parameters and objects that it should be
  * invoked on
  *

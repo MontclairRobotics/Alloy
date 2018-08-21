@@ -29,12 +29,10 @@ import org.montclairrobotics.alloy.core.RobotCore;
 import org.montclairrobotics.alloy.exceptions.InvalidConfigurationException;
 
 /**
- * Created by MHS Robotics on 11/14/2017.
- *
- * <p>The FTCDebugger class is a basic wrapper around the ftc telemetry framework and allows
- * telemetry to be used in any class as well as making debugging information easier
+ * implementation of the debugger for the FTC competition
  *
  * @author Garrett Burroughs
+ * @version 0.1
  * @since 0.1
  */
 public class FTCDebugger extends Debugger {
@@ -53,7 +51,7 @@ public class FTCDebugger extends Debugger {
         }
     }
 
-    public Telemetry getTelemetry(){
+    public Telemetry getTelemetry() {
         return telemetry;
     }
 

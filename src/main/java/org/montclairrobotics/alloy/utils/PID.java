@@ -59,7 +59,7 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
      * graphed) AKA derivative
      */
     private double errorRate;
-    
+
     /**
      * The total error that has accumulated over time (Area under the graph if the error were
      * graphed) AKA Integral

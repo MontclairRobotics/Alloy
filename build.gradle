@@ -29,7 +29,6 @@ spotless {
 
 
         licenseHeaderFile 'SpotlessLicense'
-		paddedCell()
     }
 }
 

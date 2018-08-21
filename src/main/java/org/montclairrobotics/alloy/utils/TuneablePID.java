@@ -32,6 +32,10 @@ import org.montclairrobotics.alloy.components.InputComponent;
  * becoming a very long and drawn out process. By making them inputs, it is able to change these
  * values at runtime This could be done easily in FRC using smartdashboard or in FTC by using
  * buttons or joysticks to change values
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
  */
 public class TuneablePID extends InputComponent<Double> implements ErrorCorrection<Double> {
 

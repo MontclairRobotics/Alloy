@@ -26,6 +26,17 @@ package org.montclairrobotics.alloy.utils;
 import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.update.Update;
 
+/**
+ * Simple error correction, that returns one value if the error is high, and another if it is low
+ *
+ * <p>Bang bang error correction, checks if the error is higher or lower than a target, and returns
+ * an output based on that result. This is not a very good, accurate or reliable way of error
+ * correcting but can be useful in some cases where more exact error correction is not needed
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
+ */
 public class BangBang extends InputComponent<Double> implements ErrorCorrection<Double> {
 
     public double target;

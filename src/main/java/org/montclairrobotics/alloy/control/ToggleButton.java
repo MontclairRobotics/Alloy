@@ -27,14 +27,13 @@ import org.montclairrobotics.alloy.core.Button;
 import org.montclairrobotics.alloy.utils.Toggleable;
 
 /**
- * Created by MHS Robotics on 2/11/2018.
- *
- * <p>A ToggleButton is tied to a button and a toggleable, when the button is pressed the toggleable
+ * A ToggleButton is tied to a button and a toggleable, when the button is pressed the toggleable
  * will toggle between states
  *
  * @see Toggleable
  * @see ButtonAction
  * @author Garrett Burroughs
+ * @version 0.1
  * @since 0.1
  */
 public class ToggleButton extends ButtonAction {

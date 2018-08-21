@@ -32,13 +32,14 @@ import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.utils.Input;
 
 /**
- * Created by MHS Robotics on 11/14/2017.
+ * Implementation of a basic motor for the FTC competition
  *
  * <p>The basic motor for use in FTC. Basic motors are not aware of encoders and are not recommended
  * for use in FTC as all motors come with encoders
  *
  * @see FTCTargetMotor
  * @author Garrett Burroughs
+ * @version 0.1
  * @since 0.1
  */
 public class FTCMotor extends Component implements Motor {
