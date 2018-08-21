@@ -27,7 +27,7 @@ import org.montclairrobotics.alloy.components.Step;
 import org.montclairrobotics.alloy.utils.Toggleable;
 
 public class Deadzone extends Toggleable implements Step<Double>{
-    double tolerance;
+    private double tolerance;
 
     public Deadzone(double tolerance) {
         this.tolerance = tolerance;
@@ -54,5 +54,13 @@ public class Deadzone extends Toggleable implements Step<Double>{
     @Override
     public void disableAction() {
 
+    }
+
+    public double getTolerance(){
+        return tolerance;
+    }
+
+    public void setTolerance(int tolerance){
+        this.tolerance = tolerance;
     }
 }

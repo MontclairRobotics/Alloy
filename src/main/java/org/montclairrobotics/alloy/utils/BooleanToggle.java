@@ -30,11 +30,11 @@ public class BooleanToggle extends Toggleable implements Input<Boolean> {
         return status.isEnabled();
     }
 
-    /** Method to be called when the toggleable is enabled */
     @Override
+    /** Method to be called when the toggleable is enabled */
     public void enableAction() {}
 
-    /** Method to be called when the toggleable is disabled */
     @Override
+    /** Method to be called when the toggleable is disabled */
     public void disableAction() {}
 }

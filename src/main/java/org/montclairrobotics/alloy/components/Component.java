@@ -62,6 +62,7 @@ public abstract class Component extends Toggleable {
     /** a static reference of all the components that are made */
     public static ArrayList<Component> components;
 
+
     public Component() {
         components.add(this);
     }
@@ -70,20 +71,24 @@ public abstract class Component extends Toggleable {
         return components;
     }
 
+    /** Adds a debug to the component, this will be debugged out every loop if debug mode is enabled */
     public void addDebug(Debug debug) {
         debugs.add(debug);
     }
 
+    /** Adds multiple debugs to the components, they will be debugged out every loop if debug mode is enabled*/
     public void addDebugs(Iterable<? extends Debug> debugs) {
         for (Debug debug : debugs) {
             this.debugs.add(debug);
         }
     }
 
+    /** Enabled debug mode, causing any debugs added to the component to be debugged out */
     public void enableDebug() {
         debugMode = false;
     }
 
+    /** Disabled debug mode, stopping all debugs */
     public void disableDebug() {
         debugMode = true;
     }
@@ -97,11 +102,11 @@ public abstract class Component extends Toggleable {
         }
     }
 
-    /** The action that is taken when the component is enabled should be overridden bu the user */
     @Override
+    /** The action that is taken when the component is enabled should be overridden bu the user */
     public void enableAction() {}
 
-    /** The action that is taken when the component is disabled, should be overridden by the user */
     @Override
+    /** The action that is taken when the component is disabled, should be overridden by the user */
     public void disableAction() {}
 }

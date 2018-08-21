@@ -44,7 +44,7 @@ public class ConstantInput<T> implements Input<T> {
 
     @Override
     public T get() {
-        return null;
+        return constant;
     }
 
     /** Sets the value that the input will return */

@@ -45,8 +45,27 @@ import org.montclairrobotics.alloy.utils.Input;
  */
 public class FTCTargetMotor extends FTCMotor implements TargetMotor {
 
+    /** The power that the motor will aim to be, a value between (-1, 1) */
     private double targetPower;
 
+    /** PID being used to control the motor in custom mode */
+    private ErrorCorrection<Double> correction;
+
+    /** Current target motor runmode NOTE: not equal to the DCMotor runmode */
+    private Mode runmode = Mode.DEFAULT;
+
+    /**
+     * Creates a new FTC Target motor, using the motor id from the FTC configuration
+     *
+     * The configuration must be set on the phone before accessing it in code
+     *
+     * A target motor created like this will have the default FTC motor regulation,
+     * to set a custom error correction, you can do this by calling 'setErrorCorrection(ErrorCorrection)'
+     * You should only do this if you know what you are doing
+     * @see ErrorCorrection
+     *
+     * @param motorConfiguration
+     */
     public FTCTargetMotor(String motorConfiguration) {
         super(motorConfiguration);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -74,12 +93,6 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
          */
         CUSTOM
     }
-
-    /** PID being used to control the motor in custom mode */
-    private ErrorCorrection<Double> correction;
-
-    /** Current target motor runmode NOTE: not equal to the DCMotor runmode */
-    private Mode runmode = Mode.DEFAULT;
 
     /**
      * Sets the motor position
@@ -128,16 +141,16 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
     }
 
     /**
-     * Set the motor to run using a custom PID
+     * Set the motor to run using a custom Error Correction
      *
-     * @param correction the PID that the motor will be controlled with
+     * @param correction the correction that the motor will be controlled with
      */
     public void setErrorCorrection(ErrorCorrection correction) {
         this.correction = correction.copy();
         runmode = runmode.CUSTOM;
     }
 
-    /** Stop using the custom PID and return to using the default mode */
+    /** Stop using the custom Error Correction and return to using the default mode */
     public void disableErrorCorrection() {
         this.correction = null;
         runmode = Mode.DEFAULT;
@@ -151,12 +164,9 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
         if (status.isEnabled()) { // Check if enabled
             if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {
                 if (runmode == Mode.CUSTOM) {
-                    setTargetPower(
-                            correction
-                                    .getCorrection()); // If running using custom PID mode, set power to PID output
+                    setTargetPower(correction.getCorrection()); // If running using custom PID mode, set power to PID output
                 } else {
-                    motor.setPower(
-                            targetPower); // If running in default target mode, set the target power
+                    motor.setPower(targetPower); // If running in default target mode, set the target power
                 }
             } else {
                 motor.setPower(power); // If running by power, set the power
@@ -166,7 +176,7 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
         }
     }
 
-    /** @return the PID being used to control the motor */
+    /** @return the Error Correction being used to control the motor */
     public ErrorCorrection<Double> getErrorCorrection() {
         return correction;
     }
