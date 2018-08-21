@@ -35,4 +35,8 @@ dependencies{
 	testCompile 'junit:junit:4.12'
 	compile fileTree(dir: "src/main/libs/", include: ['*.jar'])
 	compile 'org.reflections:reflections:0.9.11'
+	compile 'edu.wpi.first.wpilibj:wpilibj-java:2018.1.1'
+	compile 'openrio.mirror.third.ctre:CTRE-phoenix-java:5.1.2.1'
+	compile 'openrio.mirror.third.kauailabs:navx-java:3.0.342'
+	compile 'edu.wpi.first.ntcore:ntcore-java:4.0.0'
 }
