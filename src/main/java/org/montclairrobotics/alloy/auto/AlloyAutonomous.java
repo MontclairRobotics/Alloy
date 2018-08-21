@@ -24,8 +24,6 @@ SOFTWARE.
 package org.montclairrobotics.alloy.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import org.montclairrobotics.alloy.components.Component;
-import org.montclairrobotics.alloy.core.Debugger;
 
 /**
  * Created by MHS Robotics on 12/5/2017.

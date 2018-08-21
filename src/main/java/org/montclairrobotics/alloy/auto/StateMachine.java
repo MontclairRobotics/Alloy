@@ -24,6 +24,8 @@ SOFTWARE.
 package org.montclairrobotics.alloy.auto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by MHS Robotics on 12/16/2017.
@@ -40,7 +42,7 @@ import java.util.ArrayList;
  */
 public class StateMachine extends State {
 
-    ArrayList<State> states;
+    private ArrayList<State> states;
 
     /**
      * Since state machines can run in a non linear fashion, the last state in the array may not be
@@ -53,18 +55,26 @@ public class StateMachine extends State {
      * Note: even if your state machine is running in a linear fashion, it needs to have a final
      * state.
      */
-    Integer finalState;
+    private Integer finalState;
 
-    public StateMachine(State... states) {}
-
-    @Override
-    public void start() {}
-
-    @Override
-    public void run() {}
+    public StateMachine(State... states) {
+        this.states = (ArrayList<State>) Arrays.asList(states);
+    }
 
     @Override
-    public void stop() {}
+    public void start() {
+        // Called when the state machine starts
+    }
+
+    @Override
+    public void run() {
+        // Called every loop while the state machine is running
+    }
+
+    @Override
+    public void stop() {
+        // Called once when the state machine stops
+    }
 
     @Override
     public boolean isDone() {

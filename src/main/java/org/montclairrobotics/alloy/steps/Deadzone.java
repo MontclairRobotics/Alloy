@@ -48,12 +48,12 @@ public class Deadzone extends Toggleable implements Step<Double>{
 
     @Override
     public void enableAction() {
-
+        // Do nothing because all action is taken care of
     }
 
     @Override
     public void disableAction() {
-
+        // Do nothing because all action is taken care of
     }
 
     public double getTolerance(){

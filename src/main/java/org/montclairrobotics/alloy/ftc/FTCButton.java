@@ -38,7 +38,7 @@ import org.montclairrobotics.alloy.utils.Input;
 public class FTCButton implements Button {
 
     /** Will return the value of the button */
-    Input<Boolean> buttonInput;
+    private Input<Boolean> buttonInput;
 
     /** If true inverts the value of the button. */
     private boolean inverted;
