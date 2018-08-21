@@ -24,6 +24,7 @@ SOFTWARE.
 package org.montclairrobotics.alloy.utils;
 
 import org.montclairrobotics.alloy.components.InputComponent;
+import org.montclairrobotics.alloy.exceptions.InvalidConfigurationException;
 import org.montclairrobotics.alloy.update.Update;
 
 /**
@@ -58,17 +59,22 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
      * graphed) AKA derivative
      */
     private double errorRate;
+    
     /**
      * The total error that has accumulated over time (Area under the graph if the error were
      * graphed) AKA Integral
      */
     private double totalError;
+
     /** The error of the previous calculation, used for calculating the rate of error */
     private double prevError;
+
     /** The time of the previous calculation, used for calculating the rate of error */
     private double prevTime;
+
     /** The difference in time between update loops */
     private double timeDifference;
+
     /** The difference in error between update loops */
     private double errorDifference;
 
@@ -121,7 +127,7 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
         try {
             error = target - input.get();
         } catch (NullPointerException e) {
-            throw new RuntimeException(
+            throw new InvalidConfigurationException(
                     "PID input has not been defined use pid.setInput(Input<Double> input), to set it");
         }
 

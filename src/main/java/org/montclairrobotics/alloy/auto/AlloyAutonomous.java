@@ -24,6 +24,8 @@ SOFTWARE.
 package org.montclairrobotics.alloy.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import org.montclairrobotics.alloy.components.Component;
+import org.montclairrobotics.alloy.core.Debugger;
 
 /**
  * Created by MHS Robotics on 12/5/2017.
@@ -32,8 +34,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
  */
 public abstract class AlloyAutonomous extends OpMode {
     @Override
-    public void init() {}
+    public void init() {
+        // this code will be run on robot initialization
+    }
 
     @Override
-    public void loop() {}
+    public void loop() {
+        // This code will be run once a loop while the auto mode is running
+    }
 }

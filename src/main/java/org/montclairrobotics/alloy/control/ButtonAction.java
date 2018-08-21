@@ -36,9 +36,13 @@ import org.montclairrobotics.alloy.update.Update;
  * @since 0.1
  */
 public abstract class ButtonAction {
-
+    /** The button that controls the action */
     public Button button;
 
+    /** Keeps track of if the button was pressed in the previous loop, used for telling when the button is pressed/unpressed */
+    public boolean wasPressed = false;
+
+    /** Creates a button action tied to a button */
     public ButtonAction(Button button) {
         this.button = button;
     }
@@ -54,8 +58,6 @@ public abstract class ButtonAction {
 
     /** While released is called every loop while the button is unpressed */
     public abstract void whileReleased();
-
-    public boolean wasPressed = false;
 
     @Update
     public void update() {

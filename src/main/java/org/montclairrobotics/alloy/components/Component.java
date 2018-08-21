@@ -102,11 +102,15 @@ public abstract class Component extends Toggleable {
         }
     }
 
-    @Override
     /** The action that is taken when the component is enabled should be overridden bu the user */
-    public void enableAction() {}
-
     @Override
+    public void enableAction() {
+        // Called when enabled
+    }
+
     /** The action that is taken when the component is disabled, should be overridden by the user */
-    public void disableAction() {}
+    @Override
+    public void disableAction() {
+        // Called when disabled
+    }
 }

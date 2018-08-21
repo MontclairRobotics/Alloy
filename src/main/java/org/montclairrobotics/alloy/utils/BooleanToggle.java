@@ -32,9 +32,13 @@ public class BooleanToggle extends Toggleable implements Input<Boolean> {
 
     @Override
     /** Method to be called when the toggleable is enabled */
-    public void enableAction() {}
+    public void enableAction() {
+        // Do nothing because all the action it taken care of by toggle()
+    }
 
     @Override
     /** Method to be called when the toggleable is disabled */
-    public void disableAction() {}
+    public void disableAction() {
+        // Do nothing because all the action it taken care of by toggle()
+    }
 }

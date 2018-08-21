@@ -36,14 +36,14 @@ package org.montclairrobotics.alloy.utils;
  */
 public abstract class Toggleable {
 
+    /** The status of the toggleable, to keep track of weather it is enabled, or disabled */
+    public Status status;
+
     /** Method to be called when the toggleable is enabled */
     public abstract void enableAction();
 
     /** Method to be called when the toggleable is disabled */
     public abstract void disableAction();
-
-    /** The status of the toggleable, to keep track of weather it is enabled, or disabled */
-    public Status status;
 
     public enum Status {
         ENABLED(true),

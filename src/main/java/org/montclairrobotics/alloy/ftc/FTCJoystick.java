@@ -45,6 +45,17 @@ import org.montclairrobotics.alloy.vector.XY;
 public class FTCJoystick extends InputComponent<Vector> implements Joystick {
 
     /**
+     * The gamepad that the joystick is attached to, this will either be joystick 1, or joystick2,
+     * these can be accessed from the RobotCore class
+     *
+     * @see org.montclairrobotics.alloy.core.RobotCore
+     */
+    private Gamepad gamepad;
+
+    /** The side that the joystick is on */
+    private Side side;
+
+    /**
      * The side in a FTCJoystick is referring to the side of the controller is on, there are 2
      * joysticks, one on the right, one on the left
      */
@@ -52,17 +63,6 @@ public class FTCJoystick extends InputComponent<Vector> implements Joystick {
         RIGHT,
         LEFT
     }
-
-    /**
-     * The gamepad that the joystick is attached to, this will either be joystick 1, or joystick2,
-     * these can be accessed from the RobotCore class
-     *
-     * @see org.montclairrobotics.alloy.core.RobotCore
-     */
-    Gamepad gamepad;
-
-    /** The side that the joystick is on */
-    Side side;
 
     /**
      * Create a new Joystick using the gamepad and side

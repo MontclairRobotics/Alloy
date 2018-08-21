@@ -40,7 +40,7 @@ import org.montclairrobotics.alloy.exceptions.InvalidConfigurationException;
 public class FTCDebugger extends Debugger {
 
     /** The telemetry used for debugging */
-    Telemetry telemetry;
+    private Telemetry telemetry;
 
     /** Create a new FTCDebugger, and throw an exception if it has not been initialized */
     public FTCDebugger() {
@@ -51,6 +51,10 @@ public class FTCDebugger extends Debugger {
             throw new InvalidConfigurationException(
                     "You tried to access the telemetry before the robotcore has been initialized");
         }
+    }
+
+    public Telemetry getTelemetry(){
+        return telemetry;
     }
 
     /**

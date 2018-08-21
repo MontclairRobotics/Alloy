@@ -45,19 +45,19 @@ public class VectorDeadzone extends Toggleable implements Step<Vector> {
 
     @Override
     public void enableAction() {
-
+        // Do nothing because all action is taken care of
     }
 
     @Override
     public void disableAction() {
-
+        // Do nothing because all action is taken care of
     }
 
     public double getTolerance(){
         return tolerance;
     }
 
-    private void setTolerance(double tolerance){
+    public void setTolerance(double tolerance){
         this.tolerance = tolerance;
     }
 }
