@@ -14,7 +14,7 @@ package org.montclairrobotics.alloy.vector;
  * @version 0.1
  * @since 0.1
  */
-public class XY  implements Vector{
+public class XY implements Vector{
     private double x;
     private double y;
 

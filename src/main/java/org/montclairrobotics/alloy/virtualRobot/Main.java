@@ -87,9 +87,15 @@ public class Main {
             System.out.println((i + 1) + ": " + Main.robots.get(i).getName());
         }
         
-        int selection = intInput("Select the robot you want to run");
-        robot = Main.robots.get(selection - 1);
-        
+        int robotSelection = intInput("Select the robot you want to run");
+        robot = Main.robots.get(robotSelection - 1);
+    
+        for(Integer i = 0; i < Main.autoModes.size(); i++){
+            System.out.println((i + 1) + ": " + Main.autoModes.get(i).getName());
+        }
+    
+        int autoSelection = intInput("Select the robot you want to run");
+        robot = Main.robots.get(autoSelection - 1);
         
         
         start();

@@ -8,7 +8,7 @@ import org.montclairrobotics.alloy.update.Updater;
 /**
  * Created by MHS Robotics on 11/13/2017.
  *
- * The main purpose behind the alloy class is to controll how and when all of the mehotds in Robot are run
+ * The main purpose behind the alloy class is to control how and when all of the methods in Robot are run
  * as well as initialize all global variables
  *
  * @author Garrett Burroughs
