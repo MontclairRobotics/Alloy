@@ -23,10 +23,29 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.drive;
 
+import org.montclairrobotics.alloy.components.InputComponent;
+import org.montclairrobotics.alloy.motor.Mapper;
+import org.montclairrobotics.alloy.motor.MotorGroup;
+import org.montclairrobotics.alloy.motor.MotorModule;
+
 /**
  * Created by MHS Robotics on 12/16/2017.
  *
  * @author Garrett Burroughs
  * @since 0.1
  */
-public class DriveTrain {}
+public class DriveTrain extends MotorGroup<DTInput> {
+    public DriveTrain(InputComponent<DTInput> input, Mapper mapper, MotorModule... modules) {
+        super(input, mapper, modules);
+    }
+
+    public DriveTrain setInput(InputComponent<DTInput> input) {
+        this.input = input;
+        return this;
+    }
+
+    public DriveTrain setMapper(Mapper mapper) {
+        this.mapper = mapper;
+        return this;
+    }
+}

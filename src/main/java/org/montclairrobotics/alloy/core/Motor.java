@@ -24,7 +24,10 @@ SOFTWARE.
 package org.montclairrobotics.alloy.core;
 
 /**
- * Created by MHS Robotics on 11/13/2017.
+ * An outline for all of the basic motor behavior
+ *
+ * <p>The very basic functionality of any mechanical motor This includes setting power, and
+ * inverting the motor
  *
  * @author Garrett Burroughs
  * @version 0.1

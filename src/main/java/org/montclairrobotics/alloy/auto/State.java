@@ -37,7 +37,7 @@ package org.montclairrobotics.alloy.auto;
  */
 public abstract class State {
 
-    Integer nextState = null;
+    private Integer nextState = null;
 
     /** The start method is the first thing called when the state is run */
     public abstract void start();

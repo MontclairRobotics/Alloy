@@ -21,25 +21,59 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.test;
+package org.montclairrobotics.alloy.steps;
 
-import org.montclairrobotics.alloy.core.Motor;
-import org.montclairrobotics.alloy.ftc.FTCMotor;
+import org.montclairrobotics.alloy.components.Step;
 import org.montclairrobotics.alloy.utils.Toggleable;
 
-public class Shooter extends Toggleable {
-    Motor motorR = new FTCMotor("Right PoweredMotor");
-    Motor motorL = new FTCMotor("Left PoweredMotor");
+/**
+ * A step that returns 0 if the input is under a certain threshold
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
+ */
+public class Deadzone extends Toggleable implements Step<Double> {
+
+    /** the threshold value that the input has to be lower than for the step to return 0 */
+    private double tolerance;
+
+    /** Create a deadzone specifying the tolerance */
+    public Deadzone(double tolerance) {
+        this.tolerance = tolerance;
+    }
+
+    /** Create a deadzone with a default tolerance of 0.05 */
+    public Deadzone() {
+        this(0.05);
+    }
+
+    @Override
+    public Double getOutput(Double input) {
+        if (status.isEnabled()) {
+            return input < tolerance ? 0 : input;
+        } else {
+            return input;
+        }
+    }
 
     @Override
     public void enableAction() {
-        motorR.setMotorPower(1);
-        motorL.setMotorPower(1);
+        // Do nothing because all action is taken care of
     }
 
     @Override
     public void disableAction() {
-        motorR.setMotorPower(0);
-        motorL.setMotorPower(0);
+        // Do nothing because all action is taken care of
+    }
+
+    /** @return the threshold value */
+    public double getTolerance() {
+        return tolerance;
+    }
+
+    /** set the threshold value */
+    public void setTolerance(int tolerance) {
+        this.tolerance = tolerance;
     }
 }

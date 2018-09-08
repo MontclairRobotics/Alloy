@@ -24,10 +24,11 @@ SOFTWARE.
 package org.montclairrobotics.alloy.core;
 
 /**
- * Created by MHS Robotics on 11/13/2017.
+ * An outline for the fundamental behavior of a button
  *
- * <p>The button interface is implemented in ftc button The user can get the value of the button, In
- * most cases this will be a Boolean (True if pressed, false if not),
+ * <p>A button can either be pressed, or unpressed, so the button interface has a method that
+ * returns a boolean value. When implemented, getValue() should return true when the button is
+ * pressed and false when it is unpressed
  *
  * @author Garrett Burroughs
  * @version 0.1

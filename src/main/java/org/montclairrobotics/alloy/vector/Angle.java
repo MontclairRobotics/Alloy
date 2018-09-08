@@ -24,7 +24,7 @@ SOFTWARE.
 package org.montclairrobotics.alloy.vector;
 
 /**
- * Created by MHS Robotics on 11/13/2017.
+ * A class to keep track of angles
  *
  * <p>The angle class allows for easy management of angles as well as easy conversion between degree
  * and radian angle measure The class keeps track of the angle in degrees but can easily be
@@ -35,6 +35,14 @@ package org.montclairrobotics.alloy.vector;
  * @since 0.1
  */
 public class Angle {
+
+    public static final Angle ZERO = new Angle(0);
+    public static final Angle HALF_PI = new Angle(90);
+    public static final Angle PI = new Angle(180);
+    public static final Angle TWO_PI = new Angle(360);
+
+    /** Keeps Track of the amount of degrees that the angle is */
+    private double degrees;
 
     /**
      * AngleMeasure, is used for keeping track of what type of angle measure the angle is being
@@ -47,12 +55,6 @@ public class Angle {
         /** Degree Angle Measure */
         DEGREE
     }
-
-    /** Keeps Track of the degrees that the angle is */
-    private double degrees;
-
-    // Zero Angle
-    public final Angle ZERO = new Angle(AngleMeasure.DEGREE, 0);
 
     /**
      * Creating a new angle with an angle measure unit and the measure of the angle itself
@@ -141,5 +143,25 @@ public class Angle {
      */
     public double tan() {
         return Math.tan(getRadians());
+    }
+
+    /**
+     * Creates a new angle using degrees
+     *
+     * @param degrees the amount of degrees the new angle will be created with
+     * @return a new angle
+     */
+    public static Angle createDegrees(double degrees) {
+        return new Angle(AngleMeasure.DEGREE, degrees);
+    }
+
+    /**
+     * Creates a new angle using radians
+     *
+     * @param radians the amount of radians the new angle will be created with
+     * @return a new angle
+     */
+    public static Angle createRadians(double radians) {
+        return new Angle(AngleMeasure.RADIAN, radians);
     }
 }

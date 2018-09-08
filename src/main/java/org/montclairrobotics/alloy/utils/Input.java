@@ -24,9 +24,14 @@ SOFTWARE.
 package org.montclairrobotics.alloy.utils;
 
 /**
- * Created by MHS Robotics on 2/2/2018.
+ * A dynamically stored input
+ *
+ * <p>Instead of storing a value, an input creates a method to get the value so if an object is
+ * created with an input, whenever it tries to access the input it will access the most up to date
+ * value of that input, rather than a constant value when the object is created
  *
  * @author Garrett Burroughs
+ * @version 0.1
  * @since 0.1
  */
 public interface Input<T> {

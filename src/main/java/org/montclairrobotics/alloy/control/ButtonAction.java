@@ -27,18 +27,24 @@ import org.montclairrobotics.alloy.core.Button;
 import org.montclairrobotics.alloy.update.Update;
 
 /**
- * Created by MHS Robotics on 2/11/2018.
- *
- * <p>Every Button action is tied to a button, and controls what happens when the button is pressed,
+ * Every Button action is tied to a button, and controls what happens when the button is pressed,
  * held, unpressed, and released
  *
  * @author Garrett Burroughs
+ * @version 0.1
  * @since 0.1
  */
 public abstract class ButtonAction {
-
+    /** The button that controls the action */
     public Button button;
 
+    /**
+     * Keeps track of if the button was pressed in the previous loop, used for telling when the
+     * button is pressed/unpressed
+     */
+    public boolean wasPressed = false;
+
+    /** Creates a button action tied to a button */
     public ButtonAction(Button button) {
         this.button = button;
     }
@@ -55,19 +61,21 @@ public abstract class ButtonAction {
     /** While released is called every loop while the button is unpressed */
     public abstract void whileReleased();
 
-    public boolean wasPressed = false;
-
     @Update
     public void update() {
-        if (button.getValue()) {
+        if (button.getValue()) { // If the button is pressed, call whilePressed()
             whilePressed();
-        } else {
+        } else { // If the button is not pressed call whileReleased()
             whileReleased();
         }
-        if (wasPressed && !button.getValue()) {
+        if (wasPressed
+                && !button
+                        .getValue()) { // If the button was just pressed, but is no longer pressed, call onReleased()
             onReleased();
         }
-        if (!wasPressed && button.getValue()) {
+        if (!wasPressed
+                && button
+                        .getValue()) { // If the button was just not pressed, but is now pressed, call onPressed()
             onPressed();
         }
 

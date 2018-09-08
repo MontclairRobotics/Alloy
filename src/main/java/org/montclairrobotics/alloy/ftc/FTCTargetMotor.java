@@ -24,12 +24,15 @@ SOFTWARE.
 package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import org.montclairrobotics.alloy.core.Debug;
+import org.montclairrobotics.alloy.core.Encoder;
 import org.montclairrobotics.alloy.core.TargetMotor;
 import org.montclairrobotics.alloy.update.Update;
-import org.montclairrobotics.alloy.utils.PID;
+import org.montclairrobotics.alloy.utils.ErrorCorrection;
+import org.montclairrobotics.alloy.utils.Input;
 
 /**
- * Created by MHS Robotics on 2/24/2018.
+ * Implementation of a target motor for the FTC competition
  *
  * <p>A target motor is a motor that can use encoders to be set to a certain position Since FTC
  * motors have their own PIDs that they are controlled with by default, the user has the ability to
@@ -38,12 +41,44 @@ import org.montclairrobotics.alloy.utils.PID;
  * more about PIDs here <link>https://en.wikipedia.org/wiki/PID_controller</link>
  *
  * @author Garrett Burroughs
+ * @version 0.1
  * @since 0.1
  */
 public class FTCTargetMotor extends FTCMotor implements TargetMotor {
+
+    /** The power that the motor will aim to be, a value between (-1, 1) */
+    private double targetPower;
+
+    /** PID being used to control the motor in custom mode */
+    private ErrorCorrection<Double> correction;
+
+    /** Current target motor runmode NOTE: not equal to the DCMotor runmode */
+    private Mode runmode = Mode.DEFAULT;
+
+    /**
+     * Creates a new FTC Target motor, using the motor id from the FTC configuration
+     *
+     * <p>The configuration must be set on the phone before accessing it in code
+     *
+     * <p>A target motor created like this will have the default FTC motor regulation, to set a
+     * custom error correction, you can do this by calling 'setErrorCorrection(ErrorCorrection)' You
+     * should only do this if you know what you are doing
+     *
+     * @see ErrorCorrection
+     * @param motorConfiguration
+     */
     public FTCTargetMotor(String motorConfiguration) {
         super(motorConfiguration);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        addDebug(new Debug(motorConfiguration + " Motor Power: ", (Input<Double>) () -> power));
+        addDebug(
+                new Debug(
+                        motorConfiguration + " Motor Position: ",
+                        (Input<Integer>) () -> getPosition()));
+        addDebug(
+                new Debug(
+                        motorConfiguration + " Target Motor Power: ",
+                        (Input<Double>) () -> targetPower));
     }
 
     enum Mode {
@@ -60,12 +95,6 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
         CUSTOM
     }
 
-    /** PID being used to control the motor in custom mode */
-    private PID pid;
-
-    /** Current target motor runmode NOTE: not equal to the DCMotor runmode */
-    private Mode runmode = Mode.DEFAULT;
-
     /**
      * Sets the motor position
      *
@@ -77,7 +106,7 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setTargetPosition(position);
         } else {
-            pid.setTarget(position);
+            correction.setTarget((double) position);
         }
     }
 
@@ -87,7 +116,7 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
      * @return the position that the motor is at (in encoder ticks)
      */
     @Override
-    public double getPosition() {
+    public int getPosition() {
         return motor.getCurrentPosition();
     }
 
@@ -98,7 +127,8 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
      */
     @Override
     public void setTargetPower(double power) {
-        motor.setPower(power);
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.targetPower = power;
     }
 
     /**
@@ -112,18 +142,18 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
     }
 
     /**
-     * Set the motor to run using a custom PID
+     * Set the motor to run using a custom Error Correction
      *
-     * @param pid the PID that the motor will be controlled with
+     * @param correction the correction that the motor will be controlled with
      */
-    public void setPID(PID pid) {
-        this.pid = pid;
+    public void setErrorCorrection(ErrorCorrection correction) {
+        this.correction = correction.copy();
         runmode = runmode.CUSTOM;
     }
 
-    /** Stop using the custom PID and return to using the default mode */
-    public void disablePID() {
-        this.pid = null;
+    /** Stop using the custom Error Correction and return to using the default mode */
+    public void disableErrorCorrection() {
+        this.correction = null;
         runmode = Mode.DEFAULT;
     }
 
@@ -132,15 +162,27 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
      */
     @Update
     public void update() {
-        if (runmode == Mode.CUSTOM) {
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            setTargetPower(pid.get());
+        if (status.isEnabled()) { // Check if enabled
+            if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {
+                if (runmode == Mode.CUSTOM) {
+                    setTargetPower(
+                            correction
+                                    .getCorrection()); // If running using custom PID mode, set power to PID output
+                } else {
+                    motor.setPower(
+                            targetPower); // If running in default target mode, set the target power
+                }
+            } else {
+                motor.setPower(power); // If running by power, set the power
+            }
+        } else {
+            motor.setPower(0); // If disabled, set power to 0
         }
     }
 
-    /** @return the PID being used to control the motor */
-    public PID getPid() {
-        return pid;
+    /** @return the Error Correction being used to control the motor */
+    public ErrorCorrection<Double> getErrorCorrection() {
+        return correction;
     }
 
     /** @return the motor being controlled */
@@ -155,5 +197,20 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
      */
     public Mode getRunmode() {
         return runmode;
+    }
+
+    /**
+     * Allows for the creation of an encoder object that is aware of the amount of ticks the motor
+     * has gone
+     *
+     * @return a new encoder object that will return the amount of encoder ticks the motor is at
+     */
+    public Encoder getEncoder() {
+        return new Encoder() {
+            @Override
+            public int getTicks() {
+                return getPosition();
+            }
+        };
     }
 }

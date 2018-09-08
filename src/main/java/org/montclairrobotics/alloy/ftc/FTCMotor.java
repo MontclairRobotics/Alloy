@@ -25,26 +25,34 @@ package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import org.montclairrobotics.alloy.core.Motor;
-import org.montclairrobotics.alloy.core.RobotCore;
+import java.awt.*;
+import org.montclairrobotics.alloy.components.Component;
+import org.montclairrobotics.alloy.core.*;
+import org.montclairrobotics.alloy.update.Update;
+import org.montclairrobotics.alloy.utils.Input;
 
 /**
- * Created by MHS Robotics on 11/14/2017.
+ * Implementation of a basic motor for the FTC competition
  *
- * <p>FTCMotor is a basic implementation of a motor used for FTC. Basic FTC motors can be controlled
- * using motor power but can not have their positions set using encoders. If you wish to set a
- * motors position
+ * <p>The basic motor for use in FTC. Basic motors are not aware of encoders and are not recommended
+ * for use in FTC as all motors come with encoders
  *
  * @see FTCTargetMotor
  * @author Garrett Burroughs
+ * @version 0.1
  * @since 0.1
  */
-public class FTCMotor implements Motor {
+public class FTCMotor extends Component implements Motor {
 
-    DcMotor motor;
+    /** The physical hardware motor reference to the motor being controlled */
+    public DcMotor motor;
+
+    /** The power that the motor should be running at */
+    public double power;
 
     public FTCMotor(String motorConfiguration) {
         motor = RobotCore.getHardwareMap().dcMotor.get(motorConfiguration);
+        addDebug(new Debug(motorConfiguration + " Motor Power: ", (Input<Double>) () -> power));
     }
 
     /**
@@ -55,7 +63,7 @@ public class FTCMotor implements Motor {
     @Override
     public void setMotorPower(double power) {
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motor.setPower(power);
+        this.power = power;
     }
 
     /**
@@ -69,10 +77,11 @@ public class FTCMotor implements Motor {
     }
 
     /**
-     * Sets weather the motor runs the default way , or inverted
+     * Sets whether the motor runs the default way , or inverted
      *
      * @param inverted true for inverted, false for normal
      */
+    @Override
     public void setInverted(boolean inverted) {
         if (inverted) {
             motor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -86,7 +95,32 @@ public class FTCMotor implements Motor {
      *
      * @return true if the motor is inverted
      */
+    @Override
     public boolean getInverted() {
         return motor.getDirection() == DcMotorSimple.Direction.REVERSE;
+    }
+
+    public Encoder getEncoder() {
+        return new Encoder() {
+            @Override
+            public int getTicks() {
+                return motor.getCurrentPosition();
+            }
+        };
+    }
+
+    @Update
+    public void updateMotor() {
+        // Set Motor Power if it is enabled
+        if (status.isEnabled()) {
+            motor.setPower(power);
+        } else {
+            motor.setPower(0);
+        }
+    }
+
+    @Override
+    public void disableAction() {
+        motor.setPower(0);
     }
 }

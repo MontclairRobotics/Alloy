@@ -21,42 +21,20 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.update;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
+package org.montclairrobotics.alloy.motor;
 
 /**
- * Created by MHS Robotics on 2/11/2018.
+ * A mapper takes an input, and maps it to the set of motor modules
  *
+ * <p>For example, a tank drive mapper might map a 2D vector to the drive modules by calculating the
+ * rotation, and the power based on the x&y components of the vector
+ *
+ * @param <T> the type of input the mapper takes in
  * @author Garrett Burroughs
  * @since 0.1
+ * @version 0.1
  */
-public class Updatable {
-    private Method update;
-    private int updateRate;
-    private Class clazz;
-    private Parameter[] parameters;
-
-    Updatable(Method update, int updateRate, Class clazz, Parameter[] parameters) {
-        this.update = update;
-        this.updateRate = updateRate;
-        this.clazz = clazz;
-        this.parameters = parameters;
-    }
-
-    public void run() {
-        try {
-            update.invoke(clazz);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public int getUpdateRate() {
-        return updateRate;
-    }
+public interface Mapper<T> {
+    /** map the input to the modules */
+    public void map(T input, MotorModule... modules);
 }

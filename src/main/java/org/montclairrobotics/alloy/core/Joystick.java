@@ -26,7 +26,7 @@ package org.montclairrobotics.alloy.core;
 import org.montclairrobotics.alloy.vector.Vector;
 
 /**
- * Created by MHS Robotics on 11/14/2017.
+ * The fundamental outline for all standard 2-axis joysticks
  *
  * <p>Joysticks should return a vector made up of the X and Y values of their position
  *

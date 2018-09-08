@@ -31,10 +31,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
  * @author Garrett Burroughs
  */
 public abstract class AlloyAutonomous extends OpMode {
+    @Override
+    public void init() {
+        // this code will be run on robot initialization
+    }
 
     @Override
-    public void init() {}
-
-    @Override
-    public void loop() {}
+    public void loop() {
+        // This code will be run once a loop while the auto mode is running
+    }
 }
