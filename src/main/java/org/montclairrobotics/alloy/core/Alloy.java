@@ -26,6 +26,7 @@ package org.montclairrobotics.alloy.core;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import java.util.ArrayList;
 import org.montclairrobotics.alloy.components.Component;
+import org.montclairrobotics.alloy.drive.DriveTrain;
 import org.montclairrobotics.alloy.ftc.FTCDebugger;
 import org.montclairrobotics.alloy.update.Updater;
 import org.montclairrobotics.alloy.utils.Initializeable;
@@ -47,6 +48,7 @@ import org.montclairrobotics.alloy.utils.Initializeable;
 public abstract class Alloy extends OpMode {
 
     public static ArrayList<Initializeable> initObjects = new ArrayList<>();
+    private static DriveTrain driveTrain;
 
     /**
      * The robotSetup is where all code specific to robot setup is placed If you only have one
@@ -86,5 +88,13 @@ public abstract class Alloy extends OpMode {
     public void loop() {
         Updater.update();
         periodic();
+    }
+
+    public static void setDriveTrain(DriveTrain driveTrain) {
+        Alloy.driveTrain = driveTrain;
+    }
+
+    public static DriveTrain getDriveTrain() {
+        return driveTrain;
     }
 }

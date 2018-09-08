@@ -72,7 +72,7 @@ public abstract class Debugger {
 
         /**
          * Debugs should contain the most information about a mechanism or process. For example,
-         * debug informtion for a motor would include its target speed, current speed, target
+         * debug information for a motor would include its target speed, current speed, target
          * position, current position, direction, % error, and so on. Debugs should only be turned
          * on when fixing problems, as the amount of information can be quite cluttering
          */
@@ -141,6 +141,16 @@ public abstract class Debugger {
     }
 
     /**
+     * Debug out verbose information
+     *
+     * @param key Name of the value
+     * @param value Value to be displayed
+     */
+    public void debug(String key, Object value) {
+        log(key, value, Level.DEBUG);
+    }
+
+    /**
      * Gives a warning to the user
      *
      * @param warning the warning
@@ -178,15 +188,6 @@ public abstract class Debugger {
         log(key, value, Level.TEST);
     }
 
-    /**
-     * Debug out verbose information
-     *
-     * @param key Name of the value
-     * @param value Value to be displayed
-     */
-    public void debug(String key, Object value) {
-        log(key, value, Level.DEBUG);
-    }
 
     /**
      * A message that overrides the debug level system

@@ -26,12 +26,40 @@ package org.montclairrobotics.alloy.drive;
 import org.montclairrobotics.alloy.vector.Angle;
 import org.montclairrobotics.alloy.vector.Vector;
 
+/**
+ * An input for a drivetrain that takes a rate of translation, and rotation
+ *
+ * <p>A DTInput contains the information for controlling a drivetrain. This information is the
+ * translation, or the rate at which the robot wil move and the rotation, the rate that the robot
+ * will turn
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
+ */
 public class DTInput {
-    public Vector translation;
-    public Angle rotation;
+    /**
+     * A translation vector that controls the rate at which the robot will move In a tank drivetrain
+     * only the Y component will be taken into account In omnidirectional drivetrains, both the x
+     * and y components will be used in drive calculations
+     */
+    private Vector translation;
+
+    /** The rate at which the drivetrain will turn */
+    private Angle rotation;
 
     public DTInput(Vector translation, Angle rotation) {
         this.translation = translation;
         this.rotation = rotation;
+    }
+
+    /** @return the rate at which the robot will move */
+    public Vector getTranslation() {
+        return translation;
+    }
+
+    /** @return the rate at which the robot will rotate */
+    public Angle getRotation() {
+        return rotation;
     }
 }

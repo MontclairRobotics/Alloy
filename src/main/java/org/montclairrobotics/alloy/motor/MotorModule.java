@@ -90,7 +90,7 @@ public class MotorModule extends Component {
             Motor... motors) {
         this.direction = direction;
         this.motors = new ArrayList<>(Arrays.asList(motors));
-        this.powerControl = powerControl;
+        this.powerControl = powerControl.copy();
         this.encoder = encoder;
         try {
             powerControl.setInput(() -> encoder.getScaledVelocity());
@@ -209,5 +209,10 @@ public class MotorModule extends Component {
     /** @return the power modifier of the motor */
     public InputComponent<Double> getModifier() {
         return modifier;
+    }
+
+    /** @return the relative position to the center of the motor group */
+    public Vector getOffset() {
+        return offset;
     }
 }

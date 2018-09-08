@@ -24,15 +24,12 @@ SOFTWARE.
 package org.montclairrobotics.alloy.drive;
 
 import org.montclairrobotics.alloy.motor.Mapper;
-import org.montclairrobotics.alloy.motor.MotorModule;
-import org.montclairrobotics.alloy.utils.Input;
 
 /**
- * Created by MHS Robotics on 12/16/2017.
+ * A mapper that specifically takes in DTInputs
  *
  * @author Garrett Burroughs
  * @since 0.1
+ * @version 0.1
  */
-public interface DTMapper extends Mapper {
-    public void map(Input<DTInput> input, MotorModule... modules);
-}
+public interface DTMapper extends Mapper<DTInput> {}
