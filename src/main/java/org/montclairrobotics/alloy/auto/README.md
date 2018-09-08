@@ -6,7 +6,7 @@ can be found in the auto package.
 
 ## Contents
 
-1. State Machine - A state machine is an object that takes in a number of states and then runs them, states can be ran<br> 
+1. State Machine - A state machine is an object that takes in a number of states and then runs them, states can be ran<br>
 in a linear fashion by default, but can have more fine tuned control by the user. State machines can also be used outside <br>
 of auto modes to run states in teleop. State machines are also states themselves so a state machine can run another state  machine
 
@@ -17,6 +17,9 @@ when they have finished running
 3. Alloy Autonomus - This is the basic framework for alloy auto's. An alloy autonomous takes care of running the state machine<br>
 that the auto is using so all the user has to do is create the state machine and define functionality.
 You can read more about how to use an Alloy Autonomous [Here](https://github.com/GarrettBurroughs/Alloy/wiki/Creating-An-Auto-Mode)
+<<<<<<< HEAD
 
 4. Simple Autonomous - A simple autonomous mode further abstracts away auto mode creation allowing 
 for command like auto mode programming. You can read more about how to use a Simple autonomous [Here](https://github.com/GarrettBurroughs/Alloy/wiki/Creating-An-Auto-Mode)
+=======
+>>>>>>> c6acf51e58c6fa9fea0d80aa10012c6112d66195

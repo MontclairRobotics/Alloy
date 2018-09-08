@@ -1,9 +1,30 @@
+/*
+MIT License
+
+Copyright (c) 2018 Garrett Burroughs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 package org.montclairrobotics.alloy.auto;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.montclairrobotics.alloy.core.RobotCore;
-import org.montclairrobotics.alloy.ftc.FTCDebug;
-
+import org.montclairrobotics.alloy.components.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,13 +54,15 @@ public class StateMachine extends State {
     ArrayList<State> states;
 
     /**
-     * Since state machines can run in a non linear fashion, the last state in the array
-     * may not be the last state in the state machine, finalState keeps track of what signifies the end
-     * of the state machine. The final state should not be in reference to an actual state, but a number that
-     * is outside the index of the state machine.<br />
-     * For example, if a state machine had 5 states in it, a valid final state would could be 6, and to end the state
-     * machine, you would simply have the last state you want to run, go to state 6 once it is done.<br />
-     * Note: even if your state machine is running in a linear fashion, it needs to have a final state.
+     * Since state machines can run in a non linear fashion, the last state in the array may not be
+     * the last state in the state machine, finalState keeps track of what signifies the end of the
+     * state machine. The final state should not be in reference to an actual state, but a number
+     * that is outside the index of the state machine.<br>
+     * For example, if a state machine had 5 states in it, a valid final state would could be 6, and
+     * to end the state machine, you would simply have the last state you want to run, go to state 6
+     * once it is done.<br>
+     * Note: even if your state machine is running in a linear fashion, it needs to have a final
+     * state.
      */
     Integer finalState;
 
@@ -47,11 +70,6 @@ public class StateMachine extends State {
      * The name of the state machine, this is purely for debugging purposes
      */
     String name;
-
-    /**
-     * This debug is used for outputting information about the state machine as it runs
-     */
-    FTCDebug d;
 
     /**
      * A boolean that keeps track of weather or not the current state has been run yet,
@@ -84,7 +102,6 @@ public class StateMachine extends State {
         this.name       = name;
         this.states     = new ArrayList<>(Arrays.asList(states));
         this.finalState = finalState;
-        d = new FTCDebug();
         description = "A state machine";
     }
 
@@ -99,7 +116,7 @@ public class StateMachine extends State {
      */
     @Override
     public void start() {
-        d.log("Running", name);
+        Component.debugger.driverInfo("Running", name);
         timer.reset();
     }
 
@@ -130,13 +147,13 @@ public class StateMachine extends State {
             if(currentState.getNextState(state) < states.size()) { // make sure there is a next state to go to
                 state = currentState.getNextState(state); // go to the next state
             }else{
-                d.log("ERROR", "STATE MACHINE OUT OF BOUNDS"); // Give the user an error if there is no next state to go to
+                Component.debugger.error( "STATE MACHINE OUT OF BOUNDS"); // Give the user an error if there is no next state to go to
                 done = true; // stop the state machine
                 return; // exit the run method to ensure nothing else runs
             }
             stateStarted = false; // The next state has not started yet.
         }
-        d.msg(currentState.debugInfo(state)); // Debug info about the state
+        Component.debugger.test(name + " | State: " + state ,currentState.debugInfo(state)); // Debug info about the state
     }
 
 
@@ -145,7 +162,7 @@ public class StateMachine extends State {
      */
     @Override
     public void stop() {
-        d.log("Status", name + ", Finished ");
+        Component.debugger.test("Status", name + ", Finished ");
     }
 
     /**

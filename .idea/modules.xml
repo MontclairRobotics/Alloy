@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alloy.iml" filepath="$PROJECT_DIR$/.idea/modules/Alloy.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alloy_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Alloy_main.iml" group="Alloy" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alloy_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Alloy_test.iml" group="Alloy" />
-      <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
     </modules>
   </component>
 </project>

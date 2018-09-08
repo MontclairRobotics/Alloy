@@ -1,5 +1,11 @@
-apply plugin: 'java'
-apply plugin: 'maven'
+plugins {
+	id "com.diffplug.gradle.spotless" version "3.10.0"
+	id 'java'
+	id 'maven'
+}
+
+
+
 
 group = 'Alloy'
 version = '0.0.1-SNAPSHOT'
@@ -12,11 +18,25 @@ targetCompatibility = 1.8
 
 
 repositories {
-        
-     maven { url "http://repo.maven.apache.org/maven2" }
+
+	maven { url "http://repo.maven.apache.org/maven2" }
 
 }
 
+spotless {
+    java {
+        googleJavaFormat('1.1').aosp()
+
+
+        licenseHeaderFile 'SpotlessLicense'
+		paddedCell()
+		
+
+    }
+}
+
 dependencies{
-     compile fileTree(dir: "src/main/libs/", include: ['*.jar'])
+	testCompile 'junit:junit:4.12'
+	compile fileTree(dir: "src/main/libs/", include: ['*.jar'])
+	compile 'org.reflections:reflections:0.9.11'
 }
