@@ -31,7 +31,7 @@ public class TankDrive extends DriveTrain {
         super(input, new TankMapper(), modules);
     }
 
-    public TankDrive(MotorModule ... modules){
+    public TankDrive(MotorModule... modules) {
         this(null, modules);
     }
 }

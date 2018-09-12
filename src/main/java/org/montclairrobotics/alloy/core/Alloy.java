@@ -34,17 +34,12 @@ import org.montclairrobotics.alloy.utils.Initializeable;
 /**
  * The main class that takes care of setting up the environment, and running all of the main methods
  *
-<<<<<<< HEAD
- * The main purpose behind the alloy class is to control how and when all of the methods in Robot are run
- * as well as initialize all global variables
-=======
  * <p>The alloy class is an extension of the FTC OpMode class, and takes care of preliminary setup
  * of: <br>
  * - Setting up the global FTC variables in RobotCore <br>
  * - Setting up the global Debugger <br>
  * - Initializing any "initializeables" in the project <br>
  * - Running the users defined methods <br>
->>>>>>> c6acf51e58c6fa9fea0d80aa10012c6112d66195
  *
  * @author Garrett Burroughs
  * @version 0.1
@@ -87,6 +82,7 @@ public abstract class Alloy extends OpMode {
 
         robotSetup();
         initialization();
+        driveTrain.setDefaultInput();
     }
 
     @Override

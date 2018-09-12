@@ -30,7 +30,9 @@ import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.components.Step;
 import org.montclairrobotics.alloy.core.Encoder;
 import org.montclairrobotics.alloy.core.Motor;
+import org.montclairrobotics.alloy.exceptions.InvalidConfigurationException;
 import org.montclairrobotics.alloy.update.Update;
+import org.montclairrobotics.alloy.utils.BangBang;
 import org.montclairrobotics.alloy.utils.ConstantInput;
 import org.montclairrobotics.alloy.utils.ErrorCorrection;
 import org.montclairrobotics.alloy.vector.Vector;
@@ -53,24 +55,41 @@ import org.montclairrobotics.alloy.vector.Vector;
  */
 public class MotorModule extends Component {
     /** The motors that the module will control */
-    public ArrayList<Motor> motors;
+    private ArrayList<Motor> motors;
 
     /** The direction that the modules run for use in a motor group */
-    public Vector direction;
+    private Vector direction;
 
     /** the position of the motor, relative to the center of the motor group */
-    public Vector offset;
+    private Vector offset;
 
     /** An error correction that will control the power */
-    public ErrorCorrection<Double> powerControl;
+    private ErrorCorrection<Double> powerControl;
 
     /** The encoder that keeps track of the position and controls the motors */
-    public Encoder encoder;
+    private Encoder encoder;
 
     /** how fast the module should be running */
-    public double targetPower;
+    private double targetPower;
 
-    public InputComponent<Double> modifier;
+    /**
+     * An input component, that takes in the motor input, and runs it to the output (setting the
+     * motor powers) this way, steps can be added to this modifier, and the input of the module can
+     * be changed
+     */
+    private InputComponent<Double> modifier;
+
+    /** True when the module is being set to a position */
+    private boolean toPotsition = false;
+
+    /** If running to a position, the target position the motor will aim to go to */
+    private double targetPosition;
+
+    /** Error Corrector to get to the right position */
+    private ErrorCorrection<Double> positionCorrection;
+
+    /** How fast the motors move when they are having their position be set */
+    private double movementSpeed;
 
     /**
      * Create a fully functioning motor module
@@ -99,6 +118,10 @@ public class MotorModule extends Component {
         }
 
         modifier = new InputComponent<Double>() {};
+
+        positionCorrection = new BangBang(1);
+
+        positionCorrection.setInput(encoder);
     }
 
     /**
@@ -134,14 +157,28 @@ public class MotorModule extends Component {
         return this;
     }
 
+    public MotorModule setPositionCorrection(ErrorCorrection positionCorrection) {
+        this.positionCorrection = positionCorrection;
+        return this;
+    }
+
     @Update
     public void powerCorrection() {
         if (status.isEnabled()) { // Check if its enabled
-            for (Motor m : motors) {
-                if (powerControl != null) {
-                    m.setMotorPower(targetPower + powerControl.getCorrection());
-                } else {
-                    m.setMotorPower(targetPower);
+            if (!toPotsition) { // Manual operation
+                for (Motor m : motors) {
+                    if (powerControl != null) {
+                        m.setMotorPower(targetPower + powerControl.getCorrection());
+                    } else {
+                        m.setMotorPower(targetPower);
+                    }
+                }
+            } else { // Autonomous operation
+                for (Motor m : motors) {
+                    if (encoder == null)
+                        throw new InvalidConfigurationException(
+                                "Modules must have an encoder to set their position");
+                    m.setMotorPower(positionCorrection.getCorrection() * movementSpeed);
                 }
             }
         } else { // If disabled, set the power to 0
@@ -161,6 +198,16 @@ public class MotorModule extends Component {
         modifier.applySteps();
         targetPower = modifier.get();
         powerControl.setTarget(modifier.get());
+        toPotsition = false;
+    }
+
+    public void setMovementSpeed(double speed) {
+        this.movementSpeed = speed;
+    }
+
+    public void setTargetPosition(double targetPosition) {
+        positionCorrection.setTarget(targetPosition);
+        toPotsition = true;
     }
 
     public MotorModule setPowerModifier(InputComponent<Double> modifier) {
@@ -180,6 +227,8 @@ public class MotorModule extends Component {
             m.setMotorPower(0);
         }
     }
+
+    // Autonomous operation
 
     /** @return the motor arraylist in the module */
     public ArrayList<Motor> getMotors() {
@@ -214,5 +263,17 @@ public class MotorModule extends Component {
     /** @return the relative position to the center of the motor group */
     public Vector getOffset() {
         return offset;
+    }
+
+    public boolean atTargetPosition(double tolerance) {
+        return Math.abs(encoder.getTicks() - targetPosition) < tolerance;
+    }
+
+    public void toPosition() {
+        toPotsition = true;
+    }
+
+    public void usingPower() {
+        toPotsition = false;
     }
 }

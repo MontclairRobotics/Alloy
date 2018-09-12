@@ -43,7 +43,7 @@ public class Polar implements Vector {
 
     public Polar(double magnitude, Angle angle) {
         this.magnitude = magnitude;
-        this.angle     = angle;
+        this.angle = angle;
     }
 
     /**

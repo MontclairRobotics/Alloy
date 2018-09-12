@@ -103,7 +103,7 @@ public class FTCMotor extends Component implements Motor {
     public Encoder getEncoder() {
         return new Encoder() {
             @Override
-            public int getTicks() {
+            public int getRawTicks() {
                 return motor.getCurrentPosition();
             }
         };
