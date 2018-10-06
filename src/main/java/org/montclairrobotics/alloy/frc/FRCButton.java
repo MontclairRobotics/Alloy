@@ -23,9 +23,8 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.frc;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import java.util.ArrayList;
+import org.montclairrobotics.alloy.core.Button;
+import org.montclairrobotics.alloy.utils.Input;
 
 /**
  * Created by MHS Robotics on 10/6/2018.
@@ -33,31 +32,27 @@ import java.util.ArrayList;
  * @author Garrett Burroughs
  * @since
  */
-public class Selector<E> {
-    private static ArrayList<Selector> selectors;
-    private SendableChooser<E> selector;
-    private String name;
+public class FRCButton implements Button {
+    Input<Boolean> out;
 
-    public Selector(String name, SendableChooser selector) {
-        this.selector = selector;
-        this.name = name;
-        selectors.add(this);
+    public FRCButton(FRCJoysitck joystick, int button) {
+        out =
+                () -> {
+                    return joystick.getStick().getRawButton(button);
+                };
     }
 
-    public Selector addOption(String name, E option) {
-        selector.addObject(name, option);
-        return this;
+    public FRCButton(Input<Boolean> button) {
+        out = button;
     }
 
-    public static ArrayList<Selector> getSelectors() {
-        return selectors;
-    }
-
-    public void send() {
-        SmartDashboard.putData(name, selector);
-    }
-
-    public E getSelected() {
-        return selector.getSelected();
+    /**
+     * Gets the value of a button
+     *
+     * @return returns the value of the button, in most case True(pressed) or False(unpressed)
+     */
+    @Override
+    public boolean getValue() {
+        return out.get();
     }
 }

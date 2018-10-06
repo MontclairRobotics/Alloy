@@ -26,8 +26,10 @@ package org.montclairrobotics.alloy.frc;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.montclairrobotics.alloy.auto.StateMachine;
+import org.montclairrobotics.alloy.auto.States.NullState;
 import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.Alloy;
+import org.montclairrobotics.alloy.core.Debugger;
 import org.montclairrobotics.alloy.drive.DriveTrain;
 import org.montclairrobotics.alloy.ftc.FTCDebugger;
 import org.montclairrobotics.alloy.utils.Initializeable;
@@ -41,6 +43,8 @@ import org.montclairrobotics.alloy.utils.Initializeable;
 public abstract class FRCAlloy extends IterativeRobot implements Alloy {
     public static DriveTrain driveTrain;
     private static Selector<StateMachine> autoSelector;
+    private StateMachine autoMode;
+    public static Debugger debugger;
 
     /**
      * Robot-wide initialization code should go here.
@@ -60,6 +64,7 @@ public abstract class FRCAlloy extends IterativeRobot implements Alloy {
     public void robotInit() {
         Component.debugger = new FTCDebugger();
         autoSelector = new Selector<>("Auto Chooser", new SendableChooser());
+        debugger = new FRCDebugger();
         for (Initializeable i : Initializeable.getInitObjects()) {
             i.init();
         }
@@ -84,7 +89,14 @@ public abstract class FRCAlloy extends IterativeRobot implements Alloy {
      */
     @Override
     public void autonomousInit() {
-        super.autonomousInit();
+        autoMode = autoSelector.getSelected();
+        try {
+            autoMode.start();
+        } catch (Exception e) {
+            debugger.error(
+                    "You have not specified an auto mode, a null auto has been created for you");
+            autoMode = new StateMachine("Null Auto", 0, new NullState());
+        }
     }
 
     /** Periodic code for autonomous mode should go here. */
@@ -116,5 +128,7 @@ public abstract class FRCAlloy extends IterativeRobot implements Alloy {
         }
     }
 
-    public void addAutoMode(StateMachine autoMode) {}
+    public void addAutoMode(StateMachine autoMode) {
+        autoSelector.addOption(autoMode.getName(), autoMode);
+    }
 }

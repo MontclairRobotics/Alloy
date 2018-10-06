@@ -21,11 +21,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.frc;
+package org.montclairrobotics.alloy.auto.States;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import java.util.ArrayList;
+import org.montclairrobotics.alloy.auto.State;
 
 /**
  * Created by MHS Robotics on 10/6/2018.
@@ -33,31 +31,26 @@ import java.util.ArrayList;
  * @author Garrett Burroughs
  * @since
  */
-public class Selector<E> {
-    private static ArrayList<Selector> selectors;
-    private SendableChooser<E> selector;
-    private String name;
+public class NullState extends State {
+    /** The start method is the first thing called when the state is run */
+    @Override
+    public void start() {}
 
-    public Selector(String name, SendableChooser selector) {
-        this.selector = selector;
-        this.name = name;
-        selectors.add(this);
-    }
+    /** The run method is called every loop while the state is running */
+    @Override
+    public void run() {}
 
-    public Selector addOption(String name, E option) {
-        selector.addObject(name, option);
-        return this;
-    }
+    /** The Stop method is the last thing called once the state is done */
+    @Override
+    public void stop() {}
 
-    public static ArrayList<Selector> getSelectors() {
-        return selectors;
-    }
-
-    public void send() {
-        SmartDashboard.putData(name, selector);
-    }
-
-    public E getSelected() {
-        return selector.getSelected();
+    /**
+     * IsDone should return true when the state is finished
+     *
+     * @return true if the state is done
+     */
+    @Override
+    public boolean isDone() {
+        return true;
     }
 }

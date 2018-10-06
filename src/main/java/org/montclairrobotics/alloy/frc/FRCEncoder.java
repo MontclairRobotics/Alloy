@@ -23,9 +23,9 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.frc;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import java.util.ArrayList;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import org.montclairrobotics.alloy.core.Encoder;
+import org.montclairrobotics.alloy.utils.Input;
 
 /**
  * Created by MHS Robotics on 10/6/2018.
@@ -33,31 +33,30 @@ import java.util.ArrayList;
  * @author Garrett Burroughs
  * @since
  */
-public class Selector<E> {
-    private static ArrayList<Selector> selectors;
-    private SendableChooser<E> selector;
-    private String name;
+public class FRCEncoder extends Encoder {
+    Input<Integer> ticks;
 
-    public Selector(String name, SendableChooser selector) {
-        this.selector = selector;
-        this.name = name;
-        selectors.add(this);
+    public FRCEncoder(edu.wpi.first.wpilibj.Encoder encoder) {
+        ticks = () -> encoder.get();
     }
 
-    public Selector addOption(String name, E option) {
-        selector.addObject(name, option);
-        return this;
+    public FRCEncoder(WPI_TalonSRX talon) {
+        ticks =
+                new Input<Integer>() {
+                    @Override
+                    public Integer get() {
+                        return talon.getSensorCollection().getQuadraturePosition();
+                    }
+                };
     }
 
-    public static ArrayList<Selector> getSelectors() {
-        return selectors;
-    }
-
-    public void send() {
-        SmartDashboard.putData(name, selector);
-    }
-
-    public E getSelected() {
-        return selector.getSelected();
+    /**
+     * A method that should be overridden by the encoder
+     *
+     * @return the raw value of encoder ticks that the encoder reads
+     */
+    @Override
+    public int getRawTicks() {
+        return ticks.get();
     }
 }

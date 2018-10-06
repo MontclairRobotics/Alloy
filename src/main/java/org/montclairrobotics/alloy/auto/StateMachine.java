@@ -64,7 +64,7 @@ public class StateMachine extends State {
     Integer finalState;
 
     /** The name of the state machine, this is purely for debugging purposes */
-    String name;
+    private String name;
 
     /**
      * A boolean that keeps track of weather or not the current state has been run yet, this is used
@@ -89,6 +89,10 @@ public class StateMachine extends State {
         this.states = new ArrayList<>(Arrays.asList(states));
         this.finalState = finalState;
         description = "A state machine";
+    }
+
+    public StateMachine(String name, State... states) {
+        this(name, states.length, states);
     }
 
     public StateMachine(String name, String description, int finalState, State... states) {
@@ -174,5 +178,9 @@ public class StateMachine extends State {
      */
     public double getTimeInLastState() {
         return timeInLastState;
+    }
+
+    public String getName() {
+        return name;
     }
 }
