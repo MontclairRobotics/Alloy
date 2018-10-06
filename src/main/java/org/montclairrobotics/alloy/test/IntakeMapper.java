@@ -32,10 +32,10 @@ public class IntakeMapper implements Mapper<Vector> {
     @Override
     public void map(Vector input, MotorModule... modules) {
         for (MotorModule m : modules) {
-            if (m.offset.getX() > 0) {
-                m.setPower((input.getY() + input.getX()) * Utils.sign(m.direction.getY()));
+            if (m.getOffset().getX() > 0) {
+                m.setPower((input.getY() + input.getX()) * Utils.sign(m.getDirection().getY()));
             } else {
-                m.setPower((input.getY() - input.getX()) * Utils.sign(m.direction.getY()));
+                m.setPower((input.getY() - input.getX()) * Utils.sign(m.getDirection().getY()));
             }
         }
     }

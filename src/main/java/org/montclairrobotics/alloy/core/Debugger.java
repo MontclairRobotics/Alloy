@@ -188,7 +188,6 @@ public abstract class Debugger {
         log(key, value, Level.TEST);
     }
 
-
     /**
      * A message that overrides the debug level system
      *

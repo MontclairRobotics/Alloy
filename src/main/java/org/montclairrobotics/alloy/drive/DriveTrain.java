@@ -23,10 +23,11 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.drive;
 
-import org.montclairrobotics.alloy.components.InputComponent;
+import java.util.ArrayList;
 import org.montclairrobotics.alloy.motor.Mapper;
 import org.montclairrobotics.alloy.motor.MotorGroup;
 import org.montclairrobotics.alloy.motor.MotorModule;
+import org.montclairrobotics.alloy.utils.Input;
 
 /**
  * Created by MHS Robotics on 12/16/2017.
@@ -35,17 +36,57 @@ import org.montclairrobotics.alloy.motor.MotorModule;
  * @since 0.1
  */
 public class DriveTrain extends MotorGroup<DTInput> {
-    public DriveTrain(InputComponent<DTInput> input, Mapper mapper, MotorModule... modules) {
+    Input<DTInput> defaultInput;
+
+    public DriveTrain(Input<DTInput> input, Mapper mapper, MotorModule... modules) {
         super(input, mapper, modules);
+        defaultInput = input;
     }
 
-    public DriveTrain setInput(InputComponent<DTInput> input) {
-        this.input = input;
-        return this;
+    public void setDefaultInput() {
+        setInput(defaultInput);
     }
 
-    public DriveTrain setMapper(Mapper mapper) {
-        this.mapper = mapper;
-        return this;
+    public int[] getEncoderValues() {
+        ArrayList<MotorModule> modules = getModules();
+        int[] values = new int[modules.size()];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = modules.get(i).getEncoder().getTicks();
+        }
+        return values;
+    }
+
+    public int[] getRightEncoderValues() {
+        ArrayList<MotorModule> modules = getModules();
+        int total = 0;
+        for (MotorModule m : modules) {
+            if (m.getOffset().getX() > 0) {
+                total++;
+            }
+        }
+        int[] values = new int[total];
+        for (int i = 0; i < values.length; i++) {
+            if (modules.get(i).getOffset().getX() > 0) {
+                values[i] = modules.get(i).getEncoder().getTicks();
+            }
+        }
+        return values;
+    }
+
+    public int[] getLeftEncoderValues() {
+        ArrayList<MotorModule> modules = getModules();
+        int total = 0;
+        for (MotorModule m : modules) {
+            if (m.getOffset().getX() < 0) {
+                total++;
+            }
+        }
+        int[] values = new int[total];
+        for (int i = 0; i < values.length; i++) {
+            if (modules.get(i).getOffset().getX() < 0) {
+                values[i] = modules.get(i).getEncoder().getTicks();
+            }
+        }
+        return values;
     }
 }

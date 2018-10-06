@@ -21,33 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.core;
+package org.montclairrobotics.alloy.auto;
 
-import org.montclairrobotics.alloy.drive.DriveTrain;
+import org.montclairrobotics.alloy.auto.States.Drive;
+import org.montclairrobotics.alloy.auto.States.Turn;
 
-public interface Alloy {
+/**
+ * Created by MHS Robotics on 1/26/2018.
+ *
+ * <p>SimpleAutonomous abstracts away the concept of adding states to a state machine, so that
+ * states can be added as if they were commands to be executed by the auto mode. This class only has
+ * the pre-written states included, so another class extending this one would need to be created to
+ * add any custom states
+ *
+ * @author Garrett Burroughs
+ * @since
+ */
+public class SimpleAutonomous extends AlloyAutonomous {
+    @Override
+    public void setup() {}
 
-    /**
-     * The robotSetup is where all code specific to robot setup is placed If you only have one
-     * teleop this can be done in the initialization Method. robotSetup is called right after the
-     * robot core is initialized
-     */
-    public void robotSetup();
+    public void drive(double speed, double distance) {
+        auto.addState(new Drive(speed, distance));
+    }
 
-    /**
-     * The initialization method is were everything specific to the OpMode Should be set up.
-     * Initialization will be the first thing called after The robot setup.
-     */
-    public void initialization();
-
-    /**
-     * Although most of the periodic actions are taken care by the updater, the user may want to add
-     * their own methods and code that need to be updated or run periodically, this can be done in
-     * the periodic() method periodic will be run every loop.
-     */
-    public void periodic();
-
-    public void setDriveTrain(DriveTrain driveTrain);
-
-    public DriveTrain getDriveTrain();
+    public void turn(double speed, double degrees) {
+        auto.addState(new Turn(speed, degrees));
+    }
 }

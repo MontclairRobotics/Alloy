@@ -21,33 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.core;
+package org.montclairrobotics.alloy.Exceptions;
 
-import org.montclairrobotics.alloy.drive.DriveTrain;
-
-public interface Alloy {
-
-    /**
-     * The robotSetup is where all code specific to robot setup is placed If you only have one
-     * teleop this can be done in the initialization Method. robotSetup is called right after the
-     * robot core is initialized
-     */
-    public void robotSetup();
-
-    /**
-     * The initialization method is were everything specific to the OpMode Should be set up.
-     * Initialization will be the first thing called after The robot setup.
-     */
-    public void initialization();
-
-    /**
-     * Although most of the periodic actions are taken care by the updater, the user may want to add
-     * their own methods and code that need to be updated or run periodically, this can be done in
-     * the periodic() method periodic will be run every loop.
-     */
-    public void periodic();
-
-    public void setDriveTrain(DriveTrain driveTrain);
-
-    public DriveTrain getDriveTrain();
-}
+/**
+ * Created by MHS Robotics on 1/26/2018.
+ *
+ * @author Garrett Burroughs
+ * @since
+ */
+public class InvalidParameterException extends Exception {}

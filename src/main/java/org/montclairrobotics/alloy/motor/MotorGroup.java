@@ -26,8 +26,8 @@ package org.montclairrobotics.alloy.motor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.montclairrobotics.alloy.components.Component;
-import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.update.Update;
+import org.montclairrobotics.alloy.utils.Input;
 
 /**
  * A motor group is a group of motor modules that run together
@@ -43,15 +43,15 @@ import org.montclairrobotics.alloy.update.Update;
 public class MotorGroup<T> extends Component {
 
     /** The mapper that will be used for power assignment and calculation */
-    public Mapper mapper;
+    private Mapper mapper;
 
     /** The modules contained in the motor group */
-    public ArrayList<MotorModule> modules;
+    private ArrayList<MotorModule> modules;
 
     /** The control input for the motor group */
-    public InputComponent<T> input;
+    private Input<T> input;
 
-    public MotorGroup(InputComponent input, Mapper mapper, MotorModule... modules) {
+    public MotorGroup(Input input, Mapper mapper, MotorModule... modules) {
         this.input = input;
         this.mapper = mapper;
         this.modules = (ArrayList) Arrays.asList(modules);
@@ -63,12 +63,32 @@ public class MotorGroup<T> extends Component {
      * @param input
      * @param modules
      */
-    public MotorGroup(InputComponent<Double> input, MotorModule... modules) {
+    public MotorGroup(Input<Double> input, MotorModule... modules) {
         this(input, new DefaultMapper(), modules);
     }
 
     @Update
     public void controlPower() {
         mapper.map(input, modules.toArray(new MotorModule[modules.size()]));
+    }
+
+    public Mapper getMapper() {
+        return mapper;
+    }
+
+    public void setMapper(Mapper mapper) {
+        this.mapper = mapper;
+    }
+
+    public Input<T> getInput() {
+        return input;
+    }
+
+    public void setInput(Input<T> input) {
+        this.input = input;
+    }
+
+    public ArrayList<MotorModule> getModules() {
+        return modules;
     }
 }
