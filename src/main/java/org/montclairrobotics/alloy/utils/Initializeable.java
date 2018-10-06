@@ -25,6 +25,8 @@ package org.montclairrobotics.alloy.utils;
 
 import org.montclairrobotics.alloy.core.Alloy;
 
+import java.util.ArrayList;
+
 /**
  * An object that gets initialized once at the beginning of the teleop mode
  *
@@ -33,10 +35,15 @@ import org.montclairrobotics.alloy.core.Alloy;
  * @since 0.1
  */
 public abstract class Initializeable {
-
+    private static ArrayList<Initializeable> initObjects = new ArrayList<>();
+    
     public Initializeable() {
-        Alloy.initObjects.add(this);
+        Initializeable.initObjects.add(this);
     }
     /** the method that is called at the beginning of the teleop mode */
     public abstract void init();
+    
+    public static ArrayList<Initializeable> getInitObjects() {
+        return initObjects;
+    }
 }
