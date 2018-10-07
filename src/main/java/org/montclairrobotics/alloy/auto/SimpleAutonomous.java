@@ -25,6 +25,7 @@ package org.montclairrobotics.alloy.auto;
 
 import org.montclairrobotics.alloy.auto.States.Drive;
 import org.montclairrobotics.alloy.auto.States.Turn;
+import org.montclairrobotics.alloy.vector.Angle;
 
 /**
  * Created by MHS Robotics on 1/26/2018.
@@ -45,7 +46,7 @@ public class SimpleAutonomous extends AlloyAutonomous {
         auto.addState(new Drive(speed, distance));
     }
 
-    public void turn(double speed, double degrees) {
-        auto.addState(new Turn(speed, degrees));
+    public void turn(double speed, Angle angle) {
+        auto.addState(new Turn(speed, angle));
     }
 }

@@ -25,7 +25,14 @@ package org.montclairrobotics.alloy.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+import java.util.Set;
+
+import org.montclairrobotics.alloy.core.Alloy;
 import org.montclairrobotics.alloy.core.RobotCore;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
 /**
  * Created by MHS Robotics on 12/5/2017.
@@ -44,6 +51,7 @@ import org.montclairrobotics.alloy.core.RobotCore;
  * @since 0.1
  */
 public abstract class AlloyAutonomous extends OpMode {
+
     /** Keeps track of when the auto mode is running (True after started and before finished) */
     boolean running;
 
@@ -75,6 +83,22 @@ public abstract class AlloyAutonomous extends OpMode {
      */
     @Override
     public void init() {
+        Reflections reflections = new Reflections(new SubTypesScanner());
+        Set<Class<? extends Alloy>> robots = reflections.getSubTypesOf(Alloy.class);
+        for (Class<? extends Alloy> robot : robots) {
+            try {
+                if (!Modifier.isAbstract(robot.getMethod("robotSetup").getModifiers())
+                        || robot.getMethod("robotSetup") == null) {
+                    robot.getMethod("robotSetup").invoke(robot.newInstance());
+                }
+            } catch (NoSuchMethodException
+                    | IllegalAccessException
+                    | InstantiationException
+                    | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+
         new RobotCore(telemetry, hardwareMap, gamepad1, gamepad2);
         setup();
     }

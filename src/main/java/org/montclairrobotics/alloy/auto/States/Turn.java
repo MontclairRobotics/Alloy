@@ -57,9 +57,9 @@ public class Turn extends State {
         Turn.tolerance = tolerance;
     }
 
-    public Turn(double speed, double degrees) {
+    public Turn(double speed, Angle angle) {
         this.speed = speed;
-        this.degrees = degrees;
+        this.degrees = angle.getDegrees();
         driveTrain = Alloy.getDriveTrain();
     }
 
