@@ -160,13 +160,13 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
     /**
      * If the mode is custom, then the update method will set the motor power using the custom PID
      */
-    @Update
-    public void update() {
+    @Override
+    public void updateMotor() {
         if (status.isEnabled()) { // Check if enabled
             if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {
                 if (runmode == Mode.CUSTOM) {
                     setTargetPower(
-                            correction
+                            targetPower * correction
                                     .getCorrection()); // If running using custom PID mode, set power to PID output
                 } else {
                     motor.setPower(
