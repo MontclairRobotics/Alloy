@@ -68,7 +68,7 @@ publishing {
 
 
 artifactory {
-    contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    contextUrl = "http://67.205.146.144:8081/artifactory"   //The base Artifactory URL if not overridden by the publisher/resolver
     publish {
         repository {
             repoKey = "libs-${snapshot ? "snapshot" : "release"}-local"
