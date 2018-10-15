@@ -6,7 +6,7 @@ can be found in the auto package.
 
 ## Contents
 
-1. State Machine - A state machine is an object that takes in a number of states and then runs them, states can be ran<br> 
+1. State Machine - A state machine is an object that takes in a number of states and then runs them, states can be ran<br>
 in a linear fashion by default, but can have more fine tuned control by the user. State machines can also be used outside <br>
 of auto modes to run states in teleop. State machines are also states themselves so a state machine can run another state  machine
 

@@ -1,0 +1,13 @@
+org.montclairrobotics.alloy.auto
+org.montclairrobotics.alloy.components
+org.montclairrobotics.alloy.control
+org.montclairrobotics.alloy.core
+org.montclairrobotics.alloy.drive
+org.montclairrobotics.alloy.exceptions
+org.montclairrobotics.alloy.ftc
+org.montclairrobotics.alloy.motor
+org.montclairrobotics.alloy.steps
+org.montclairrobotics.alloy.test
+org.montclairrobotics.alloy.update
+org.montclairrobotics.alloy.utils
+org.montclairrobotics.alloy.vector
