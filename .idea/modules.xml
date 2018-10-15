@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Alloy.iml" filepath="$PROJECT_DIR$/Alloy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alloy.iml" filepath="$PROJECT_DIR$/.idea/modules/Alloy.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alloy_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Alloy_main.iml" group="Alloy" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alloy_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Alloy_test.iml" group="Alloy" />
     </modules>

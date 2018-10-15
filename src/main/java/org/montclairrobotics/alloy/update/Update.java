@@ -28,6 +28,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Indicates that the annotated method will be updated by the updater
+ *
+ * <p>All methods annotated with @Update, will be added to the updater, but can only be successfully
+ * updated if the method exists within a {@link org.montclairrobotics.alloy.components.Component}
+ *
+ * @author Garrett Burroughs
+ * @version 0.1
+ * @since 0.1
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface Update {

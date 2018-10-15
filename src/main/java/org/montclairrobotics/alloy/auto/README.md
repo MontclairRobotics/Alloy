@@ -17,3 +17,6 @@ when they have finished running
 3. Alloy Autonomus - This is the basic framework for alloy auto's. An alloy autonomous takes care of running the state machine<br>
 that the auto is using so all the user has to do is create the state machine and define functionality.
 You can read more about how to use an Alloy Autonomous [Here](https://github.com/GarrettBurroughs/Alloy/wiki/Creating-An-Auto-Mode)
+
+4. Simple Autonomous - A simple autonomous mode further abstracts away auto mode creation allowing 
+for command like auto mode programming. You can read more about how to use a Simple autonomous [Here](https://github.com/GarrettBurroughs/Alloy/wiki/Creating-An-Auto-Mode)

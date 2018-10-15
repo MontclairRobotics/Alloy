@@ -23,30 +23,39 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.core;
 
+import org.montclairrobotics.alloy.utils.ConstantInput;
+import org.montclairrobotics.alloy.utils.Input;
+
 /**
- * Created by MHS Robotics on 11/13/2017.
+ * Contains the necessary information for a debug
  *
- * <p>Debugs are used for debugging information to the user In ftc the debugs use Telemetry to read
- * an output to the phone The debug allows for easier usage of the telemetry methods That are most
- * used for debugging.
+ * <p>Every debug has a key, which is a title or label of the information being debugged This can be
+ * the type of information ex. 'ERROR', where the information is coming from and what it is ex.
+ * "Right Left Motor encoder value", or any other descriptor of the information
  *
+ * <p>Every debug also has the actual value that is being debugged The part where it is actually
+ * debugged is taken care of the Debugger
+ *
+ * @see Debugger
  * @author Garrett Burroughs
  * @version 0.1
  * @since 0.1
  */
-public interface Debug {
-    /**
-     * Debugs a value with a Key(Identifier)
-     *
-     * @param key Name of the value
-     * @param value Value to be debugged
-     */
-    public void log(String key, Object value);
+public class Debug {
+    /** The key, label, or name of the information */
+    public String key;
+    /** The information, or object to be debugged */
+    public Input<Object> value;
 
-    /**
-     * Debugs any value or message(note) to the user with a default key
-     *
-     * @param value Value to be debugged
-     */
-    public void msg(Object value);
+    /** debug a changing value */
+    public Debug(String key, Input<Object> value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    /** debug a constant value */
+    public Debug(String key, Object value) {
+        this.key = key;
+        this.value = new ConstantInput<>(value);
+    }
 }

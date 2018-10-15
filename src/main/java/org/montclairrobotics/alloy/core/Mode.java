@@ -24,9 +24,7 @@ SOFTWARE.
 package org.montclairrobotics.alloy.core;
 
 /**
- * Created by MHS Robotics on 11/14/2017.
- *
- * <p>Mode stores all the different run modes that a robot can run in
+ * All of the different running states that the robot can be in
  *
  * @author Garrett Burroughs
  * @version 0.1

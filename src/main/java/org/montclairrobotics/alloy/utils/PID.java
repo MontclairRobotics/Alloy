@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.utils;
 
+import org.montclairrobotics.alloy.components.InputComponent;
+import org.montclairrobotics.alloy.exceptions.InvalidConfigurationException;
 import org.montclairrobotics.alloy.update.Update;
 
 /**
@@ -42,14 +44,13 @@ import org.montclairrobotics.alloy.update.Update;
  *
  * @author Garrett Burroughs
  * @since 0.1
+ * @version 0.1
  */
-public class PID implements Input<Double> {
+public class PID extends InputComponent<Double> implements ErrorCorrection<Double> {
     private double p;
     private double i;
     private double d;
-    private Input<Double> input;
     private double target;
-    private double correction;
 
     /** The error of the PID, calculated by the target - input */
     private double error;
@@ -58,17 +59,22 @@ public class PID implements Input<Double> {
      * graphed) AKA derivative
      */
     private double errorRate;
+
     /**
      * The total error that has accumulated over time (Area under the graph if the error were
      * graphed) AKA Integral
      */
     private double totalError;
+
     /** The error of the previous calculation, used for calculating the rate of error */
     private double prevError;
+
     /** The time of the previous calculation, used for calculating the rate of error */
     private double prevTime;
+
     /** The difference in time between update loops */
     private double timeDifference;
+
     /** The difference in error between update loops */
     private double errorDifference;
 
@@ -98,29 +104,22 @@ public class PID implements Input<Double> {
         this.p = p;
         this.i = i;
         this.d = d;
-        this.input = input;
+        super.input = input;
         this.target = target;
     }
 
-    public PID setTarget(double target) {
+    @Override
+    public PID setTarget(Double target) {
         this.target = target;
         return this;
     }
 
+    @Override
     public PID setInput(Input<Double> input) {
         this.input = input;
         return this;
     }
 
-    @Override
-    public Double get() {
-        return correction;
-    }
-
-    /**
-     * The update method should be defined for every updatable, and is called every loop if added to
-     * the updater
-     */
     @Update
     public void update() {
 
@@ -128,7 +127,7 @@ public class PID implements Input<Double> {
         try {
             error = target - input.get();
         } catch (NullPointerException e) {
-            throw new RuntimeException(
+            throw new InvalidConfigurationException(
                     "PID input has not been defined use pid.setInput(Input<Double> input), to set it");
         }
 
@@ -148,10 +147,25 @@ public class PID implements Input<Double> {
         // Calculate Error Integral
         totalError += error;
 
-        // Calculate Correction
-        correction = p * error + i * totalError + d * errorRate;
-
+        // Calculate Correction and set the output
+        if (status.isEnabled()) {
+            output = p * error + i * totalError + d * errorRate;
+        } else {
+            output = 0d;
+        }
         prevError = error;
         prevTime = System.currentTimeMillis() / 1000d;
+    }
+
+    /** @return the calculated correction */
+    @Override
+    public Double getCorrection() {
+        return output;
+    }
+
+    /** @return A copy of the error correction */
+    @Override
+    public ErrorCorrection copy() {
+        return new PID(p, i, d).setTarget(target).setInput(input);
     }
 }

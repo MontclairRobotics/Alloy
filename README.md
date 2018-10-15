@@ -1,8 +1,20 @@
+<<<<<<< HEAD
+# Alloy  [![Build Status](https://travis-ci.org/GarrettBurroughs/Alloy.svg?branch=master)](https://travis-ci.org/GarrettBurroughs/Alloy) [![CodeFactor](https://www.codefactor.io/repository/github/garrettburroughs/alloy/badge)](https://www.codefactor.io/repository/github/garrettburroughs/alloy) 
+=======
 # Alloy  [![Build Status](https://travis-ci.org/GarrettBurroughs/Alloy.svg?branch=master)](https://travis-ci.org/GarrettBurroughs/Alloy) [![CodeFactor](https://www.codefactor.io/repository/github/garrettburroughs/alloy/badge)](https://www.codefactor.io/repository/github/garrettburroughs/alloy) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f3335dca15a8429ebc50528ca6330411)](https://www.codacy.com/project/garrett_2/Alloy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GarrettBurroughs/Alloy&amp;utm_campaign=Badge_Grade_Dashboard)
+>>>>>>> c6acf51e58c6fa9fea0d80aa10012c6112d66195
 
 ![AlloyLogo](http://gdurl.com/AFl8)
 
 Status: **Beta**
+<<<<<<< HEAD
+
+
+Alloy is a robot framework designed specifically for the First Tech Challenge (FTC).
+
+Alloy is based off the FRC robot framework [Sprocket](https://github.com/MontclairRobotics/Sprocket), but redesigned to abstract away the more complex ideas but still allow for advanced robot functionality.
+=======
+Note: Alloy is still under heavy development, and not ready or suggested for use in creating a robot
 
 Developed by FTC147 and FRC555
 
@@ -60,3 +72,4 @@ easier debugging, and updateable methods. But again, all of this can be done wit
 
 A. If you have a problem first see our [Troubleshooting guide](https://github.com/GarrettBurroughs/Alloy/wiki/Troubleshooting-Guide). If that does not fix your problem you can file an [Issue](https://github.com/GarrettBurroughs/Alloy/issues/new)
 using our issue template, please provide as much information as possible so we can fully understand the probelm and fix the issue.
+>>>>>>> c6acf51e58c6fa9fea0d80aa10012c6112d66195

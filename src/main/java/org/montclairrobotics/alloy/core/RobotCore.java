@@ -28,14 +28,17 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
- * Created by MHS Robotics on 12/5/2017.
+ * Stores all of the global robot objects, including telemetry, the hardware map, and gamepads
  *
  * <p>Since essential parts to the robots operation are stored in OpMode
  *
- * @see com.qualcomm.robotcore.eventloop.opmode.OpMode The robot core class creates static instances
- *     of all of the essentail objects on initialization The actual objects are passed in in the
- *     alloy class
- * @see Alloy With this, the user can acess all of the objects throughout the project.
+ * <p>With this, the user can acess all of the objects throughout the project.
+ *
+ * <p>The robot core class creates static instances of all of the essential objects on
+ * initialization The actual objects are passed in in the alloy class
+ *
+ * @see com.qualcomm.robotcore.eventloop.opmode.OpMode
+ * @see Alloy
  * @author Garrett Burroughs
  * @version 0.1
  * @since 0.1

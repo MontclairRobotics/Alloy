@@ -27,18 +27,17 @@ import org.montclairrobotics.alloy.core.Button;
 import org.montclairrobotics.alloy.utils.Toggleable;
 
 /**
- * Created by MHS Robotics on 2/11/2018.
- *
- * <p>A ToggleButton is tied to a button and a toggleable, when the button is pressed the toggleable
+ * A ToggleButton is tied to a button and a toggleable, when the button is pressed the toggleable
  * will toggle between states
  *
  * @see Toggleable
  * @see ButtonAction
  * @author Garrett Burroughs
+ * @version 0.1
  * @since 0.1
  */
 public class ToggleButton extends ButtonAction {
-    Toggleable toggleable;
+    private Toggleable toggleable;
 
     public ToggleButton(Button button, Toggleable toggleable) {
         super(button);
@@ -53,13 +52,19 @@ public class ToggleButton extends ButtonAction {
 
     /** On released is called once, when the button goes from being pressed, to unpressed */
     @Override
-    public void onReleased() {}
+    public void onReleased() {
+        // Will be run right after the button is released
+    }
 
     /** While pressed is called every loop while the button is pressed */
     @Override
-    public void whilePressed() {}
+    public void whilePressed() {
+        // Will be run while the button is held
+    }
 
     /** While released is called every loop while the button is unpressed */
     @Override
-    public void whileReleased() {}
+    public void whileReleased() {
+        // Wil be run while the button is unpressed
+    }
 }

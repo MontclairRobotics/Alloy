@@ -2,6 +2,9 @@ plugins {
 	id "com.diffplug.gradle.spotless" version "3.10.0"
 	id 'java'
 	id 'maven'
+	id "eclipse"
+	id "idea"
+	id "jaci.openrio.gradle.GradleRIO" version "2018.01.22"
 }
 
 
@@ -27,11 +30,18 @@ spotless {
     java {
         googleJavaFormat('1.1').aosp()
 
+
         licenseHeaderFile 'SpotlessLicense'
+		// paddedCell()
+		
+
     }
 }
 
 dependencies{
+	compile wpilib()
+	compile ctre()
+	compile navx()
 	testCompile 'junit:junit:4.12'
 	compile fileTree(dir: "src/main/libs/", include: ['*.jar'])
 	compile 'org.reflections:reflections:0.9.11'

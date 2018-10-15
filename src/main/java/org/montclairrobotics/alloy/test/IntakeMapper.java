@@ -21,42 +21,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.update;
+package org.montclairrobotics.alloy.test;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
+import org.montclairrobotics.alloy.motor.Mapper;
+import org.montclairrobotics.alloy.motor.MotorModule;
+import org.montclairrobotics.alloy.utils.Utils;
+import org.montclairrobotics.alloy.vector.Vector;
 
-/**
- * Created by MHS Robotics on 2/11/2018.
- *
- * @author Garrett Burroughs
- * @since 0.1
- */
-public class Updatable {
-    private Method update;
-    private int updateRate;
-    private Class clazz;
-    private Parameter[] parameters;
-
-    Updatable(Method update, int updateRate, Class clazz, Parameter[] parameters) {
-        this.update = update;
-        this.updateRate = updateRate;
-        this.clazz = clazz;
-        this.parameters = parameters;
-    }
-
-    public void run() {
-        try {
-            update.invoke(clazz);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+public class IntakeMapper implements Mapper<Vector> {
+    @Override
+    public void map(Vector input, MotorModule... modules) {
+        for (MotorModule m : modules) {
+            if (m.getOffset().getX() > 0) {
+                m.setPower((input.getY() + input.getX()) * Utils.sign(m.getDirection().getY()));
+            } else {
+                m.setPower((input.getY() - input.getX()) * Utils.sign(m.getDirection().getY()));
+            }
         }
-    }
-
-    public int getUpdateRate() {
-        return updateRate;
     }
 }

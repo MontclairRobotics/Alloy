@@ -49,6 +49,9 @@ package org.montclairrobotics.alloy.vector;
  * @since 0.1
  */
 public interface Vector {
+
+    Vector ZERO = new XY(0, 0);
+
     /**
      * Gets the X component of the vector
      *
