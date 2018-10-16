@@ -26,6 +26,7 @@ package org.montclairrobotics.alloy.frc;
 import edu.wpi.first.wpilibj.SpeedController;
 import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.Motor;
+import org.montclairrobotics.alloy.update.Update;
 
 /**
  * Created by MHS Robotics on 10/6/2018.
@@ -35,7 +36,9 @@ import org.montclairrobotics.alloy.core.Motor;
  */
 public class FRCMotor extends Component implements Motor {
     SpeedController controller;
-
+    
+    private double power;
+    
     public FRCMotor(SpeedController controller) {
         this.controller = controller;
     }
@@ -83,5 +86,14 @@ public class FRCMotor extends Component implements Motor {
     @Override
     public boolean getInverted() {
         return controller.getInverted();
+    }
+    
+    @Update
+    public void updateMotor(){
+        if(status.isEnabled()){
+            controller.set(power);
+        }else{
+            controller.set(0);
+        }
     }
 }

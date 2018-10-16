@@ -40,6 +40,7 @@ package org.montclairrobotics.alloy.core;
  * @since 0.1
  */
 public abstract class Debugger {
+    
     public enum Level {
 
         /**
