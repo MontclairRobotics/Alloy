@@ -31,7 +31,6 @@ import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.Alloy;
 import org.montclairrobotics.alloy.core.Debugger;
 import org.montclairrobotics.alloy.drive.DriveTrain;
-import org.montclairrobotics.alloy.ftc.FTCDebugger;
 import org.montclairrobotics.alloy.utils.Initializeable;
 
 /**
@@ -62,7 +61,7 @@ public abstract class FRCAlloy extends IterativeRobot implements Alloy {
      */
     @Override
     public void robotInit() {
-        Component.debugger = new FTCDebugger();
+        Component.debugger = new FRCDebugger();
         autoSelector = new Selector<>("Auto Chooser", new SendableChooser());
         debugger = new FRCDebugger();
         for (Initializeable i : Initializeable.getInitObjects()) {

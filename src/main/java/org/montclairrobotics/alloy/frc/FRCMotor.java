@@ -36,9 +36,9 @@ import org.montclairrobotics.alloy.update.Update;
  */
 public class FRCMotor extends Component implements Motor {
     SpeedController controller;
-    
+
     private double power;
-    
+
     public FRCMotor(SpeedController controller) {
         this.controller = controller;
     }
@@ -87,12 +87,12 @@ public class FRCMotor extends Component implements Motor {
     public boolean getInverted() {
         return controller.getInverted();
     }
-    
+
     @Update
-    public void updateMotor(){
-        if(status.isEnabled()){
+    public void updateMotor() {
+        if (status.isEnabled()) {
             controller.set(power);
-        }else{
+        } else {
             controller.set(0);
         }
     }
