@@ -37,15 +37,15 @@ import org.montclairrobotics.alloy.vector.XY;
  */
 public class FRCJoystick extends InputComponent<Vector> implements Joystick {
     edu.wpi.first.wpilibj.Joystick stick;
-    
-    public FRCJoystick(int port){
+
+    public FRCJoystick(int port) {
         this.stick = new edu.wpi.first.wpilibj.Joystick(port);
     }
-    
-    public FRCJoystick(edu.wpi.first.wpilibj.Joystick joystick){
+
+    public FRCJoystick(edu.wpi.first.wpilibj.Joystick joystick) {
         this.stick = joystick;
     }
-    
+
     /**
      * Gets the position of the joystick
      *
@@ -55,15 +55,14 @@ public class FRCJoystick extends InputComponent<Vector> implements Joystick {
     public Vector getValue() {
         return new XY(stick.getX(), stick.getY());
     }
-    
+
     @Update
-    public void updateControls(){
-        if(status.isEnabled()){
+    public void updateControls() {
+        if (status.isEnabled()) {
             output = getValue();
-        }else{
+        } else {
             output = Vector.ZERO;
         }
-        
     }
 
     public edu.wpi.first.wpilibj.Joystick getStick() {

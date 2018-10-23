@@ -44,7 +44,7 @@ import org.montclairrobotics.alloy.vector.XY;
  * @since 0.1
  */
 public class FTCJoystick extends InputComponent<Vector> implements Joystick {
-    
+
     /**
      * The gamepad that the joystick is attached to, this will either be joystick 1, or joystick2,
      * these can be accessed from the RobotCore class
@@ -95,9 +95,9 @@ public class FTCJoystick extends InputComponent<Vector> implements Joystick {
 
     @Update
     public void updateControls() {
-        if(status.isEnabled()){
+        if (status.isEnabled()) {
             output = getValue();
-        }else{
+        } else {
             output = Vector.ZERO;
         }
     }

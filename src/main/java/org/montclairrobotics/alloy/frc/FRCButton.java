@@ -36,7 +36,8 @@ public class FRCButton implements Button {
     Input<Boolean> out;
 
     public FRCButton(FRCJoystick joystick, int button) {
-        out = () -> {
+        out =
+                () -> {
                     return joystick.getStick().getRawButton(button);
                 };
     }
