@@ -145,7 +145,7 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
         }
 
         // Calculate Error Integral
-        totalError += error;
+        totalError += error  * timeDifference;
 
         // Calculate Correction and set the output
         if (status.isEnabled()) {
