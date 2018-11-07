@@ -85,6 +85,7 @@ public class MotorModule extends Component {
      */
     public MotorModule(
             Vector direction,
+            Vector offset,
             Encoder encoder,
             ErrorCorrection<Double> powerControl,
             Motor... motors) {
@@ -92,6 +93,7 @@ public class MotorModule extends Component {
         this.motors = new ArrayList<>(Arrays.asList(motors));
         this.powerControl = powerControl.copy();
         this.encoder = encoder;
+        this.offset = offset;
         try {
             powerControl.setInput(() -> encoder.getScaledVelocity());
         } catch (NullPointerException e) {
@@ -110,8 +112,8 @@ public class MotorModule extends Component {
      * @param direction what direction the module runs
      * @param motors the motors the module controls
      */
-    public MotorModule(Vector direction, Motor... motors) {
-        this(direction, null, null, motors);
+    public MotorModule(Vector direction, Vector offset, Motor... motors) {
+        this(direction, offset, null, null, motors);
     }
 
     /**
@@ -209,6 +211,11 @@ public class MotorModule extends Component {
     /** @return the power modifier of the motor */
     public InputComponent<Double> getModifier() {
         return modifier;
+    }
+
+    public MotorModule setOffset(Vector offset){
+        this.offset = offset;
+        return this;
     }
 
     /** @return the relative position to the center of the motor group */
