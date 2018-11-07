@@ -42,14 +42,20 @@ public class BangBang extends InputComponent<Double> implements ErrorCorrection<
     public double target;
     public double lowOut;
     public double highOut;
+    public double tolerance;
 
-    public BangBang(double lowOut, double highOut) {
+    public BangBang(double lowOut, double highOut, double tolerance) {
         this.lowOut = lowOut;
         this.highOut = highOut;
+        this.tolerance = tolerance;
     }
 
-    public BangBang(double correction) {
-        this(-correction, correction);
+    public BangBang(double correction, double tolerance) {
+        this(-correction, correction, tolerance);
+    }
+
+    public BangBang(double correction){
+        this(correction, 0);
     }
 
     /**
@@ -87,9 +93,9 @@ public class BangBang extends InputComponent<Double> implements ErrorCorrection<
 
     @Update
     public void calculateCorrection() {
-        if (input.get() > target) {
+        if (input.get() > target + tolerance) {
             output = highOut;
-        } else if (input.get() < target) {
+        } else if (input.get() < target - tolerance) {
             output = lowOut;
         } else {
             output = 0d;
