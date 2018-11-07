@@ -27,7 +27,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.montclairrobotics.alloy.core.Debug;
 import org.montclairrobotics.alloy.core.Encoder;
 import org.montclairrobotics.alloy.core.TargetMotor;
-import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.utils.ErrorCorrection;
 import org.montclairrobotics.alloy.utils.Input;
 
@@ -166,8 +165,9 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
             if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {
                 if (runmode == Mode.CUSTOM) {
                     setTargetPower(
-                            targetPower * correction
-                                    .getCorrection()); // If running using custom PID mode, set power to PID output
+                            targetPower
+                                    * correction
+                                            .getCorrection()); // If running using custom PID mode, set power to PID output
                 } else {
                     motor.setPower(
                             targetPower); // If running in default target mode, set the target power

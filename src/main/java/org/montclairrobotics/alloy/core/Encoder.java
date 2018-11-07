@@ -176,12 +176,12 @@ public abstract class Encoder extends InputComponent<Integer> {
     public Differential getAccelerationDifferential() {
         return calcAcceleration;
     }
-    
-    public double getDistancePerTick(){
-       return distancePerTick;
+
+    public double getDistancePerTick() {
+        return distancePerTick;
     }
-    
-    public double getTicksPerDistance(){
+
+    public double getTicksPerDistance() {
         return 1 / distancePerTick;
     }
 }

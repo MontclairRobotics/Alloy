@@ -23,7 +23,9 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.frc;
 
+import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.core.Joystick;
+import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.vector.Vector;
 import org.montclairrobotics.alloy.vector.XY;
 
@@ -33,8 +35,16 @@ import org.montclairrobotics.alloy.vector.XY;
  * @author Garrett Burroughs
  * @since
  */
-public class FRCJoysitck implements Joystick {
+public class FRCJoystick extends InputComponent<Vector> implements Joystick {
     edu.wpi.first.wpilibj.Joystick stick;
+
+    public FRCJoystick(int port) {
+        this.stick = new edu.wpi.first.wpilibj.Joystick(port);
+    }
+
+    public FRCJoystick(edu.wpi.first.wpilibj.Joystick joystick) {
+        this.stick = joystick;
+    }
 
     /**
      * Gets the position of the joystick
@@ -44,6 +54,15 @@ public class FRCJoysitck implements Joystick {
     @Override
     public Vector getValue() {
         return new XY(stick.getX(), stick.getY());
+    }
+
+    @Update
+    public void updateControls() {
+        if (status.isEnabled()) {
+            output = getValue();
+        } else {
+            output = Vector.ZERO;
+        }
     }
 
     public edu.wpi.first.wpilibj.Joystick getStick() {

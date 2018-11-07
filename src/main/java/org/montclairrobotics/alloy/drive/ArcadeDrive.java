@@ -21,38 +21,27 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.frc;
+package org.montclairrobotics.alloy.drive;
 
-import org.montclairrobotics.alloy.core.Button;
-import org.montclairrobotics.alloy.utils.Input;
+import org.montclairrobotics.alloy.components.InputComponent;
+import org.montclairrobotics.alloy.core.Joystick;
+import org.montclairrobotics.alloy.vector.Angle;
+import org.montclairrobotics.alloy.vector.XY;
 
 /**
- * Created by MHS Robotics on 10/6/2018.
+ * Created by MHS Robotics on 10/20/2018.
  *
  * @author Garrett Burroughs
  * @since
  */
-public class FRCButton implements Button {
-    Input<Boolean> out;
-
-    public FRCButton(FRCJoystick joystick, int button) {
-        out =
-                () -> {
-                    return joystick.getStick().getRawButton(button);
-                };
-    }
-
-    public FRCButton(Input<Boolean> button) {
-        out = button;
-    }
-
-    /**
-     * Gets the value of a button
-     *
-     * @return returns the value of the button, in most case True(pressed) or False(unpressed)
-     */
-    @Override
-    public boolean getValue() {
-        return out.get();
+public class ArcadeDrive extends InputComponent<DTInput> {
+    public ArcadeDrive(Joystick translationalStick, Joystick rotationalStick) {
+        setInput(
+                () ->
+                        new DTInput(
+                                new XY(
+                                        translationalStick.getValue().getX(),
+                                        translationalStick.getValue().getY()),
+                                new Angle(rotationalStick.getValue().getX())));
     }
 }

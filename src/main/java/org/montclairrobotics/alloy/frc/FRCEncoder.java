@@ -41,13 +41,7 @@ public class FRCEncoder extends Encoder {
     }
 
     public FRCEncoder(WPI_TalonSRX talon) {
-        ticks =
-                new Input<Integer>() {
-                    @Override
-                    public Integer get() {
-                        return talon.getSensorCollection().getQuadraturePosition();
-                    }
-                };
+        ticks = () -> talon.getSensorCollection().getQuadraturePosition();
     }
 
     /**

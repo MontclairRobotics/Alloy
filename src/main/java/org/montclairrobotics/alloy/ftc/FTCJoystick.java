@@ -95,6 +95,10 @@ public class FTCJoystick extends InputComponent<Vector> implements Joystick {
 
     @Update
     public void updateControls() {
-        output = getValue();
+        if (status.isEnabled()) {
+            output = getValue();
+        } else {
+            output = Vector.ZERO;
+        }
     }
 }

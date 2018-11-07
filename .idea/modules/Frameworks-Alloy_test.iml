@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="4">
-  <component name="ExternalSystem" externalSystem="GRADLE" externalSystemModuleGroup="Alloy" externalSystemModuleType="sourceSet" externalSystemModuleVersion="0.0.1-SNAPSHOT" linkedProjectId="Alloy:test" linkedProjectPath="$MODULE_DIR$/../.." rootProjectPath="$MODULE_DIR$/../.." />
+<module external.linked.project.id="Alloy:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="org.montclairrobotics" external.system.module.type="sourceSet" external.system.module.version="FRC-0.0.1" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output-test url="file://$MODULE_DIR$/../../out/test/classes" />
-<<<<<<< HEAD
-    <content url="file://$MODULE_DIR$/../../src/test" />
-    <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: edu.wpi.first.wpilibj:wpilibj-java:2018.1.1" level="project" />
-    <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.guava:guava:20.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.javassist:javassist:3.21.0-GA" level="project" />
-    <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
-=======
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/resources" type="java-test-resource" />
     </content>
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Alloy_main" />
->>>>>>> 1b310d2ce2fd727ce2094b4258494c4eecbcf22d
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -29,9 +19,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-<<<<<<< HEAD
-    <orderEntry type="library" name="Gradle: org.reflections:reflections:0.9.11" level="project" />
-=======
     <orderEntry type="library" name="Gradle: edu.wpi.first.wpilibj:wpilibj-java:2018.2.2" level="project" />
     <orderEntry type="library" name="Gradle: edu.wpi.first.ntcore:ntcore-java:4.0.0" level="project" />
     <orderEntry type="library" name="Gradle: edu.wpi.first.wpiutil:wpiutil-java:3.0.0" level="project" />
@@ -44,7 +31,6 @@
     <orderEntry type="library" name="Gradle: com.google.guava:guava:20.0" level="project" />
     <orderEntry type="library" name="Gradle: org.javassist:javassist:3.21.0-GA" level="project" />
     <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
->>>>>>> 1b310d2ce2fd727ce2094b4258494c4eecbcf22d
   </component>
   <component name="TestModuleProperties" production-module="Alloy_main" />
 </module>

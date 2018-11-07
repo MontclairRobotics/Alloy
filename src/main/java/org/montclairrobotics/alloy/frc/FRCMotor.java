@@ -36,9 +36,9 @@ import org.montclairrobotics.alloy.update.Update;
  */
 public class FRCMotor extends Component implements Motor {
     SpeedController controller;
-    
+
     private double power;
-    
+
     public FRCMotor(SpeedController controller) {
         this.controller = controller;
     }
@@ -55,7 +55,11 @@ public class FRCMotor extends Component implements Motor {
      */
     @Override
     public void setMotorPower(double power) {
-        controller.set(power);
+        this.power = power;
+        if(status.isEnabled()){
+            controller.set(power);
+    
+        }
     }
 
     /**
@@ -87,13 +91,25 @@ public class FRCMotor extends Component implements Motor {
     public boolean getInverted() {
         return controller.getInverted();
     }
+
     
-    @Update
-    public void updateMotor(){
-        if(status.isEnabled()){
-            controller.set(power);
-        }else{
-            controller.set(0);
-        }
+    /**
+     * The action that is taken when the component is disabled, should be overridden by the user
+     */
+    @Override
+    public void disableAction() {
+        controller.set(0);
+    }
+    
+    /**
+     * Disables the toggleable
+     */
+    @Override
+    public void disable() {
+        controller.set(power);
+    }
+    
+    public SpeedController getController(){
+        return controller;
     }
 }
