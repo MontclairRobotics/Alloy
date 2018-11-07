@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="Alloy_main" target="1.8" />
       <module name="Alloy_test" target="1.8" />
+      <module name="repos-Alloy_main" target="1.8" />
+      <module name="repos-Alloy_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
