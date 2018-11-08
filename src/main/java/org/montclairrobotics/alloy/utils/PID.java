@@ -192,6 +192,14 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
     /** @return A copy of the error correction */
     @Override
     public ErrorCorrection copy() {
-        return new PID(p, i, d).setTarget(target).setInput(input);
+        return new PID(p, i, d).setTarget(target).setInput(input).setInputConstraints(minIn, maxIn).setOutputConstraints(minOut, maxOut);
+    }
+
+    /**
+     * @return the current target that the error correction is trying to correct to
+     */
+    @Override
+    public Double getTarget() {
+        return target;
     }
 }
