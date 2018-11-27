@@ -96,8 +96,8 @@ public class Utils {
         return pow % 2 == 0 ? regularResult * sign(in) : regularResult;
     }
 
-    public static double wrap(double in, double min, double max){
+    public static double wrap(double in, double min, double max) {
         double diff = min - max;
-        return ((in-min)%diff+diff)%diff+max;
+        return ((in - min) % diff + diff) % diff + max;
     }
 }

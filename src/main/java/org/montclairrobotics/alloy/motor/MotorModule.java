@@ -213,7 +213,7 @@ public class MotorModule extends Component {
         return modifier;
     }
 
-    public MotorModule setOffset(Vector offset){
+    public MotorModule setOffset(Vector offset) {
         this.offset = offset;
         return this;
     }

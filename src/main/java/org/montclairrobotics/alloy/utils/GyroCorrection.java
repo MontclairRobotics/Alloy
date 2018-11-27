@@ -24,13 +24,10 @@ SOFTWARE.
 package org.montclairrobotics.alloy.utils;
 
 import org.montclairrobotics.alloy.components.InputComponent;
-import org.montclairrobotics.alloy.drive.DTInput;
-import org.montclairrobotics.alloy.update.Update;
 import org.montclairrobotics.alloy.vector.Angle;
 
 /**
  * A correction based on a gyroscope, to keep a consistent heading
- *
  *
  * @author Garrett Burroughs
  * @version 0.1
@@ -43,29 +40,26 @@ public class GyroCorrection extends InputComponent<Double> {
     private Input<Double> heading;
     private PID correction;
 
-
-    public GyroCorrection(Input<Double> heading, PID correction){
+    public GyroCorrection(Input<Double> heading, PID correction) {
         this.heading = heading;
         this.correction = correction;
         correction.setInputConstraints(-180, 180);
         correction.setOutputConstraints(-1, 1);
-
     }
 
-
-    public void setRelativeTargetAngle(Angle a){
+    public void setRelativeTargetAngle(Angle a) {
         correction.setTarget(correction.getTarget() + a.getDegrees());
     }
 
-    public void setTargetAngle(Angle a){
+    public void setTargetAngle(Angle a) {
         correction.setTarget(a.getDegrees());
     }
 
-    public PID getCorrection(){
+    public PID getCorrection() {
         return correction;
     }
 
-    public GyroCorrection reset(){
+    public GyroCorrection reset() {
 
         return this;
     }

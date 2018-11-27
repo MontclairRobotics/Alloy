@@ -43,9 +43,10 @@ public class DriveModule extends MotorModule {
      */
     public DriveModule(
             Vector direction,
+            Vector offset,
             Encoder encoder,
             ErrorCorrection<Double> powerControl,
             Motor... motors) {
-        super(direction, encoder, powerControl, motors);
+        super(direction, offset, encoder, powerControl, motors);
     }
 }

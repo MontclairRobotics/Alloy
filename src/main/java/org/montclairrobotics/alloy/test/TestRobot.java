@@ -83,8 +83,8 @@ public class TestRobot extends Alloy {
         // By making it a tank drive, we use the default tank drive mapper
         DriveTrain dt =
                 new TankDrive(
-                        new MotorModule(new XY(1, 0), d_rightFront, d_rightBack),
-                        new MotorModule(new XY(-1, 0), d_leftFront, d_leftBack));
+                        new MotorModule(new XY(0, 1), new XY(1, 0), d_rightFront, d_rightBack),
+                        new MotorModule(new XY(0, 1), new XY(-1, 0), d_leftFront, d_leftBack));
 
         // Create the Drivetrain input
         driveStick = new FTCJoystick(RobotCore.getGamepad1(), FTCJoystick.Side.RIGHT);
@@ -119,9 +119,18 @@ public class TestRobot extends Alloy {
         // Define the right and left modules
         MotorModule intakeRightSide =
                 new MotorModule(
-                        new XY(0, 1), intakeRightEncoder, motorCorrection, rightIntakeMotor);
+                        new XY(0, 1),
+                        new XY(1, 0),
+                        intakeRightEncoder,
+                        motorCorrection,
+                        rightIntakeMotor);
         MotorModule intakeLeftSide =
-                new MotorModule(new XY(0, 1), intakeLeftEncoder, motorCorrection, leftIntakeMotor);
+                new MotorModule(
+                        new XY(0, 1),
+                        new XY(-1, 0),
+                        intakeLeftEncoder,
+                        motorCorrection,
+                        leftIntakeMotor);
 
         // Create the intake
         intake =

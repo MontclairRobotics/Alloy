@@ -24,7 +24,6 @@ SOFTWARE.
 package org.montclairrobotics.alloy.utils;
 
 import org.montclairrobotics.alloy.components.InputComponent;
-import org.montclairrobotics.alloy.update.Update;
 
 /**
  * Simple error correction, that returns one value if the error is high, and another if it is low
@@ -54,7 +53,7 @@ public class BangBang extends InputComponent<Double> implements ErrorCorrection<
         this(-correction, correction, tolerance);
     }
 
-    public BangBang(double correction){
+    public BangBang(double correction) {
         this(correction, 0);
     }
 
@@ -91,14 +90,11 @@ public class BangBang extends InputComponent<Double> implements ErrorCorrection<
         return new BangBang(lowOut, highOut).setTarget(target).setInput(input);
     }
 
-    /**
-     * @return the current target that the error correction is trying to correct to
-     */
+    /** @return the current target that the error correction is trying to correct to */
     @Override
     public Double getTarget() {
         return target;
     }
-
 
     @Override
     public Double get() {
@@ -110,5 +106,4 @@ public class BangBang extends InputComponent<Double> implements ErrorCorrection<
             return 0d;
         }
     }
-
 }

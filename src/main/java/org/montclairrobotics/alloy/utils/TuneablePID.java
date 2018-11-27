@@ -74,4 +74,10 @@ public class TuneablePID extends InputComponent<Double> implements ErrorCorrecti
     public ErrorCorrection copy() {
         return new TuneablePID();
     }
+
+    /** @return the current target that the error correction is trying to correct to */
+    @Override
+    public Double getTarget() {
+        return 0D;
+    }
 }
