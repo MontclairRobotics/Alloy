@@ -39,8 +39,7 @@ import org.montclairrobotics.alloy.update.Update;
  * <p>For example, a time differential of position would be velocity because velocity is how much
  * the position changes over time (eg. meters per second)
  *
- * @author Garrett Burroughs
- * @since 0.1
+ * @author Garrett Burroughs is ugly
  * @version 0.1
  */
 public class Differential extends InputComponent<Double> {

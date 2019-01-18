@@ -25,7 +25,6 @@ package org.montclairrobotics.alloy.ftc;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import java.awt.*;
 import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.*;
 import org.montclairrobotics.alloy.update.Update;

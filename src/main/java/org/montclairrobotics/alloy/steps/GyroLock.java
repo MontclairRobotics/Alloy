@@ -21,51 +21,29 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.utils;
+package org.montclairrobotics.alloy.steps;
 
 import org.montclairrobotics.alloy.components.InputComponent;
+import org.montclairrobotics.alloy.drive.DTInput;
+import org.montclairrobotics.alloy.utils.GyroCorrection;
+import org.montclairrobotics.alloy.utils.Input;
 import org.montclairrobotics.alloy.vector.Angle;
 
-/**
- * A correction based on a gyroscope, to keep a consistent heading
- *
- * @author Garrett Burroughs
- * @version 0.1
- * @since 0.1
- */
-public class GyroCorrection extends InputComponent<Double> {
-
-    public static GyroCorrection generalCorrection;
-
+public class GyroLock extends InputComponent<DTInput> {
     private Input<Double> heading;
-    private PID correction;
+    private GyroCorrection correction;
 
-    public GyroCorrection(Input<Double> heading, PID correction) {
-        this.heading = heading;
+    public GyroLock(GyroCorrection correction, Input<Double> gyro) {
+        heading = gyro;
         this.correction = correction;
-        correction.setInputConstraints(-180, 180);
-        correction.setOutputConstraints(-1, 1);
-    }
-
-    public void setRelativeTargetAngle(Angle a) {
-        correction.setTarget(correction.getTarget() + a.getDegrees());
-    }
-
-    public void setTargetAngle(Angle a) {
-        correction.setTarget(a.getDegrees());
-    }
-
-    public PID getCorrection() {
-        return correction;
-    }
-
-    public GyroCorrection reset() {
-
-        return this;
     }
 
     @Override
-    public Double get() {
-        return correction.getCorrection();
+    public void enableAction() {
+        correction.setTargetAngle(new Angle(heading.get()));
+    }
+
+    public void disableAction() {
+        correction.reset();
     }
 }

@@ -95,4 +95,9 @@ public class Utils {
         double regularResult = Math.pow(in, pow);
         return pow % 2 == 0 ? regularResult * sign(in) : regularResult;
     }
+
+    public static double wrap(double in, double min, double max) {
+        double diff = min - max;
+        return ((in - min) % diff + diff) % diff + max;
+    }
 }

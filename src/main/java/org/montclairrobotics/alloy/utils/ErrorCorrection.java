@@ -65,4 +65,7 @@ public interface ErrorCorrection<T> {
 
     /** @return A copy of the error correction */
     public ErrorCorrection copy();
+
+    /** @return the current target that the error correction is trying to correct to */
+    public T getTarget();
 }

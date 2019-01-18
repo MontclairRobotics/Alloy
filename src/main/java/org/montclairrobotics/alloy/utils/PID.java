@@ -52,6 +52,12 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
     private double d;
     private double target;
 
+    Double minIn;
+    Double maxIn;
+
+    Double minOut;
+    Double maxOut;
+
     /** The error of the PID, calculated by the target - input */
     private double error;
     /**
@@ -144,17 +150,37 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
             errorRate = 0;
         }
 
+        if (minIn != null && maxIn != null) {
+            errorRate = Utils.wrap(errorRate, minIn, maxIn);
+            error = Utils.wrap(error, minIn, minOut);
+        }
+
         // Calculate Error Integral
-        totalError += error;
+        totalError += error * timeDifference;
 
         // Calculate Correction and set the output
         if (status.isEnabled()) {
             output = p * error + i * totalError + d * errorRate;
+            if (minOut != null && maxOut != null) {
+                Utils.constrain(output, minIn, minOut);
+            }
         } else {
             output = 0d;
         }
         prevError = error;
         prevTime = System.currentTimeMillis() / 1000d;
+    }
+
+    public PID setInputConstraints(double min, double max) {
+        minIn = min;
+        maxIn = max;
+        return this;
+    }
+
+    public PID setOutputConstraints(double min, double max) {
+        minOut = min;
+        maxOut = max;
+        return this;
     }
 
     /** @return the calculated correction */
@@ -166,6 +192,16 @@ public class PID extends InputComponent<Double> implements ErrorCorrection<Doubl
     /** @return A copy of the error correction */
     @Override
     public ErrorCorrection copy() {
-        return new PID(p, i, d).setTarget(target).setInput(input);
+        return new PID(p, i, d)
+                .setTarget(target)
+                .setInput(input)
+                .setInputConstraints(minIn, maxIn)
+                .setOutputConstraints(minOut, maxOut);
+    }
+
+    /** @return the current target that the error correction is trying to correct to */
+    @Override
+    public Double getTarget() {
+        return target;
     }
 }
