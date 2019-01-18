@@ -64,10 +64,10 @@ public abstract class Component extends Toggleable {
     private boolean debugMode = true;
 
     /** The debugs that will be printed for this component out each loop */
-    private ArrayList<Debug> debugs;
+    private ArrayList<Debug> debugs = new ArrayList<>();
 
     /** a static reference of all the components that are made */
-    public static ArrayList<Component> components;
+    public static ArrayList<Component> components = new ArrayList<>();
 
     public Component() {
         components.add(this);
