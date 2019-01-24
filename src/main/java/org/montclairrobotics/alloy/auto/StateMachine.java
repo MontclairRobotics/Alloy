@@ -136,9 +136,8 @@ public class StateMachine extends State {
             }
             stateStarted = false; // The next state has not started yet.
         }
-        Component.debugger.test(
-                name + " | State: " + state,
-                currentState.debugInfo(state)); // Debug info about the state
+        Component.debugger.test(name + " | State: ", state); // Debug info about the state
+        Component.debugger.debug(currentState.debugInfo(state), currentState.verboseDebug());
     }
 
     /** When the state machine is finished, read out it has finished */

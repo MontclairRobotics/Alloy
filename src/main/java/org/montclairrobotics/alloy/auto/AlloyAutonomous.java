@@ -28,7 +28,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Set;
-
 import org.montclairrobotics.alloy.core.Alloy;
 import org.montclairrobotics.alloy.core.RobotCore;
 import org.reflections.Reflections;
