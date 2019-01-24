@@ -23,8 +23,10 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.auto;
 
+import org.montclairrobotics.alloy.auto.States.ConditionalState;
 import org.montclairrobotics.alloy.auto.States.Drive;
 import org.montclairrobotics.alloy.auto.States.Turn;
+import org.montclairrobotics.alloy.utils.Input;
 import org.montclairrobotics.alloy.vector.Angle;
 
 /**
@@ -43,10 +45,18 @@ public class SimpleAutonomous extends AlloyAutonomous {
     public void setup() {}
 
     public void drive(double speed, double distance) {
-        auto.addState(new Drive(speed, distance));
+        addState(new Drive(speed, distance));
     }
 
     public void turn(double speed, Angle angle) {
-        auto.addState(new Turn(speed, angle));
+        addState(new Turn(speed, angle));
+    }
+    
+    public void contition(Input<Boolean> condition, State state){
+        addState(new ConditionalState(condition, state));
+    }
+    
+    public void addState(State state){
+        auto.addState(state);
     }
 }
