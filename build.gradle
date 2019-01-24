@@ -1,25 +1,47 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        //Check for the latest version here: http://plugins.gradle.org/plugin/com.jfrog.artifactory
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.8.1"
+    }
+}
 plugins {
 	id "com.diffplug.gradle.spotless" version "3.10.0"
 	id 'java'
 	id 'maven'
+    id 'maven-publish'
 }
 
+allprojects {
+    apply plugin: "com.jfrog.artifactory"
+}
+
+def usr = hasProperty('artifactory_user') ? artifactory_user : System.getenv('artifactory_user')
+def pwd = hasProperty('artifactory_password') ? artifactory_password : System.getenv('artifactory_password')
 
 
+def snapshot = false
 
-group = 'Alloy'
-version = '0.0.1-SNAPSHOT'
+group = 'org.montclairrobotics'
+version = "0.0.1${snapshot ? "-SNAPSHOT" : ""}"
 
 description = """Alloy"""
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-
-
 repositories {
+    maven { url "http://repo.maven.apache.org/maven2" }
+    jcenter()
+}
 
-	maven { url "http://repo.maven.apache.org/maven2" }
+dependencies{
+
+     testCompile 'junit:junit:4.12'
+     compile fileTree(dir: "src/main/libs/", include: ['*.jar'])
+     compile 'org.reflections:reflections:0.9.11'
 
 }
 
@@ -29,14 +51,43 @@ spotless {
 
 
         licenseHeaderFile 'SpotlessLicense'
-		// paddedCell()
-		
-
+        paddedCell()
     }
 }
 
-dependencies{
-	testCompile 'junit:junit:4.12'
-	compile fileTree(dir: "src/main/libs/", include: ['*.jar'])
-	compile 'org.reflections:reflections:0.9.11'
+
+publishing {
+    publications {
+        Alloy(MavenPublication) {
+            from components.java
+        }
+    }
 }
+
+
+artifactory {
+    contextUrl = "http://67.205.146.144:8081/artifactory"   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = "libs-${snapshot ? "snapshot" : "release"}-local"
+            username = "${usr}"
+            password = "${pwd}"
+            maven = true
+
+        }
+        defaults{
+            publications('Alloy')
+            publishPom = true
+        }
+    }
+    resolve {
+        repository {
+            repoKey = "libs-${snapshot ? "snapshot" : "release"}-local"
+            username = "${usr}"
+            password = "${pwd}"
+            maven = true
+
+        }
+    }
+}
+

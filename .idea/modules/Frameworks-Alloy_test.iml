@@ -9,7 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Alloy_main" />
+    <orderEntry type="module" module-name="Frameworks-Alloy_main" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
