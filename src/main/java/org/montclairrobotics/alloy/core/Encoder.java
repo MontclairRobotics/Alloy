@@ -61,12 +61,25 @@ public abstract class Encoder extends InputComponent<Integer> {
     /** Max speed that the motor can go Measured in Ticks per Second */
     private double maxSpeed;
 
+    /** Keeps track of the ticks when the encoder was "reset" */
+    private int ticksAtReset;
+
     /**
      * A method that should be overridden by the encoder
      *
      * @return the raw value of encoder ticks that the encoder reads
      */
-    public abstract int getTicks();
+    public abstract int getRawTicks();
+
+    /** Gets the ticks, this value is affected by encoder resets */
+    public int getTicks() {
+        return getRawTicks() - ticksAtReset;
+    }
+
+    /** soft reset the encoder, setting the current value as 0 ticks */
+    public void reset() {
+        ticksAtReset = getRawTicks();
+    }
 
     public Encoder(double distancePerTick, double maxSpeed) {
         this.distancePerTick = distancePerTick;

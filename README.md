@@ -3,6 +3,12 @@
 ![AlloyLogo](http://gdurl.com/AFl8)
 
 Status: **Beta**
+
+
+Alloy is a robot framework designed specifically for the First Tech Challenge (FTC).
+
+Alloy is based off the FRC robot framework [Sprocket](https://github.com/MontclairRobotics/Sprocket), but redesigned to abstract away the more complex ideas but still allow for advanced robot functionality.
+
 Note: Alloy is still under heavy development, and not ready or suggested for use in creating a robot
 
 Developed by FTC147 and FRC555

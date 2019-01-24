@@ -82,6 +82,7 @@ public abstract class Alloy extends OpMode {
 
         robotSetup();
         initialization();
+        driveTrain.setDefaultInput();
     }
 
     @Override

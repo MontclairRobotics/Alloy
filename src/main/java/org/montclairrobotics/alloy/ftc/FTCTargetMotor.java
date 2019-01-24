@@ -208,7 +208,7 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
     public Encoder getEncoder() {
         return new Encoder() {
             @Override
-            public int getTicks() {
+            public int getRawTicks() {
                 return getPosition();
             }
         };
