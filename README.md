@@ -1,20 +1,13 @@
-<<<<<<< HEAD
-# Alloy  [![Build Status](https://travis-ci.org/GarrettBurroughs/Alloy.svg?branch=master)](https://travis-ci.org/GarrettBurroughs/Alloy) [![CodeFactor](https://www.codefactor.io/repository/github/garrettburroughs/alloy/badge)](https://www.codefactor.io/repository/github/garrettburroughs/alloy) 
-=======
+
 # Alloy  [![Build Status](https://travis-ci.org/GarrettBurroughs/Alloy.svg?branch=master)](https://travis-ci.org/GarrettBurroughs/Alloy) [![CodeFactor](https://www.codefactor.io/repository/github/garrettburroughs/alloy/badge)](https://www.codefactor.io/repository/github/garrettburroughs/alloy) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f3335dca15a8429ebc50528ca6330411)](https://www.codacy.com/project/garrett_2/Alloy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GarrettBurroughs/Alloy&amp;utm_campaign=Badge_Grade_Dashboard)
->>>>>>> c6acf51e58c6fa9fea0d80aa10012c6112d66195
 
 ![AlloyLogo](http://gdurl.com/AFl8)
 
 Status: **Beta**
-<<<<<<< HEAD
-
 
 Alloy is a robot framework designed specifically for the First Tech Challenge (FTC).
 
-Alloy is based off the FRC robot framework [Sprocket](https://github.com/MontclairRobotics/Sprocket), but redesigned to abstract away the more complex ideas but still allow for advanced robot functionality.
-=======
-Note: Alloy is still under heavy development, and not ready or suggested for use in creating a robot
+**Note:** Alloy is still under heavy development, and not ready or suggested for use in creating a robot
 
 Developed by FTC147 and FRC555
 
@@ -38,16 +31,89 @@ all of the code follows a specific format. It is added as a build step for a gra
 build so this means that all code in alloy must be compliant to be merged. 
 Spotless allows for automatic code formatting, just run:
 ```
-cmd> gradlew spotlessApply
+cmd> ./gradlew spotlessApply
 :spotlessApply
 BUILD SUCCESSFUL
 
-cmd> gradlew build
+cmd> ./gradlew build
 BUILD SUCCESSFUL
 ```
 
+## Setting up the project for development
 
-# FAQ
+### Gradle
+Alloy uses the gradle build system and the GradleRio FRC plugin to manage FRC
+dependencies. There is a lot you can do with gradle if you are familiar with it, 
+but here are the basic things you need to know in order to develop alloy
+
+
+
+### Intellij IDEA
+
+If using the Intellij IDEA editor, it is necessary to do a few things to set up the project.
+
+1. **Create project files**
+
+    This can be done using the gradle command
+    ```
+    cmd> ./gradlew IDEA
+    ```
+
+2. **Import the project**
+
+    There are 2 ways to do this
+   - import in Intellij
+   - import using .ipr file
+    
+    If you are using the .ipr file make sure that Intellij IDEA is closed before you open the file
+    To import the file, simply double click on the .ipr files and follow the configuration settings
+    
+    If importing intellij use `File > Open`, select the alloy build.gradle file and select `Import as Project`
+
+3. **Setting up gradle tasks**
+
+    *This step is not necessary, but makes working with gradle in Intellij much easier.*
+    
+    To add a Gradle Build task in intellij
+    
+    - Click + > Gradle.
+    - Fill in Name: `Refresh Build`.
+    - Fill in Gradle project by clicking on the folder icon and selecting `Alloy`.
+    - Fill in Tasks: `build`.
+    - Fill in optional Arguments: `--Refresh-Dependencies`.
+    
+    Here are a few recommended tasks you should set up
+    
+    Build -> `build`
+    
+    Refresh -> `build --Refresh-Dependencies`
+    
+    Format -> `spotlessApply`
+    
+    Check Format -> `spotlessCheck`
+    
+    Generate JAR -> `jar`
+    
+    Generate Javadoc -> `Javadoc`
+    
+    
+
+[Gradle Intellij Plugin Help](https://docs.gradle.org/current/userguide/idea_plugin.html)
+
+### Eclipse
+
+1. **Create project files**
+
+    This can be done using the gradle command
+    ```
+    cmd> ./gradlew eclipse
+    ```
+2. **Import Project**
+    You can then import your project with `File > Import > Existing Projects into Workspace` in Eclipse.
+      
+[Gradle Eclipse Plugin Help](https://docs.gradle.org/current/userguide/eclipse_plugin.html)
+
+## FAQ
 
 ### Q. What is the purpose of/how do I use ___?
 
@@ -72,4 +138,3 @@ easier debugging, and updateable methods. But again, all of this can be done wit
 
 A. If you have a problem first see our [Troubleshooting guide](https://github.com/GarrettBurroughs/Alloy/wiki/Troubleshooting-Guide). If that does not fix your problem you can file an [Issue](https://github.com/GarrettBurroughs/Alloy/issues/new)
 using our issue template, please provide as much information as possible so we can fully understand the probelm and fix the issue.
->>>>>>> c6acf51e58c6fa9fea0d80aa10012c6112d66195
