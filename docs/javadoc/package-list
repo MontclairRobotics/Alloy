@@ -1,4 +1,5 @@
 org.montclairrobotics.alloy.auto
+org.montclairrobotics.alloy.auto.States
 org.montclairrobotics.alloy.components
 org.montclairrobotics.alloy.control
 org.montclairrobotics.alloy.core

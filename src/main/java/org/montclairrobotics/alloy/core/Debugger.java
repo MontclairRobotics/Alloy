@@ -124,6 +124,8 @@ public abstract class Debugger {
      *
      * @param key Name of the value
      * @param value Value to be debugged
+     * @param level the level this debug is, if the debug level is lower than the current level,
+     *     this will not be degbugged
      */
     public void log(String key, Object value, Level level) {
         if (level.getRank() < debugLevel.getRank()) {
