@@ -12,7 +12,9 @@ plugins {
 	id 'java'
 	id 'maven'
 	id 'maven-publish'
-	id "jaci.openrio.gradle.GradleRIO" version "2018.01.22"
+    id 'idea'
+    id 'eclipse'
+    id "edu.wpi.first.GradleRIO" version "2019.2.1"
 }
 
 allprojects {
@@ -25,7 +27,7 @@ def pwd = hasProperty('artifactory_password') ? artifactory_password : System.ge
 
 
 
-def snapshot = false
+def snapshot = true
 
 group = 'org.montclairrobotics'
 version = "FRC-0.0.1${snapshot ? "-SNAPSHOT" : ""}"
@@ -41,17 +43,11 @@ repositories {
 }
 
 dependencies{
-    compile wpilib()
-    compile ctre()
-    compile navx()
+    implementation wpi.deps.wpilib()
+    implementation wpi.deps.vendor.java()
 	testCompile 'junit:junit:4.12'
-	compile fileTree(dir: "src/main/libs/", include: ['*.jar'])
-	compile 'org.reflections:reflections:0.9.11'
-    compile 'edu.wpi.first.wpilibj:wpilibj-java:2018.1.1'
-    compile 'openrio.mirror.third.ctre:CTRE-phoenix-java:5.1.2.1'
-    compile 'openrio.mirror.third.kauailabs:navx-java:3.0.342'
-    compile 'edu.wpi.first.ntcore:ntcore-java:4.0.0'
-
+    implementation fileTree(dir: "src/main/libs/", include: ['*.jar'])
+    implementation 'org.reflections:reflections:0.9.11'
 }
 
 

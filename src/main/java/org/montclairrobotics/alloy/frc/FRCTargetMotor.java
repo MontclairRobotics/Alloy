@@ -124,7 +124,6 @@ public class FRCTargetMotor extends FRCMotor implements TargetMotor {
         return encoder.getTicks();
     }
 
-    @Override
     public void updateMotor() {
         if (status.isEnabled()) {
             switch (mode) {

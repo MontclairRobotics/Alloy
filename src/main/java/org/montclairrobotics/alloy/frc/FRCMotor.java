@@ -26,7 +26,6 @@ package org.montclairrobotics.alloy.frc;
 import edu.wpi.first.wpilibj.SpeedController;
 import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.Motor;
-import org.montclairrobotics.alloy.update.Update;
 
 /**
  * Created by MHS Robotics on 10/6/2018.
@@ -56,9 +55,8 @@ public class FRCMotor extends Component implements Motor {
     @Override
     public void setMotorPower(double power) {
         this.power = power;
-        if(status.isEnabled()){
+        if (status.isEnabled()) {
             controller.set(power);
-    
         }
     }
 
@@ -92,24 +90,19 @@ public class FRCMotor extends Component implements Motor {
         return controller.getInverted();
     }
 
-    
-    /**
-     * The action that is taken when the component is disabled, should be overridden by the user
-     */
+    /** The action that is taken when the component is disabled, should be overridden by the user */
     @Override
     public void disableAction() {
         controller.set(0);
     }
-    
-    /**
-     * Disables the toggleable
-     */
+
+    /** Disables the toggleable */
     @Override
     public void disable() {
         controller.set(power);
     }
-    
-    public SpeedController getController(){
+
+    public SpeedController getController() {
         return controller;
     }
 }
