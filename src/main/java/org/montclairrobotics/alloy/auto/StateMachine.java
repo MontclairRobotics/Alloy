@@ -88,14 +88,26 @@ public class StateMachine extends State {
         this.name = name;
         this.states = new ArrayList<>(Arrays.asList(states));
         this.finalState = finalState;
-        description = "A state machine";
+        description = "";
     }
 
+    public StateMachine(State ... states){
+        this("State Machine", 0, states);
+    }
+    
     public StateMachine(String name, String description, int finalState, State... states) {
         this(name, finalState, states);
         super.description = description;
     }
-
+    
+    public void setFinalState(Integer finalState) {
+        this.finalState = finalState;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     /** Read out that the state has started and reset the timer */
     @Override
     public void start() {
