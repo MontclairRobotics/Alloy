@@ -91,23 +91,23 @@ public class StateMachine extends State {
         description = "";
     }
 
-    public StateMachine(State ... states){
+    public StateMachine(State... states) {
         this("State Machine", 0, states);
     }
-    
+
     public StateMachine(String name, String description, int finalState, State... states) {
         this(name, finalState, states);
         super.description = description;
     }
-    
+
     public void setFinalState(Integer finalState) {
         this.finalState = finalState;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     /** Read out that the state has started and reset the timer */
     @Override
     public void start() {

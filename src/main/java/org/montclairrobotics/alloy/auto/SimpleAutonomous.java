@@ -51,12 +51,12 @@ public class SimpleAutonomous extends AlloyAutonomous {
     public void turn(double speed, Angle angle) {
         addState(new Turn(speed, angle));
     }
-    
-    public void contition(Input<Boolean> condition, State state){
+
+    public void contition(Input<Boolean> condition, State state) {
         addState(new ConditionalState(condition, state));
     }
-    
-    public void addState(State state){
+
+    public void addState(State state) {
         auto.addState(state);
     }
 }
