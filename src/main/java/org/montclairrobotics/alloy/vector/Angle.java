@@ -63,7 +63,8 @@ public class Angle {
      * @param angle The angle
      */
     public Angle(AngleMeasure angleMeasure, double angle) {
-        // If angle is in degrees set degrees to the angle, no conversion is needed because they are the
+        // If angle is in degrees set degrees to the angle, no conversion is needed because they are
+        // the
         // same unit
         if (angleMeasure == AngleMeasure.DEGREE) {
             degrees = angle;

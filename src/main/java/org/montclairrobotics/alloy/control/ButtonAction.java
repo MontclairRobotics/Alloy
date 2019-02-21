@@ -70,12 +70,13 @@ public abstract class ButtonAction {
         }
         if (wasPressed
                 && !button
-                        .getValue()) { // If the button was just pressed, but is no longer pressed, call onReleased()
+                        .getValue()) { // If the button was just pressed, but is no longer pressed,
+            // call onReleased()
             onReleased();
         }
         if (!wasPressed
-                && button
-                        .getValue()) { // If the button was just not pressed, but is now pressed, call onPressed()
+                && button.getValue()) { // If the button was just not pressed, but is now pressed,
+            // call onPressed()
             onPressed();
         }
 

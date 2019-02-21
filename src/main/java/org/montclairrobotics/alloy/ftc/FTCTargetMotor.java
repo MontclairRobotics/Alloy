@@ -167,7 +167,8 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
                     setTargetPower(
                             targetPower
                                     * correction
-                                            .getCorrection()); // If running using custom PID mode, set power to PID output
+                                            .getCorrection()); // If running using custom PID mode,
+                    // set power to PID output
                 } else {
                     motor.setPower(
                             targetPower); // If running in default target mode, set the target power
