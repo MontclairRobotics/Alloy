@@ -127,6 +127,16 @@ public abstract class FRCAlloy extends IterativeRobot implements Alloy {
         }
     }
 
+    @Override
+    public void setDriveTrain(DriveTrain driveTrain) {
+        FRCAlloy.driveTrain = driveTrain;
+    }
+
+    @Override
+    public DriveTrain getDriveTrain() {
+        return FRCAlloy.driveTrain;
+    }
+
     public void addAutoMode(StateMachine autoMode) {
         autoSelector.addOption(autoMode.getName(), autoMode);
     }

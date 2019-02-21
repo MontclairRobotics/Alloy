@@ -24,26 +24,38 @@ SOFTWARE.
 package org.montclairrobotics.alloy.steps;
 
 import org.montclairrobotics.alloy.components.InputComponent;
+import org.montclairrobotics.alloy.components.Step;
+import org.montclairrobotics.alloy.core.Gyro;
 import org.montclairrobotics.alloy.drive.DTInput;
 import org.montclairrobotics.alloy.utils.GyroCorrection;
 import org.montclairrobotics.alloy.utils.Input;
+import org.montclairrobotics.alloy.utils.Toggleable;
 import org.montclairrobotics.alloy.vector.Angle;
 
-public class GyroLock extends InputComponent<DTInput> {
-    private Input<Double> heading;
+public class GyroLock extends Toggleable implements Step<DTInput> {
+    private Gyro heading;
     private GyroCorrection correction;
 
-    public GyroLock(GyroCorrection correction, Input<Double> gyro) {
+    public GyroLock(GyroCorrection correction, Gyro gyro) {
         heading = gyro;
         this.correction = correction;
     }
 
     @Override
     public void enableAction() {
-        correction.setTargetAngle(new Angle(heading.get()));
+        correction.setTargetAngle(new Angle(heading.getYaw()));
     }
 
     public void disableAction() {
-        correction.reset();
+        // Do nothing
+    }
+
+    @Override
+    public DTInput getOutput(DTInput input) {
+        if(status.isEnabled()) {
+            return input.addAngle(correction.get());
+        }else{
+            return input;
+        }
     }
 }

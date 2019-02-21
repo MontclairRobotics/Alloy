@@ -24,6 +24,7 @@ SOFTWARE.
 package org.montclairrobotics.alloy.utils;
 
 import org.montclairrobotics.alloy.components.InputComponent;
+import org.montclairrobotics.alloy.core.Gyro;
 import org.montclairrobotics.alloy.vector.Angle;
 
 /**
@@ -35,13 +36,21 @@ import org.montclairrobotics.alloy.vector.Angle;
  */
 public class GyroCorrection extends InputComponent<Double> {
 
-    public static GyroCorrection generalCorrection;
+    private static GyroCorrection generalCorrection;
 
-    private Input<Double> heading;
+    private Gyro gyro;
     private PID correction;
 
-    public GyroCorrection(Input<Double> heading, PID correction) {
-        this.heading = heading;
+    public static void setGeneralCorrection(GyroCorrection correction){
+        GyroCorrection.generalCorrection = correction;
+    }
+
+    public static GyroCorrection getGeneralCorrection(){
+        return GyroCorrection.generalCorrection;
+    }
+
+    public GyroCorrection(Gyro gyro, PID correction) {
+        this.gyro = gyro;
         this.correction = correction;
         correction.setInputConstraints(-180, 180);
         correction.setOutputConstraints(-1, 1);
@@ -60,7 +69,7 @@ public class GyroCorrection extends InputComponent<Double> {
     }
 
     public GyroCorrection reset() {
-
+        gyro.reset();
         return this;
     }
 
