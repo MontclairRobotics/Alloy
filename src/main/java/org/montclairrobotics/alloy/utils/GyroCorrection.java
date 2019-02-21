@@ -73,6 +73,10 @@ public class GyroCorrection extends InputComponent<Double> {
         return this;
     }
 
+    public Gyro getGyro(){
+        return gyro;
+    }
+
     @Override
     public Double get() {
         return correction.getCorrection();

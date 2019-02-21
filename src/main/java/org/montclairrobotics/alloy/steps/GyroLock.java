@@ -33,17 +33,23 @@ import org.montclairrobotics.alloy.utils.Toggleable;
 import org.montclairrobotics.alloy.vector.Angle;
 
 public class GyroLock extends Toggleable implements Step<DTInput> {
-    private Gyro heading;
     private GyroCorrection correction;
 
-    public GyroLock(GyroCorrection correction, Gyro gyro) {
-        heading = gyro;
+    public GyroLock(GyroCorrection correction) {
         this.correction = correction;
+    }
+
+    public GyroLock(){
+        if(GyroCorrection.getGeneralCorrection() != null){
+            correction = GyroCorrection.getGeneralCorrection();
+        }else{
+            throw new RuntimeException("Global Gyro Correction has not been set, set it using GyroCorrection.setGeneralCorrection()");
+        }
     }
 
     @Override
     public void enableAction() {
-        correction.setTargetAngle(new Angle(heading.getYaw()));
+        correction.setTargetAngle(new Angle(correction.getGyro().getYaw()));
     }
 
     public void disableAction() {

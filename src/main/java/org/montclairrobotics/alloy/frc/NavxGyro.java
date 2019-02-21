@@ -8,6 +8,10 @@ public class NavxGyro extends InputComponent<Double> implements Gyro {
 
     private AHRS navx;
 
+    public NavxGyro(AHRS navx){
+        this.navx = navx;
+    }
+
     @Override
     public double getRoll() {
         return navx.getRoll();

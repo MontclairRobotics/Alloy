@@ -37,34 +37,8 @@ import org.montclairrobotics.alloy.utils.Toggleable;
  * @since 0.1
  */
 public class ToggleButton extends ButtonAction {
-    private Toggleable toggleable;
-
     public ToggleButton(Button button, Toggleable toggleable) {
         super(button);
-        this.toggleable = toggleable;
-    }
-
-    /** On pressed is called once, when the button goes from being unpressed, to pressed */
-    @Override
-    public void onPressed() {
-        toggleable.toggle();
-    }
-
-    /** On released is called once, when the button goes from being pressed, to unpressed */
-    @Override
-    public void onReleased() {
-        // Will be run right after the button is released
-    }
-
-    /** While pressed is called every loop while the button is pressed */
-    @Override
-    public void whilePressed() {
-        // Will be run while the button is held
-    }
-
-    /** While released is called every loop while the button is unpressed */
-    @Override
-    public void whileReleased() {
-        // Wil be run while the button is unpressed
+        super.addOnPressedAction(toggleable::toggle);
     }
 }
