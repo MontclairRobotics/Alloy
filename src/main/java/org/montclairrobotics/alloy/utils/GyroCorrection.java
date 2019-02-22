@@ -41,11 +41,11 @@ public class GyroCorrection extends InputComponent<Double> {
     private Gyro gyro;
     private PID correction;
 
-    public static void setGeneralCorrection(GyroCorrection correction){
+    public static void setGeneralCorrection(GyroCorrection correction) {
         GyroCorrection.generalCorrection = correction;
     }
 
-    public static GyroCorrection getGeneralCorrection(){
+    public static GyroCorrection getGeneralCorrection() {
         return GyroCorrection.generalCorrection;
     }
 
@@ -73,7 +73,7 @@ public class GyroCorrection extends InputComponent<Double> {
         return this;
     }
 
-    public Gyro getGyro(){
+    public Gyro getGyro() {
         return gyro;
     }
 

@@ -23,8 +23,6 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.vector;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
-
 /**
  * A class to keep track of angles
  *
@@ -124,11 +122,11 @@ public class Angle {
     /**
      * Multiply the angle by some amount
      *
-     * Immutable operation
+     * <p>Immutable operation
      *
      * @param multiplier
      */
-    public Angle multiply(double multiplier){
+    public Angle multiply(double multiplier) {
         return new Angle(degrees * multiplier);
     }
 
