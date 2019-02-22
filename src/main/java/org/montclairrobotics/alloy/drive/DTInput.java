@@ -63,19 +63,19 @@ public class DTInput {
         return rotation;
     }
 
-    public DTInput addAngle(double angle){
+    public DTInput addAngle(double angle) {
         return new DTInput(translation, new Angle(rotation.getDegrees() + angle));
     }
 
-    public DTInput addVector(Vector vector){
+    public DTInput addVector(Vector vector) {
         return new DTInput(translation.add(vector), rotation);
     }
 
-    public DTInput multiplyAngle(double multiplier){
+    public DTInput multiplyAngle(double multiplier) {
         return new DTInput(translation, rotation.multiply(multiplier));
     }
 
-    public DTInput scale(double scalar){
+    public DTInput scale(double scalar) {
         return new DTInput(translation.scale(scalar), rotation);
     }
 }

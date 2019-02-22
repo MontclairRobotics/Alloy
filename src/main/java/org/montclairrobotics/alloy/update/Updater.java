@@ -57,7 +57,8 @@ public class Updater {
     public static void registerUpdatables() {
         // Create an arraylist to store all package names
         ArrayList<String> packageReferences = new ArrayList<>();
-        // Create an arraylist of all the reflections that will later be used to get annotated methods
+        // Create an arraylist of all the reflections that will later be used to get annotated
+        // methods
         ArrayList<Reflections> reflections = new ArrayList<>();
         // Create a set of all the methods
         Set<Method> methods = new HashSet<>();

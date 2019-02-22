@@ -112,16 +112,16 @@ public class StateMachine extends State {
     public void run() {
         State currentState = states.get(state);
 
-        //Check If the state has started, if it hasn't run the 'start()' method
+        // Check If the state has started, if it hasn't run the 'start()' method
         if (!stateStarted) {
             timer.reset();
             currentState.start();
             stateStarted = true; // State has been started
         }
 
-        currentState.run(); //run the state
+        currentState.run(); // run the state
 
-        if (currentState.isDone()) { //check if the state has finished
+        if (currentState.isDone()) { // check if the state has finished
             timeInLastState = timer.nanoseconds(); // Update the last state time
             currentState.stop(); // Run the stop() method on the state
             if (currentState.getNextState(state)
@@ -134,7 +134,8 @@ public class StateMachine extends State {
                 state = currentState.getNextState(state); // go to the next state
             } else {
                 Component.debugger.error(
-                        "STATE MACHINE OUT OF BOUNDS"); // Give the user an error if there is no next state to go to
+                        "STATE MACHINE OUT OF BOUNDS"); // Give the user an error if there is no
+                // next state to go to
                 done = true; // stop the state machine
                 return; // exit the run method to ensure nothing else runs
             }

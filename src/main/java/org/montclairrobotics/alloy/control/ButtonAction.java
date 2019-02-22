@@ -23,16 +23,16 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.control;
 
+import java.util.ArrayList;
 import org.montclairrobotics.alloy.core.Button;
 import org.montclairrobotics.alloy.update.Update;
-
-import java.util.ArrayList;
 
 /**
  * Every Button action is tied to a button, and controls what happens when the button is pressed,
  * held, unpressed, and released
  *
- * Multiple actions can be added to trigger on a single event, they will get run in the order they are added
+ * <p>Multiple actions can be added to trigger on a single event, they will get run in the order
+ * they are added
  *
  * @author Garrett Burroughs
  * @version 0.1
@@ -60,33 +60,34 @@ public class ButtonAction {
     private ArrayList<Action> onReleased = new ArrayList<>();
 
     /** While pressed is called every loop while the button is pressed */
-    private ArrayList<Action>  whilePressed = new ArrayList<>();
+    private ArrayList<Action> whilePressed = new ArrayList<>();
 
     /** While released is called every loop while the button is unpressed */
-    private ArrayList<Action>  whileReleased = new ArrayList<>();
+    private ArrayList<Action> whileReleased = new ArrayList<>();
 
     @Update
     public void update() {
         if (button.getValue()) { // If the button is pressed, call whilePressed()
-            for(Action a : whilePressed){
+            for (Action a : whilePressed) {
                 a.doAction();
             }
         } else { // If the button is not pressed call whileReleased()
-            for(Action a : whileReleased){
+            for (Action a : whileReleased) {
                 a.doAction();
             }
         }
         if (wasPressed
                 && !button
-                        .getValue()) { // If the button was just pressed, but is no longer pressed, call onReleased()
-            for(Action a : onReleased){
+                        .getValue()) { // If the button was just pressed, but is no longer pressed,
+            // call onReleased()
+            for (Action a : onReleased) {
                 a.doAction();
             }
         }
         if (!wasPressed
-                && button
-                        .getValue()) { // If the button was just not pressed, but is now pressed, call onPressed()
-            for(Action a : onPressed){
+                && button.getValue()) { // If the button was just not pressed, but is now pressed,
+            // call onPressed()
+            for (Action a : onPressed) {
                 a.doAction();
             }
         }
@@ -94,22 +95,22 @@ public class ButtonAction {
         wasPressed = button.getValue();
     }
 
-    public ButtonAction addOnPressedAction(Action action){
+    public ButtonAction addOnPressedAction(Action action) {
         onPressed.add(action);
         return this;
     }
 
-    public ButtonAction addOnReleasedAction(Action action){
+    public ButtonAction addOnReleasedAction(Action action) {
         onReleased.add(action);
         return this;
     }
 
-    public ButtonAction addWhilePressedAction(Action action){
+    public ButtonAction addWhilePressedAction(Action action) {
         whilePressed.add(action);
         return this;
     }
 
-    public ButtonAction addWhileReleasedAction(Action action){
+    public ButtonAction addWhileReleasedAction(Action action) {
         whileReleased.add(action);
         return this;
     }

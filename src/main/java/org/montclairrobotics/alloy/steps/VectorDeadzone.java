@@ -26,6 +26,7 @@ package org.montclairrobotics.alloy.steps;
 import org.montclairrobotics.alloy.components.Step;
 import org.montclairrobotics.alloy.utils.Toggleable;
 import org.montclairrobotics.alloy.vector.Vector;
+
 /**
  * A step that returns 0 if the inputs magnitude is under a certain threshold
  *
