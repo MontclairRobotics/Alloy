@@ -6,7 +6,7 @@ import org.montclairrobotics.alloy.update.Update;
 
 public class PressureRegulator extends Component {
     Compressor compressor;
-    
+
     public PressureRegulator(Compressor c){
         this.compressor = c;
     }

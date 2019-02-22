@@ -159,9 +159,9 @@ public abstract class Encoder extends InputComponent<Integer> {
     }
 
     /**
-     * Get a scaled value (0 - 1) of how fast the motor is going
+     * Get a scaled value [-1, 1] of how fast the motor is going
      *
-     * @return a value 0 - 1 depending on how fast the motor is going
+     * @return a value -1 - 1 depending on how fast the motor is going
      */
     public double getScaledVelocity() {
         return getRawVelocity() / maxSpeed;
