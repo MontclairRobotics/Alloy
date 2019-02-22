@@ -34,7 +34,7 @@ import org.montclairrobotics.alloy.utils.Input;
  * @since
  */
 public class FRCEncoder extends Encoder {
-    Input<Integer> ticks;
+    private final Input<Integer> ticks;
 
     public FRCEncoder(edu.wpi.first.wpilibj.Encoder encoder) {
         ticks = () -> encoder.get();

@@ -43,10 +43,10 @@ public class DTInput {
      * only the Y component will be taken into account In omnidirectional drivetrains, both the x
      * and y components will be used in drive calculations
      */
-    private Vector translation;
+    private final Vector translation;
 
     /** The rate at which the drivetrain will turn */
-    private Angle rotation;
+    private final Angle rotation;
 
     public DTInput(Vector translation, Angle rotation) {
         this.translation = translation;

@@ -36,7 +36,7 @@ import org.montclairrobotics.alloy.utils.ErrorCorrection;
  */
 public class FRCTargetMotor extends FRCMotor implements TargetMotor {
 
-    private Encoder encoder;
+    private final Encoder encoder;
 
     private ErrorCorrection<Double> powerCorrection;
 

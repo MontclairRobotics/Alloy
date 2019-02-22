@@ -38,10 +38,10 @@ import org.montclairrobotics.alloy.components.InputComponent;
  */
 public class BangBang extends InputComponent<Double> implements ErrorCorrection<Double> {
 
-    public double target;
-    public double lowOut;
-    public double highOut;
-    public double tolerance;
+    private double target;
+    private final double lowOut;
+    private final double highOut;
+    private final double tolerance;
 
     public BangBang(double lowOut, double highOut, double tolerance) {
         this.lowOut = lowOut;

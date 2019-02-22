@@ -37,8 +37,8 @@ import org.montclairrobotics.alloy.vector.Vector;
  */
 public class TankMapper extends Component implements DTMapper {
 
-    private Vector maxSpeed;
-    private Angle maxRotation;
+    private final Vector maxSpeed;
+    private final Angle maxRotation;
 
     public TankMapper() {
         this(1, 1);

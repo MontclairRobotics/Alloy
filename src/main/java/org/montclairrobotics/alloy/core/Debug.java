@@ -43,9 +43,9 @@ import org.montclairrobotics.alloy.utils.Input;
  */
 public class Debug {
     /** The key, label, or name of the information */
-    public String key;
+    public final String key;
     /** The information, or object to be debugged */
-    public Input<Object> value;
+    public final Input<Object> value;
 
     /** debug a changing value */
     public Debug(String key, Input<Object> value) {

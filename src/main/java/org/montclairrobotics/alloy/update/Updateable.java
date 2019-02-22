@@ -44,16 +44,16 @@ import org.montclairrobotics.alloy.exceptions.UpdateException;
 public class Updateable {
 
     /** The method that will be called when it is updated */
-    private Method update;
+    private final Method update;
 
     /** How often the updateable should be updated */
-    private int updateRate;
+    private final int updateRate;
 
     /** The class that contains the method */
-    private Class clazz;
+    private final Class clazz;
 
     /** Any parameters for the method (This should be empty) */
-    private Parameter[] parameters;
+    private final Parameter[] parameters;
 
     /** All objects that the method needs to be called on */
     private ArrayList<Object> objects;
@@ -82,9 +82,7 @@ public class Updateable {
             for (Object o : objects) {
                 update.invoke(o, (Object[]) parameters);
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }

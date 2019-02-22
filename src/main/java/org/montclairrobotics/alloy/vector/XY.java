@@ -38,8 +38,8 @@ package org.montclairrobotics.alloy.vector;
  * @since 0.1
  */
 public class XY implements Vector {
-    private double x;
-    private double y;
+    private final double x;
+    private final double y;
 
     public XY(double x, double y) {
         this.x = x;
@@ -62,16 +62,6 @@ public class XY implements Vector {
     }
 
     /**
-     * Sets the x component of the vector
-     *
-     * @param x what the x value will be set to
-     */
-    @Override
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    /**
      * Gets the Y component of the vector
      *
      * @return the Y component of the vector
@@ -79,16 +69,6 @@ public class XY implements Vector {
     @Override
     public double getY() {
         return y;
-    }
-
-    /**
-     * Sets the y component of the vector
-     *
-     * @param y what the y value will be set to
-     */
-    @Override
-    public void setY(double y) {
-        this.y = y;
     }
 
     /**
@@ -101,16 +81,6 @@ public class XY implements Vector {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
-    /**
-     * Sets the magnitude of the vector
-     *
-     * @param magnitude what the magnitude will be set to
-     */
-    @Override
-    public void setMagnitude(double magnitude) {
-        this.x = getAngle().cos() * magnitude;
-        this.y = getAngle().sin() * magnitude;
-    }
 
     /**
      * Gets the angle in standard position that the vector makes
@@ -122,16 +92,6 @@ public class XY implements Vector {
         return new Angle(Angle.AngleMeasure.RADIAN, Math.atan2(y, x));
     }
 
-    /**
-     * Sets the angle in standard position of the vector
-     *
-     * @param angle what the angle will be set to
-     */
-    @Override
-    public void setAngle(Angle angle) {
-        this.x = getManitude() * angle.cos();
-        this.y = getManitude() * angle.sin();
-    }
 
     /**
      * Adds two vectors together and returns the result

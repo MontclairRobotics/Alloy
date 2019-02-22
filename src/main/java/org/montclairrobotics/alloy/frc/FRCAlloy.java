@@ -24,6 +24,7 @@ SOFTWARE.
 package org.montclairrobotics.alloy.frc;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.montclairrobotics.alloy.auto.StateMachine;
 import org.montclairrobotics.alloy.auto.States.NullState;
@@ -39,8 +40,8 @@ import org.montclairrobotics.alloy.utils.Initializeable;
  * @author Garrett Burroughs
  * @since
  */
-public abstract class FRCAlloy extends IterativeRobot implements Alloy {
-    public static DriveTrain driveTrain;
+public abstract class FRCAlloy extends TimedRobot implements Alloy {
+    private static DriveTrain driveTrain;
     private static Selector<StateMachine> autoSelector;
     private StateMachine autoMode;
     public static Debugger debugger;

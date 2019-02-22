@@ -56,10 +56,10 @@ public abstract class Encoder extends InputComponent<Integer> {
      * How far the motor goes for each encoder tick NOTE : It is very important that distances are
      * consistent
      */
-    private double distancePerTick;
+    private final double distancePerTick;
 
     /** Max speed that the motor can go Measured in Ticks per Second */
-    private double maxSpeed;
+    private final double maxSpeed;
 
     /** Keeps track of the ticks when the encoder was "reset" */
     private int ticksAtReset;
@@ -84,7 +84,7 @@ public abstract class Encoder extends InputComponent<Integer> {
     public Encoder(double distancePerTick, double maxSpeed) {
         this.distancePerTick = distancePerTick;
         this.maxSpeed = maxSpeed;
-        setInput(() -> getTicks());
+        setInput(this::getTicks);
         calcVelocity = new Differential((Input<Double>) () -> (double) getTicks());
         calcAcceleration = new Differential(calcVelocity);
     }
@@ -92,32 +92,6 @@ public abstract class Encoder extends InputComponent<Integer> {
     /** Create a new encoder with default values */
     public Encoder() {
         this(1.0, 1.0);
-    }
-
-    /**
-     * Set the distance per tick
-     *
-     * <p>The distance per tick is the amount of distance the motor will move (or what the motor is
-     * attached to, eg wheel/lift) The distance unit should stay consistent throughout the robot
-     * project This method can also be daisychained as it returns a reference to itself
-     *
-     * @param distancePerTick how far the motor moves for 1 encoder tick
-     * @return the encoder
-     */
-    public Encoder setDistancePerTick(double distancePerTick) {
-        this.distancePerTick = distancePerTick;
-        return this;
-    }
-
-    /**
-     * Set the max speed (In Ticks per Second) that the motor can run
-     *
-     * @param maxSpeed max speed that the motor can run
-     * @return the encoder
-     */
-    public Encoder setMaxSpeed(double maxSpeed) {
-        this.maxSpeed = maxSpeed;
-        return this;
     }
 
     /**

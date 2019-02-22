@@ -26,10 +26,10 @@ package org.montclairrobotics.alloy.core;
 import org.montclairrobotics.alloy.utils.Input;
 
 public class LimitedMotor implements Motor {
-    private Input<Boolean> bottomLimit;
-    private Input<Boolean> topLimit;
+    private final Input<Boolean> bottomLimit;
+    private final Input<Boolean> topLimit;
 
-    Motor motor;
+    private final Motor motor;
 
     public LimitedMotor(Motor motor, Input<Boolean> bottomLimit, Input<Boolean> topLimit) {
         this.motor = motor;

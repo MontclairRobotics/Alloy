@@ -30,7 +30,7 @@ import org.montclairrobotics.alloy.utils.Toggleable;
 import org.montclairrobotics.alloy.vector.Angle;
 
 public class GyroLock extends Toggleable implements Step<DTInput> {
-    private GyroCorrection correction;
+    private final GyroCorrection correction;
 
     public GyroLock(GyroCorrection correction) {
         this.correction = correction;

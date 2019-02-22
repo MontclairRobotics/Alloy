@@ -36,7 +36,7 @@ import org.montclairrobotics.alloy.utils.Toggleable;
 public class Deadzone extends Toggleable implements Step<Double> {
 
     /** the threshold value that the input has to be lower than for the step to return 0 */
-    private double tolerance;
+    private final double tolerance;
 
     /** Create a deadzone specifying the tolerance */
     public Deadzone(double tolerance) {
@@ -72,8 +72,4 @@ public class Deadzone extends Toggleable implements Step<Double> {
         return tolerance;
     }
 
-    /** set the threshold value */
-    public void setTolerance(int tolerance) {
-        this.tolerance = tolerance;
-    }
 }

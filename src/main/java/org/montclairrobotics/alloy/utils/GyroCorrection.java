@@ -38,8 +38,8 @@ public class GyroCorrection extends InputComponent<Double> {
 
     private static GyroCorrection generalCorrection;
 
-    private Gyro gyro;
-    private PID correction;
+    private final Gyro gyro;
+    private final PID correction;
 
     public static void setGeneralCorrection(GyroCorrection correction) {
         GyroCorrection.generalCorrection = correction;

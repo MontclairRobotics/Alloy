@@ -37,7 +37,7 @@ import org.montclairrobotics.alloy.vector.Vector;
 public class VectorDeadzone extends Toggleable implements Step<Vector> {
 
     /** the threshold value that the input has to be lower than for the step to return 0 */
-    private double tolerance;
+    private final double tolerance;
 
     /** Create a VectorDeadzone specifying the tolerance */
     public VectorDeadzone(double tolerance) {
@@ -73,8 +73,4 @@ public class VectorDeadzone extends Toggleable implements Step<Vector> {
         return tolerance;
     }
 
-    /** set the threshold value */
-    public void setTolerance(double tolerance) {
-        this.tolerance = tolerance;
-    }
 }

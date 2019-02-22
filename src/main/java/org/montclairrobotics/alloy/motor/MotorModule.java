@@ -58,10 +58,10 @@ public class MotorModule extends Component {
     private ArrayList<Motor> motors;
 
     /** The direction that the modules run for use in a motor group */
-    private Vector direction;
+    private final Vector direction;
 
     /** the position of the motor, relative to the center of the motor group */
-    private Vector offset;
+    private final Vector offset;
 
     /** An error correction that will control the power */
     private ErrorCorrection<Double> powerControl;
@@ -260,11 +260,6 @@ public class MotorModule extends Component {
     /** @return the power modifier of the motor */
     public InputComponent<Double> getModifier() {
         return modifier;
-    }
-
-    public MotorModule setOffset(Vector offset) {
-        this.offset = offset;
-        return this;
     }
 
     /** @return the relative position to the center of the motor group */

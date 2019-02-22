@@ -34,7 +34,7 @@ import org.montclairrobotics.alloy.core.Motor;
  * @since
  */
 public class FRCMotor extends Component implements Motor {
-    SpeedController controller;
+    protected final SpeedController controller;
 
     private double power;
 
@@ -50,7 +50,7 @@ public class FRCMotor extends Component implements Motor {
     /**
      * Sets the motor Power
      *
-     * @param power the power that the motor will be set to (0-1 inclusive )
+     * @param power the power that the motor will be set to [-1, 1]
      */
     @Override
     public void setMotorPower(double power) {

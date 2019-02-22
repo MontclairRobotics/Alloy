@@ -34,6 +34,7 @@ package org.montclairrobotics.alloy.utils;
  * @version 0.1
  * @since 0.1
  */
+@FunctionalInterface
 public interface Input<T> {
     T get();
 }

@@ -26,7 +26,7 @@ package org.montclairrobotics.alloy.frc;
 import org.montclairrobotics.alloy.utils.Toggleable;
 
 public class Solenoid extends Toggleable {
-    edu.wpi.first.wpilibj.Solenoid solenoid;
+    private final edu.wpi.first.wpilibj.Solenoid solenoid;
 
     public Solenoid(edu.wpi.first.wpilibj.Solenoid solenoid) {
         this.solenoid = solenoid;

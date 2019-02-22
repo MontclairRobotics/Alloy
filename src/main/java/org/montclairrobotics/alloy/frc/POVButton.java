@@ -27,9 +27,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import org.montclairrobotics.alloy.core.Button;
 
 public class POVButton implements Button {
-    private int angle;
-    private Joystick joystick;
-    private int id;
+    private final int angle;
+    private final Joystick joystick;
+    private final int id;
 
     public POVButton(int angle, Joystick joystick, int id) {
         this.angle = angle;

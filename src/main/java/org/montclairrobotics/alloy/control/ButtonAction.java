@@ -40,7 +40,7 @@ import org.montclairrobotics.alloy.update.Update;
  */
 public class ButtonAction {
     /** The button that controls the action */
-    private Button button;
+    private final Button button;
 
     /**
      * Keeps track of if the button was pressed in the previous loop, used for telling when the

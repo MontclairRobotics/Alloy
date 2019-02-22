@@ -47,16 +47,16 @@ import org.montclairrobotics.alloy.update.Update;
  * @version 0.1
  */
 public class PID extends InputComponent<Double> implements ErrorCorrection<Double> {
-    private double p;
-    private double i;
-    private double d;
+    private final double p;
+    private final double i;
+    private final double d;
     private double target;
 
-    Double minIn;
-    Double maxIn;
+    private Double minIn;
+    private Double maxIn;
 
-    Double minOut;
-    Double maxOut;
+    private Double minOut;
+    private Double maxOut;
 
     /** The error of the PID, calculated by the target - input */
     private double error;

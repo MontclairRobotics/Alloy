@@ -44,7 +44,7 @@ import org.montclairrobotics.alloy.utils.Input;
 public class FTCMotor extends Component implements Motor {
 
     /** The physical hardware motor reference to the motor being controlled */
-    public DcMotor motor;
+    public final DcMotor motor;
 
     /** The power that the motor should be running at */
     public double power;
@@ -99,8 +99,8 @@ public class FTCMotor extends Component implements Motor {
         return motor.getDirection() == DcMotorSimple.Direction.REVERSE;
     }
 
-    public Encoder getEncoder() {
-        return new Encoder() {
+    public Encoder getEncoder(double ticksPerInch, double maxSpeed) {
+        return new Encoder(ticksPerInch, maxSpeed) {
             @Override
             public int getRawTicks() {
                 return motor.getCurrentPosition();

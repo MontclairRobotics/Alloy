@@ -110,12 +110,9 @@ public class TestRobot extends FTCAlloy {
 
         // Get the encoders from the motors
         Encoder intakeRightEncoder =
-                rightIntakeMotor
-                        .getEncoder()
-                        .setMaxSpeed(100)
-                        .setDistancePerTick(30); // These 100, and 30, are experimental values
+                rightIntakeMotor.getEncoder(30, 100);
         Encoder intakeLeftEncoder =
-                rightIntakeMotor.getEncoder().setMaxSpeed(100).setDistancePerTick(30);
+                rightIntakeMotor.getEncoder(30, 100);
 
         // Define the right and left modules
         MotorModule intakeRightSide =

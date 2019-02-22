@@ -43,7 +43,7 @@ import org.montclairrobotics.alloy.utils.Input;
 public class MotorGroup<T> extends Component {
 
     /** The mapper that will be used for power assignment and calculation */
-    private Mapper mapper;
+    private final Mapper mapper;
 
     /** The modules contained in the motor group */
     private ArrayList<MotorModule> modules;
@@ -74,10 +74,6 @@ public class MotorGroup<T> extends Component {
 
     public Mapper getMapper() {
         return mapper;
-    }
-
-    public void setMapper(Mapper mapper) {
-        this.mapper = mapper;
     }
 
     public Input<T> getInput() {

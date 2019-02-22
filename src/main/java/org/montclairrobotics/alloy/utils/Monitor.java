@@ -36,10 +36,10 @@ package org.montclairrobotics.alloy.utils;
  */
 public class Monitor implements Input<Boolean> {
     /** The desired target for the input */
-    public Input<Double> target;
+    public final Input<Double> target;
 
     /** The input to be checked */
-    public Input<Double> input;
+    public final Input<Double> input;
 
     /** How far the input can be away from the target while still being true */
     public double tolerance;

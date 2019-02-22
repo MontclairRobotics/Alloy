@@ -36,7 +36,7 @@ import org.montclairrobotics.alloy.utils.Input;
  * @since 0.1
  */
 public class DriveTrain extends MotorGroup<DTInput> {
-    Input<DTInput> defaultInput;
+    private Input<DTInput> defaultInput;
 
     public DriveTrain(Input<DTInput> input, Mapper mapper, MotorModule... modules) {
         super(input, mapper, modules);

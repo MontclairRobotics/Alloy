@@ -38,8 +38,8 @@ package org.montclairrobotics.alloy.vector;
  * @since 0.1
  */
 public class Polar implements Vector {
-    private double magnitude;
-    private Angle angle;
+    private final double magnitude;
+    private final Angle angle;
 
     public Polar(double magnitude, Angle angle) {
         this.magnitude = magnitude;
@@ -57,17 +57,6 @@ public class Polar implements Vector {
     }
 
     /**
-     * Sets the x component of the vector
-     *
-     * @param x what the x value will be set to
-     */
-    @Override
-    public void setX(double x) {
-        magnitude = Math.sqrt(Math.pow(x, 2) + Math.pow(getY(), 2));
-        angle = new Angle(Angle.AngleMeasure.RADIAN, Math.atan2(getY(), x));
-    }
-
-    /**
      * Gets the Y component of the vector
      *
      * @return the Y component of the vector
@@ -75,17 +64,6 @@ public class Polar implements Vector {
     @Override
     public double getY() {
         return magnitude * angle.sin();
-    }
-
-    /**
-     * Sets the y component of the vector
-     *
-     * @param y what the y value will be set to
-     */
-    @Override
-    public void setY(double y) {
-        magnitude = Math.sqrt(Math.pow(getX(), 2) + Math.pow(y, 2));
-        angle = new Angle(Angle.AngleMeasure.RADIAN, Math.atan2(y, getX()));
     }
 
     /**
@@ -99,16 +77,6 @@ public class Polar implements Vector {
     }
 
     /**
-     * Sets the magnitude of the vector
-     *
-     * @param magnitude what the magnitude will be set to
-     */
-    @Override
-    public void setMagnitude(double magnitude) {
-        this.magnitude = magnitude;
-    }
-
-    /**
      * Gets the angle in standard position that the vector makes
      *
      * @return the angle in standard position that the vector makes
@@ -116,16 +84,6 @@ public class Polar implements Vector {
     @Override
     public Angle getAngle() {
         return angle;
-    }
-
-    /**
-     * Sets the angle in standard position of the vector
-     *
-     * @param angle what the angle will be set to
-     */
-    @Override
-    public void setAngle(Angle angle) {
-        this.angle = angle;
     }
 
     /**

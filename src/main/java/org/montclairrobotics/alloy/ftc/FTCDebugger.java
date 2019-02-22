@@ -38,7 +38,7 @@ import org.montclairrobotics.alloy.exceptions.InvalidConfigurationException;
 public class FTCDebugger extends Debugger {
 
     /** The telemetry used for debugging */
-    private Telemetry telemetry;
+    private final Telemetry telemetry;
 
     /** Create a new FTCDebugger, and throw an exception if it has not been initialized */
     public FTCDebugger() {

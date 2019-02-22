@@ -44,7 +44,7 @@ import org.montclairrobotics.alloy.update.Update;
  */
 public class Differential extends InputComponent<Double> {
     /** The dependant variable in the situation */
-    public Input<Double> input;
+    public final Input<Double> input;
 
     private double prevTime;
     private double prevIn;

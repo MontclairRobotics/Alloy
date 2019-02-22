@@ -40,10 +40,12 @@ public class FRCJoystick extends InputComponent<Vector> implements Joystick {
 
     public FRCJoystick(int port) {
         this.stick = new edu.wpi.first.wpilibj.Joystick(port);
+        setInput(this::getValue);
     }
 
     public FRCJoystick(edu.wpi.first.wpilibj.Joystick joystick) {
         this.stick = joystick;
+        setInput(this::getValue);
     }
 
     /**

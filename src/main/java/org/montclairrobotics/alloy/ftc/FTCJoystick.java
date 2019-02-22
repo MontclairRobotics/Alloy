@@ -51,10 +51,10 @@ public class FTCJoystick extends InputComponent<Vector> implements Joystick {
      *
      * @see org.montclairrobotics.alloy.core.RobotCore
      */
-    private Gamepad gamepad;
+    private final Gamepad gamepad;
 
     /** The side that the joystick is on */
-    private Side side;
+    private final Side side;
 
     /**
      * The side in a FTCJoystick is referring to the side of the controller is on, there are 2

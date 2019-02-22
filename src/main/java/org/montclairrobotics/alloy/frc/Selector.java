@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class Selector<E> {
     private static ArrayList<Selector> selectors;
     private SendableChooser<E> selector;
-    private String name;
+    private final String name;
 
     public Selector(String name, SendableChooser selector) {
         this.selector = selector;

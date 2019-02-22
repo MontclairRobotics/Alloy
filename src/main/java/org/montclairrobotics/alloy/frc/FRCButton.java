@@ -33,13 +33,10 @@ import org.montclairrobotics.alloy.utils.Input;
  * @since
  */
 public class FRCButton implements Button {
-    Input<Boolean> out;
+    private final Input<Boolean> out;
 
     public FRCButton(FRCJoystick joystick, int button) {
-        out =
-                () -> {
-                    return joystick.getStick().getRawButton(button);
-                };
+        out = () -> joystick.getStick().getRawButton(button);
     }
 
     public FRCButton(Input<Boolean> button) {

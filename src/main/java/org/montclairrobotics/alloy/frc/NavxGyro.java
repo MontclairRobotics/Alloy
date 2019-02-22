@@ -29,7 +29,7 @@ import org.montclairrobotics.alloy.core.Gyro;
 
 public class NavxGyro extends InputComponent<Double> implements Gyro {
 
-    private AHRS navx;
+    private final AHRS navx;
 
     public NavxGyro(AHRS navx) {
         this.navx = navx;
