@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2018 Garrett Burroughs
+Copyright (c) 2019 Garrett Burroughs
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +21,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.core;
-
-import org.montclairrobotics.alloy.vector.Vector;
+package org.montclairrobotics.alloy.control;
 
 /**
- * The fundamental outline for all standard 2-axis joysticks
+ * An action that can be completed
  *
- * <p>Joysticks should return a vector made up of the X and Y values of their position
+ * <p>Completable actions are actions performed over time that will end up in a completed state.
  *
- * @author Garrett Burroughs
- * @version 0.1
- * @since 0.1
+ * <p>An example of a completable action would be moving a motor to a position, while moving the
+ * motor, the action will be
  */
-public interface Joystick {
-    /**
-     * Gets the position of the joystick
-     *
-     * @return a vector made up of the X and Y values of the Joysticks Position
-     */
-    public Vector getValue();
+public interface CompletableAction {
+    void doAction();
+
+    boolean isComplete();
 }

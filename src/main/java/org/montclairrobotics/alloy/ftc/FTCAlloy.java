@@ -60,6 +60,7 @@ public abstract class FTCAlloy extends OpMode implements Alloy {
 
         robotSetup();
         initialization();
+        DriveTrain.setAutoDriveTrain(getDriveTrain());
     }
 
     @Override

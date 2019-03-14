@@ -110,7 +110,8 @@ public class VisionCorrection extends Toggleable implements Step<DTInput> {
     public void debug() {
         Component.debugger.test("Current Vision Value", visionIn.get());
         Component.debugger.test("Target Vision Value", target);
-        Component.debugger.test("Vision Turn Correction", enabled ? correction.getCorrection() : 0);
+        Component.debugger.test(
+                "Vision TurnEncoders Correction", enabled ? correction.getCorrection() : 0);
         Component.debugger.driverInfo("Vision Correction Enabled", enabled);
     }
 }

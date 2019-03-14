@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.auto;
 
+import org.montclairrobotics.alloy.ftc.AlloyAutonomous;
+
 /**
  * Created by MHS Robotics on 12/16/2017.
  *
@@ -40,6 +42,10 @@ public abstract class State {
     Integer nextState = null;
     String debug = "Running State: ";
     String description = "None";
+
+    public State(int nextState) {}
+
+    public State() {}
 
     /** The start method is the first thing called when the state is run */
     public abstract void start();
@@ -70,6 +76,11 @@ public abstract class State {
             return nextState;
         }
         return currentState + 1;
+    }
+
+    public State setNextState(int nextState) {
+        this.nextState = nextState;
+        return this;
     }
 
     /**

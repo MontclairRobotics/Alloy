@@ -26,7 +26,11 @@ package org.montclairrobotics.alloy.auto.States;
 import org.montclairrobotics.alloy.auto.State;
 
 /**
- * Created by MHS Robotics on 10/6/2018.
+ * A state that does nothing
+ *
+ * <p>This null state is put in place to prevent the code from crashing when no state is defined
+ *
+ * <p>This state will not do anything
  *
  * @author Garrett Burroughs
  * @since
