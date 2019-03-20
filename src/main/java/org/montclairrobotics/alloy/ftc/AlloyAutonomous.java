@@ -47,7 +47,6 @@ import org.montclairrobotics.alloy.drive.DriveTrain;
  * @since 0.1
  */
 public abstract class AlloyAutonomous extends OpMode {
-    public static DriveTrain autoDriveTrain;
 
     /** Keeps track of when the auto mode is running (True after started and before finished) */
     boolean running;
@@ -110,13 +109,5 @@ public abstract class AlloyAutonomous extends OpMode {
      */
     public void newState(State state) {
         auto.addState(state);
-    }
-
-    public static void setAutoDriveTrain(DriveTrain driveTrain) {
-        autoDriveTrain = driveTrain;
-    }
-
-    public static DriveTrain getAutoDriveTrain() {
-        return autoDriveTrain;
     }
 }

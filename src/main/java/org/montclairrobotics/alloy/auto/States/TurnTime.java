@@ -31,6 +31,20 @@ import org.montclairrobotics.alloy.vector.Angle;
 import org.montclairrobotics.alloy.vector.Polar;
 import org.montclairrobotics.alloy.vector.Vector;
 
+/**
+ * Turns the robot autonomously for a given amount of time
+ *
+ * This method of autonomous movement is not recommended, as
+ * it is very susceptible to outside interference and tends to
+ * be very unreliable and inaccurate
+ *
+ * For more accurate autonomous turning see
+ * @see TurnGyro
+ * @see TurnEncoders
+ *
+ * @author Garrett Burroughs
+ * @since 0.1
+ */
 public class TurnTime extends State {
     /** the time in seconds the robot will turn for */
     private final double time;
@@ -44,12 +58,29 @@ public class TurnTime extends State {
     /** the time the state starts at */
     private long startTimeMillis;
 
+    /**
+     * Creates an auto state that turns the robot for a specified time at a specified power
+     *
+     * This constructor does not indicate the next state
+     *
+     * @param time the time (in seconds) to turn the robot
+     * @param power the power to turn the robot
+     */
     public TurnTime(double time, double power) {
         this.time = time;
         this.power = power;
         this.driveTrain = DriveTrain.getAutoDriveTrain();
     }
 
+    /**
+     * Creates an auto state that turns the robot for a specified time at a specified power
+     *
+     * This constructor indicates the following state
+     *
+     * @param time the time (in seconds) to turn the robot
+     * @param power the power to turn the robot
+     * @param nextState the state to go to when this state is done
+     */
     public TurnTime(double time, double power, int nextState) {
         super(nextState);
         this.time = time;
@@ -65,7 +96,7 @@ public class TurnTime extends State {
     @Override
     public void run() {
         driveTrain.setInput(
-                new ConstantInput<DTInput>(new DTInput(new Polar(power, Angle.ZERO), Angle.ZERO)));
+                new ConstantInput<DTInput>(new DTInput(Vector.ZERO, new Angle(power))));
     }
 
     @Override

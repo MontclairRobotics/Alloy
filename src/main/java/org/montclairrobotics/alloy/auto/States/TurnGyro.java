@@ -36,15 +36,55 @@ import org.montclairrobotics.alloy.vector.Vector;
  * <p>This is one of the more accurate ways of turning a robot, as it is resistant to outside
  * interruptions and robot error.
  *
+ * The turn gyro state uses a gyro correction object for all of its turn calculations,
+ * this is gotten automatically from the drive train class, but first needs to be specified
+ * by the user in the robot init class.
+ *
+ * This is written this way, so that the user can define a gyro correction object once,
+ * and not have to worry about using it for all turning operations, as if they are using it
+ * for one thing (indicating that there is a working and reliable gyro on the robot, and that
+ * the team is aware and capable of gyroscope enhancement) then the gyro should be used
+ * for all autonomous turning commands and correction.
+ *
+ * @see GyroCorrection
  * @author Garrett Burroughs
  * @since 0.1
  */
 public class TurnGyro extends State {
+
+    /**
+     * The gyro correction used for turning the robot
+     *
+     * This is defined to be the default gyro correction that can
+     * be set using the "GyroCorrection.setGeneralCorrection()" method
+     * in the robotSetup() class
+     */
     private final GyroCorrection turnCorrection;
+
+    /** the target angle the robot will try to be at */
     private final Angle angle;
+
+    /**
+     * If true, the robot will turn the specified number of degrees
+     *
+     * If false, the robot will turn to the absolute angle (based on the most recent gyro reset)
+     * NOTE: The gyro is generally reset when you power on the robot, you may want to reset the gyro at the start of
+     * the autonomous mode to ensure proper calibration
+     */
     private final boolean relative;
+
+    /** the drive train this state will use, this is set by default to be the alloy drive train */
     private final DriveTrain driveTrain;
 
+    /**
+     * Creates a new turn gyro state
+     *
+     * This constructor does not specify the following state
+     *
+     * @param angle the angle to move, either absolute or relative
+     * @param relative if false,  the robot will turn to the absolute gyro angle (based off the most recent reset)
+     *                 if true, the robot will turn the angle relative to its current angle (standard turning)
+     */
     public TurnGyro(double angle, boolean relative) {
         turnCorrection = GyroCorrection.getGeneralCorrection();
         driveTrain = DriveTrain.getAutoDriveTrain();
@@ -52,6 +92,15 @@ public class TurnGyro extends State {
         this.relative = relative;
     }
 
+    /**
+     * Creates a new turn gyro state
+     *
+     * This constructor does not specify the following state
+     *
+     * @param angle the angle to move, either absolute or relative
+     * @param relative if false,  the robot will turn to the absolute gyro angle (based off the most recent reset)
+     *                 if true, the robot will turn the angle relative to its current angle (standard turning)
+     */
     public TurnGyro(Angle angle, boolean relative) {
         turnCorrection = GyroCorrection.getGeneralCorrection();
         driveTrain = DriveTrain.getAutoDriveTrain();
@@ -59,6 +108,16 @@ public class TurnGyro extends State {
         this.relative = relative;
     }
 
+    /**
+     * Creates a new turn gyro state
+     *
+     * This constructor specifies the following state
+     *
+     * @param angle the angle to move, either absolute or relative
+     * @param relative if false,  the robot will turn to the absolute gyro angle (based off the most recent reset)
+     *                 if true, the robot will turn the angle relative to its current angle (standard turning)
+     * @param nextState the state to go to when this state is done
+     */
     public TurnGyro(Angle angle, boolean relative, int nextState) {
         super(nextState);
         turnCorrection = GyroCorrection.getGeneralCorrection();
