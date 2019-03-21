@@ -112,20 +112,37 @@ public class GyroCorrection extends InputComponent<Double> {
     public void setRelativeTargetAngle(Angle a) {
         correction.setTarget(correction.getTarget() + a.getDegrees());
     }
-    
+
+    /**
+     * Set the absolute target angle
+     *
+     * Absolute angles are in reference to the last time the
+     * gyro has been reset. This is mainly used for keeping
+     * a constant heading
+     *
+     * @param a the absolute angle that the correction will target
+     */
     public void setTargetAngle(Angle a) {
         correction.setTarget(a.getDegrees());
     }
 
+    /** Return the error correction used in gyro correction calculations */
     public ErrorCorrection<Double> getCorrection() {
         return correction;
     }
 
+    /**
+     * reset the gyro
+     *
+     * Note: This will reset the gyro the correction
+     * uses itself
+     */
     public GyroCorrection reset() {
         gyro.reset();
         return this;
     }
 
+    /** get the gyro used in gyro correction calculation */
     public Gyro getGyro() {
         return gyro;
     }
