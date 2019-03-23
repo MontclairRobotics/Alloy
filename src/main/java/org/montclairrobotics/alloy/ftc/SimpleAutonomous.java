@@ -21,24 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.core;
+package org.montclairrobotics.alloy.ftc;
 
-import org.montclairrobotics.alloy.vector.Vector;
+import org.montclairrobotics.alloy.auto.States.DriveEncoders;
+import org.montclairrobotics.alloy.auto.States.TurnEncoders;
 
 /**
- * The fundamental outline for all standard 2-axis joysticks
+ * Created by MHS Robotics on 1/26/2018.
  *
- * <p>Joysticks should return a vector made up of the X and Y values of their position
+ * <p>SimpleAutonomous abstracts away the concept of adding states to a state machine, so that
+ * states can be added as if they were commands to be executed by the auto mode. This class only has
+ * the pre-written states included, so another class extending this one would need to be created to
+ * add any custom states
  *
  * @author Garrett Burroughs
- * @version 0.1
- * @since 0.1
+ * @since
  */
-public interface Joystick {
-    /**
-     * Gets the position of the joystick
-     *
-     * @return a vector made up of the X and Y values of the Joysticks Position
-     */
-    public Vector getValue();
+public class SimpleAutonomous extends AlloyAutonomous {
+    @Override
+    public void setup() {}
+
+    public void drive(double speed, double distance) {
+        auto.addState(new DriveEncoders(speed, distance));
+    }
+
+    public void turn(double speed, double degrees) {
+        auto.addState(new TurnEncoders(speed, degrees));
+    }
 }

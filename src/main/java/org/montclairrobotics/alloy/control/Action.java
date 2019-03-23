@@ -23,6 +23,7 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.control;
 
+/** A fucntional interface that performs a singular action */
 @FunctionalInterface
 public interface Action {
     public void doAction();

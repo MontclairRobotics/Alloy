@@ -30,7 +30,10 @@ import org.montclairrobotics.alloy.motor.MotorModule;
 import org.montclairrobotics.alloy.utils.Input;
 
 /**
- * Created by MHS Robotics on 12/16/2017.
+ * A more specialized motor group specified as a drive train
+ *
+ * <p>Each robot can only contain one drive train, and that drive train is stored statically in the
+ * respective alloy classes
  *
  * @author Garrett Burroughs
  * @since 0.1
@@ -38,9 +41,28 @@ import org.montclairrobotics.alloy.utils.Input;
 public class DriveTrain extends MotorGroup<DTInput> {
     private Input<DTInput> defaultInput;
 
+    /**
+     * The default input to the drive train
+     *
+     * <p>Since numerous parts of alloy can "Hijack" the drive train input to control it in
+     * autonomously, the default input is stored in the drivetrain class and able to be restored
+     * using setDefaultInput()
+     */
+    private final Input<DTInput> defaultInput;
+
+    private static DriveTrain autoDriveTrain;
+
     public DriveTrain(Input<DTInput> input, Mapper mapper, MotorModule... modules) {
         super(input, mapper, modules);
         defaultInput = input;
+    }
+
+    public static DriveTrain getAutoDriveTrain() {
+        return autoDriveTrain;
+    }
+
+    public static void setAutoDriveTrain(DriveTrain autoDriveTrain) {
+        DriveTrain.autoDriveTrain = autoDriveTrain;
     }
 
     public void setDefaultInput() {

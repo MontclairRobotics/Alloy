@@ -34,8 +34,8 @@ version = "FRC-0.0.1${snapshot ? "-SNAPSHOT" : ""}"
 
 description = """Alloy"""
 
-sourceCompatibility = 1.10
-targetCompatibility = 1.10
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 repositories {
 	maven { url "http://repo.maven.apache.org/maven2" }

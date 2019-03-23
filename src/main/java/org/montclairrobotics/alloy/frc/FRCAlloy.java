@@ -23,7 +23,6 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.frc;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.montclairrobotics.alloy.auto.StateMachine;
@@ -32,6 +31,7 @@ import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.Alloy;
 import org.montclairrobotics.alloy.core.Debugger;
 import org.montclairrobotics.alloy.drive.DriveTrain;
+import org.montclairrobotics.alloy.update.Updater;
 import org.montclairrobotics.alloy.utils.Initializeable;
 
 /**
@@ -45,6 +45,18 @@ public abstract class FRCAlloy extends TimedRobot implements Alloy {
     private static Selector<StateMachine> autoSelector;
     private StateMachine autoMode;
     public static Debugger debugger;
+
+    /**
+     * Initialization code for teleop mode should go here.
+     *
+     * <p>Users should override this method for initialization code which will be called each time
+     * the robot enters teleop mode.
+     */
+    @Override
+    public void teleopInit() {
+        driveTrain.setDefaultInput();
+        initialization();
+    }
 
     /**
      * Robot-wide initialization code should go here.
@@ -70,13 +82,12 @@ public abstract class FRCAlloy extends TimedRobot implements Alloy {
         }
 
         robotSetup();
-        initialization();
     }
 
     /** Periodic code for teleop mode should go here. */
     @Override
     public void teleopPeriodic() {
-        super.teleopPeriodic();
+        Updater.update();
     }
 
     /**
@@ -90,9 +101,13 @@ public abstract class FRCAlloy extends TimedRobot implements Alloy {
     @Override
     public void autonomousInit() {
         autoMode = autoSelector.getSelected();
+        if (getDriveTrain() == null) {
+            debugger.error("DRIVE TRAIN NOT SPECIFIED FOR AUTO");
+        }
+        DriveTrain.setAutoDriveTrain(getDriveTrain());
         try {
             autoMode.start();
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             debugger.error(
                     "You have not specified an auto mode, a null auto has been created for you");
             autoMode = new StateMachine("Null Auto", 0, new NullState());
@@ -102,7 +117,7 @@ public abstract class FRCAlloy extends TimedRobot implements Alloy {
     /** Periodic code for autonomous mode should go here. */
     @Override
     public void autonomousPeriodic() {
-        super.autonomousPeriodic();
+        Updater.update();
     }
 
     /**
