@@ -1,9 +1,9 @@
 package org.montclairrobotics.alloy.frc;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import org.montclairrobotics.alloy.core.UltrasonicSensor;
-import org.montclairrobotics.alloy.utils.Input;
-import org.montclairrobotics.alloy.utils.Utils;
+        import edu.wpi.first.wpilibj.AnalogInput;
+        import org.montclairrobotics.alloy.core.UltrasonicSensor;
+        import org.montclairrobotics.alloy.utils.Input;
+        import org.montclairrobotics.alloy.utils.Utils;
 
 /**
  * An implementation of an ultrasonic sensor using an analog channel
@@ -29,10 +29,14 @@ import org.montclairrobotics.alloy.utils.Utils;
  * @since 0.1
  */
 public class AnalogUltrasonic implements UltrasonicSensor, Input<Double> {
-    private final int analogChannel;
+
+    /** The analog input that the ultrasonic sensor is in */
     private final AnalogInput sensor;
+
+    /** Sensor voltage to millimeter scaling factor */
     private final double scalingFactor;
 
+    /** true if averaging oversample bits */
     private boolean average = false;
 
     /**
@@ -54,7 +58,6 @@ public class AnalogUltrasonic implements UltrasonicSensor, Input<Double> {
      * @param scalingFactor the scaling factor for the ultrasonic sensor
      */
     public AnalogUltrasonic(int analogChannel, double scalingFactor) {
-        this.analogChannel = analogChannel;
         this.sensor = new AnalogInput(analogChannel);
         this.scalingFactor = scalingFactor;
     }
@@ -75,7 +78,6 @@ public class AnalogUltrasonic implements UltrasonicSensor, Input<Double> {
      * @param scalingFactor the scaling factor for the ultrasonic sensor
      */
     public AnalogUltrasonic(AnalogInput sensor, double scalingFactor) {
-        this.analogChannel = sensor.getChannel();
         this.sensor = sensor;
         this.scalingFactor = scalingFactor;
     }
