@@ -77,7 +77,7 @@ public class Sensitivity extends Toggleable implements Step<DTInput> {
         this.turnSensitivity = turnSensitivity;
     }
 
-    public void setSensitivity(double driveSensitivity, double turnSensitivity){
+    public void setSensitivity(double driveSensitivity, double turnSensitivity) {
         this.driveSensitivity = driveSensitivity;
         this.turnSensitivity = turnSensitivity;
     }

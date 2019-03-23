@@ -81,7 +81,6 @@ public class XY implements Vector {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
-
     /**
      * Gets the angle in standard position that the vector makes
      *
@@ -91,7 +90,6 @@ public class XY implements Vector {
     public Angle getAngle() {
         return new Angle(Angle.AngleMeasure.RADIAN, Math.atan2(y, x));
     }
-
 
     /**
      * Adds two vectors together and returns the result

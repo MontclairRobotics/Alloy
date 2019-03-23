@@ -71,5 +71,4 @@ public class Deadzone extends Toggleable implements Step<Double> {
     public double getTolerance() {
         return tolerance;
     }
-
 }

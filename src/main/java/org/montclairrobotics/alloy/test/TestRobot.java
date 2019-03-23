@@ -109,10 +109,8 @@ public class TestRobot extends FTCAlloy {
         intakeController.addStep(new Deadzone());
 
         // Get the encoders from the motors
-        Encoder intakeRightEncoder =
-                rightIntakeMotor.getEncoder(30, 100);
-        Encoder intakeLeftEncoder =
-                rightIntakeMotor.getEncoder(30, 100);
+        Encoder intakeRightEncoder = rightIntakeMotor.getEncoder(30, 100);
+        Encoder intakeLeftEncoder = rightIntakeMotor.getEncoder(30, 100);
 
         // Define the right and left modules
         MotorModule intakeRightSide =

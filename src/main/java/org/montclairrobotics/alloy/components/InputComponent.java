@@ -54,8 +54,6 @@ public abstract class InputComponent<T> extends Component implements Input {
     /** An arraylist to store all of the steps */
     public ArrayList<Step<T>> steps = new ArrayList<>();
 
-
-
     @Override
     public T get() {
         return output;

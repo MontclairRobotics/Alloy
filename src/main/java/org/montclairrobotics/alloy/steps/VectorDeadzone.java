@@ -72,5 +72,4 @@ public class VectorDeadzone extends Toggleable implements Step<Vector> {
     public double getTolerance() {
         return tolerance;
     }
-
 }

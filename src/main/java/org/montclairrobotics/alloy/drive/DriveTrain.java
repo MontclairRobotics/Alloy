@@ -39,7 +39,6 @@ import org.montclairrobotics.alloy.utils.Input;
  * @since 0.1
  */
 public class DriveTrain extends MotorGroup<DTInput> {
-    private Input<DTInput> defaultInput;
 
     /**
      * The default input to the drive train
