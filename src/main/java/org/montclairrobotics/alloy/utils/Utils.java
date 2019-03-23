@@ -99,17 +99,17 @@ public class Utils {
     /**
      * Wraps a value from a minimum to a maximum
      *
-     * When wrapping, if a value exceeds the maximum threshold, it will
-     * wrap back around to the minimum threshold
+     * <p>When wrapping, if a value exceeds the maximum threshold, it will wrap back around to the
+     * minimum threshold
      *
-     * Wrapping is essentially circular (modular) around the 2 given bounds
+     * <p>Wrapping is essentially circular (modular) around the 2 given bounds
      *
-     * for example, 4 wrapped between 1 and 3 would result in 1
+     * <p>for example, 4 wrapped between 1 and 3 would result in 1
      *
-     * wrapping a from 0 to b is also the same operation as a MOD b
+     * <p>wrapping a from 0 to b is also the same operation as a MOD b
      *
-     * The input for wrapping is considered to be all real numbers and
-     * the output is considered to be [min, max]
+     * <p>The input for wrapping is considered to be all real numbers and the output is considered
+     * to be [min, max]
      *
      * @param in the value to be wrapped
      * @param min the maximum threshold for wrapping
@@ -120,7 +120,6 @@ public class Utils {
         double diff = min - max;
         return ((in - min) % diff + diff) % diff + max;
     }
-
 
     // CONSTANTS AND CONVERSIONS
     /** conversion of an angle from degrees to radians */
@@ -136,12 +135,12 @@ public class Utils {
     public static final double CENTIMETERS_TO_INCHES = .3937;
 
     /** converts a temperature from fahrenheit to celsius */
-    public static double fahrenheitToCelsius(double degreesFahrenheit){
-        return (degreesFahrenheit - 32) * 5/9;
+    public static double fahrenheitToCelsius(double degreesFahrenheit) {
+        return (degreesFahrenheit - 32) * 5 / 9;
     }
 
     /** converst a temperature from celsius to fahrenheit */
-    public static double celsiusToFahrenheit(double degreesCelsius){
-        return (degreesCelsius * 9/5) + 32;
+    public static double celsiusToFahrenheit(double degreesCelsius) {
+        return (degreesCelsius * 9 / 5) + 32;
     }
 }
