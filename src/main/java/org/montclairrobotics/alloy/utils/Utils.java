@@ -96,8 +96,52 @@ public class Utils {
         return pow % 2 == 0 ? regularResult * sign(in) : regularResult;
     }
 
+    /**
+     * Wraps a value from a minimum to a maximum
+     *
+     * When wrapping, if a value exceeds the maximum threshold, it will
+     * wrap back around to the minimum threshold
+     *
+     * Wrapping is essentially circular (modular) around the 2 given bounds
+     *
+     * for example, 4 wrapped between 1 and 3 would result in 1
+     *
+     * wrapping a from 0 to b is also the same operation as a MOD b
+     *
+     * The input for wrapping is considered to be all real numbers and
+     * the output is considered to be [min, max]
+     *
+     * @param in the value to be wrapped
+     * @param min the maximum threshold for wrapping
+     * @param max the minimum threshold for wrapping
+     * @return the inputted value wrapped between the min and the max
+     */
     public static double wrap(double in, double min, double max) {
         double diff = min - max;
         return ((in - min) % diff + diff) % diff + max;
+    }
+
+
+    // CONSTANTS AND CONVERSIONS
+    /** conversion of an angle from degrees to radians */
+    public static final double DEGREES_TO_RADIANS = Math.PI / 180;
+
+    /** Conversion of an angle from radians to degrees */
+    public static final double RADIANS_TO_DEGREES = 180 / Math.PI;
+
+    /** Conversion of a distance from inches to centimeters */
+    public static final double INCHEES_TO_CENTIMETERS = 2.54;
+
+    /** conversion of a distance from centimeters to inches */
+    public static final double CENTIMETERS_TO_INCHES = .3937;
+
+    /** converts a temperature from fahrenheit to celsius */
+    public static double fahrenheitToCelsius(double degreesFahrenheit){
+        return (degreesFahrenheit - 32) * 5/9;
+    }
+
+    /** converst a temperature from celsius to fahrenheit */
+    public static double celsiusToFahrenheit(double degreesCelsius){
+        return (degreesCelsius * 9/5) + 32;
     }
 }
