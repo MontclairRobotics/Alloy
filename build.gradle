@@ -86,14 +86,5 @@ artifactory {
 			publishPom = true
 		}
 	}
-	resolve {
-		repository {
-			repoKey = "libs-${snapshot ? "snapshot" : "release"}-local"
-			username = "${usr}"
-			password = "${pwd}"
-			maven = true
-
-		}
-	}
 }
 

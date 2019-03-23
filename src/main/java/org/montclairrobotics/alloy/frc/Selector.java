@@ -45,7 +45,7 @@ public class Selector<E> {
     }
 
     public Selector addOption(String name, E option) {
-        selector.addObject(name, option);
+        selector.addOption(name, option);
         return this;
     }
 

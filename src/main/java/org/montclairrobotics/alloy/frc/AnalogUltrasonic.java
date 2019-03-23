@@ -80,9 +80,11 @@ public class AnalogUltrasonic extends InputComponent<Double> implements Ultrason
     public AnalogUltrasonic(int analogChannel, double scalingFactor) {
         this.sensor = new AnalogInput(analogChannel);
         this.scalingFactor = scalingFactor;
-        setInput(() -> average
-                ? sensor.getAverageVoltage() * scalingFactor
-                : sensor.getVoltage() * scalingFactor);
+        setInput(
+                () ->
+                        average
+                                ? sensor.getAverageVoltage() * scalingFactor
+                                : sensor.getVoltage() * scalingFactor);
     }
 
     /**
@@ -103,9 +105,11 @@ public class AnalogUltrasonic extends InputComponent<Double> implements Ultrason
     public AnalogUltrasonic(AnalogInput sensor, double scalingFactor) {
         this.sensor = sensor;
         this.scalingFactor = scalingFactor;
-        setInput(() -> average
-                ? sensor.getAverageVoltage() * scalingFactor
-                : sensor.getVoltage() * scalingFactor);
+        setInput(
+                () ->
+                        average
+                                ? sensor.getAverageVoltage() * scalingFactor
+                                : sensor.getVoltage() * scalingFactor);
     }
 
     @Override
@@ -117,7 +121,6 @@ public class AnalogUltrasonic extends InputComponent<Double> implements Ultrason
     public double getCentimeters() {
         return get() * 10;
     }
-
 
     /**
      * Set the sensor to average the oversampled reading

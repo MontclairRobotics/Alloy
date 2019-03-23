@@ -111,7 +111,7 @@ public class FRCTargetMotor extends FRCMotor implements TargetMotor {
      */
     @Override
     public void setPosition(int position) {
-        positionCorrection.setTarget(new Double(position));
+        positionCorrection.setTarget((double)position);
     }
 
     /**
