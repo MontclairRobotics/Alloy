@@ -31,18 +31,18 @@ import org.montclairrobotics.alloy.vector.Angle;
 /**
  * A correction based on a gyroscope, to keep a consistent heading
  *
- * The Gyro correction class uses a gyro, and an error correction to output
- * a correction angle to change the robots heading.
+ * <p>The Gyro correction class uses a gyro, and an error correction to output a correction angle to
+ * change the robots heading.
  *
- * The gyro correction is used in various different turning functions throughout
- * Alloy, and therefore, a general correction has been defined in this class.
+ * <p>The gyro correction is used in various different turning functions throughout Alloy, and
+ * therefore, a general correction has been defined in this class.
  *
- * Since the specifics of gyro correction depends on each specific robot (because of different
- * wheels, motors, robot size etc.), the user does have to specify the correction on a per
- * robot basis (therefore going in the "robotSetup" method), but that same correction can
- * and should be used for the rest of the turning operations and corrections. Most built in
- * classes in alloy that use a Gyro Correction will automatically grab the "General Correction",
- * and throw an error if it has not been defined
+ * <p>Since the specifics of gyro correction depends on each specific robot (because of different
+ * wheels, motors, robot size etc.), the user does have to specify the correction on a per robot
+ * basis (therefore going in the "robotSetup" method), but that same correction can and should be
+ * used for the rest of the turning operations and corrections. Most built in classes in alloy that
+ * use a Gyro Correction will automatically grab the "General Correction", and throw an error if it
+ * has not been defined
  *
  * @author Garrett Burroughs
  * @version 0.1
@@ -53,23 +53,23 @@ public class GyroCorrection extends InputComponent<Double> {
     /**
      * The global robot gyro correction
      *
-     * Since the specifics of gyro correction depends on each specific robot (because of different
-     * wheels, motors, robot size etc.), the user does have to specify the correction on a per
-     * robot basis (therefore going in the "robotSetup" method), but that same correction can
+     * <p>Since the specifics of gyro correction depends on each specific robot (because of
+     * different wheels, motors, robot size etc.), the user does have to specify the correction on a
+     * per robot basis (therefore going in the "robotSetup" method), but that same correction can
      * and should be used for the rest of the turning operations and corrections. Most built in
      * classes in alloy that use a Gyro Correction will automatically grab the "General Correction",
      * and throw an error if it has not been defined
      */
     private static GyroCorrection generalCorrection;
 
-    /** The gyro to get the robots current heading (and therefore used in correction calculation)*/
+    /** The gyro to get the robots current heading (and therefore used in correction calculation) */
     private Gyro gyro;
 
     /**
      * The Error Correction used to correct the heading
      *
-     * Although any type of error correction is able to be used, it is
-     * highly recommended that a PID loop is used to control turing.
+     * <p>Although any type of error correction is able to be used, it is highly recommended that a
+     * PID loop is used to control turing.
      */
     private ErrorCorrection<Double> correction;
 
@@ -79,10 +79,11 @@ public class GyroCorrection extends InputComponent<Double> {
     }
 
     public static GyroCorrection getGeneralCorrection() {
-        if(generalCorrection == null){
-            throw new InvalidConfigurationException("Universal gyro correction has not been defined, but a part of " +
-                    "Alloy is attempting to use it. Set it using \"GyroCorrection.setGeneralCorrection(correction)\"" +
-                    "or stop using gyro based turning/correction functions");
+        if (generalCorrection == null) {
+            throw new InvalidConfigurationException(
+                    "Universal gyro correction has not been defined, but a part of "
+                            + "Alloy is attempting to use it. Set it using \"GyroCorrection.setGeneralCorrection(correction)\""
+                            + "or stop using gyro based turning/correction functions");
         }
         return GyroCorrection.generalCorrection;
     }
@@ -103,9 +104,8 @@ public class GyroCorrection extends InputComponent<Double> {
     /**
      * Set the target angle relative
      *
-     * Relative angles are based on the robots current position,
-     * this is mainly used for autonomous movement, when the task is
-     * to move "x" degrees
+     * <p>Relative angles are based on the robots current position, this is mainly used for
+     * autonomous movement, when the task is to move "x" degrees
      *
      * @param a the relative angle that the correction will target
      */
@@ -116,9 +116,8 @@ public class GyroCorrection extends InputComponent<Double> {
     /**
      * Set the absolute target angle
      *
-     * Absolute angles are in reference to the last time the
-     * gyro has been reset. This is mainly used for keeping
-     * a constant heading
+     * <p>Absolute angles are in reference to the last time the gyro has been reset. This is mainly
+     * used for keeping a constant heading
      *
      * @param a the absolute angle that the correction will target
      */
@@ -134,8 +133,7 @@ public class GyroCorrection extends InputComponent<Double> {
     /**
      * reset the gyro
      *
-     * Note: This will reset the gyro the correction
-     * uses itself
+     * <p>Note: This will reset the gyro the correction uses itself
      */
     public GyroCorrection reset() {
         gyro.reset();

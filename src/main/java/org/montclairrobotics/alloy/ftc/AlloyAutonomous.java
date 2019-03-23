@@ -28,7 +28,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.montclairrobotics.alloy.auto.State;
 import org.montclairrobotics.alloy.auto.StateMachine;
 import org.montclairrobotics.alloy.core.RobotCore;
-import org.montclairrobotics.alloy.drive.DriveTrain;
 
 /**
  * Created by MHS Robotics on 12/5/2017.
