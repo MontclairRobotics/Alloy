@@ -33,15 +33,15 @@ import java.util.ArrayList;
  * @since 0.1
  */
 public abstract class Initializeable {
-  private static ArrayList<Initializeable> initObjects = new ArrayList<>();
+    private static ArrayList<Initializeable> initObjects = new ArrayList<>();
 
-  public Initializeable() {
-    Initializeable.initObjects.add(this);
-  }
-  /** the method that is called at the beginning of the teleop mode */
-  public abstract void init();
+    public Initializeable() {
+        Initializeable.initObjects.add(this);
+    }
+    /** the method that is called at the beginning of the teleop mode */
+    public abstract void init();
 
-  public static ArrayList<Initializeable> getInitObjects() {
-    return initObjects;
-  }
+    public static ArrayList<Initializeable> getInitObjects() {
+        return initObjects;
+    }
 }

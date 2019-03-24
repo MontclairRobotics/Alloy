@@ -32,10 +32,10 @@ import org.montclairrobotics.alloy.utils.Utils;
  * <p>This mapper will run all of the motors in the group in the same direction
  */
 public class DefaultMapper implements Mapper<Input<Double>> {
-  @Override
-  public void map(Input<Double> input, MotorModule... modules) {
-    for (MotorModule m : modules) {
-      m.setPower(input.get() * Utils.sign(m.getDirection().getManitude()));
+    @Override
+    public void map(Input<Double> input, MotorModule... modules) {
+        for (MotorModule m : modules) {
+            m.setPower(input.get() * Utils.sign(m.getDirection().getManitude()));
+        }
     }
-  }
 }

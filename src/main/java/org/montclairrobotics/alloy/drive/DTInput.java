@@ -38,44 +38,44 @@ import org.montclairrobotics.alloy.vector.Vector;
  * @since 0.1
  */
 public class DTInput {
-  /**
-   * A translation vector that controls the rate at which the robot will move In a tank drivetrain
-   * only the Y component will be taken into account In omnidirectional drivetrains, both the x and
-   * y components will be used in drive calculations
-   */
-  private final Vector translation;
+    /**
+     * A translation vector that controls the rate at which the robot will move In a tank drivetrain
+     * only the Y component will be taken into account In omnidirectional drivetrains, both the x
+     * and y components will be used in drive calculations
+     */
+    private final Vector translation;
 
-  /** The rate at which the drivetrain will turn */
-  private final Angle rotation;
+    /** The rate at which the drivetrain will turn */
+    private final Angle rotation;
 
-  public DTInput(Vector translation, Angle rotation) {
-    this.translation = translation;
-    this.rotation = rotation;
-  }
+    public DTInput(Vector translation, Angle rotation) {
+        this.translation = translation;
+        this.rotation = rotation;
+    }
 
-  /** @return the rate at which the robot will move */
-  public Vector getTranslation() {
-    return translation;
-  }
+    /** @return the rate at which the robot will move */
+    public Vector getTranslation() {
+        return translation;
+    }
 
-  /** @return the rate at which the robot will rotate */
-  public Angle getRotation() {
-    return rotation;
-  }
+    /** @return the rate at which the robot will rotate */
+    public Angle getRotation() {
+        return rotation;
+    }
 
-  public DTInput addAngle(double angle) {
-    return new DTInput(translation, new Angle(rotation.getDegrees() + angle));
-  }
+    public DTInput addAngle(double angle) {
+        return new DTInput(translation, new Angle(rotation.getDegrees() + angle));
+    }
 
-  public DTInput addVector(Vector vector) {
-    return new DTInput(translation.add(vector), rotation);
-  }
+    public DTInput addVector(Vector vector) {
+        return new DTInput(translation.add(vector), rotation);
+    }
 
-  public DTInput multiplyAngle(double multiplier) {
-    return new DTInput(translation, rotation.multiply(multiplier));
-  }
+    public DTInput multiplyAngle(double multiplier) {
+        return new DTInput(translation, rotation.multiply(multiplier));
+    }
 
-  public DTInput scale(double scalar) {
-    return new DTInput(translation.scale(scalar), rotation);
-  }
+    public DTInput scale(double scalar) {
+        return new DTInput(translation.scale(scalar), rotation);
+    }
 }

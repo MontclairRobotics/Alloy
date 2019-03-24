@@ -35,11 +35,13 @@ import org.montclairrobotics.alloy.vector.XY;
  * @since
  */
 public class ArcadeDrive extends InputComponent<DTInput> {
-  public ArcadeDrive(Joystick translationalStick, Joystick rotationalStick) {
-    setInput(
-        () ->
-            new DTInput(
-                new XY(translationalStick.getValue().getX(), translationalStick.getValue().getY()),
-                new Angle(rotationalStick.getValue().getX())));
-  }
+    public ArcadeDrive(Joystick translationalStick, Joystick rotationalStick) {
+        setInput(
+                () ->
+                        new DTInput(
+                                new XY(
+                                        translationalStick.getValue().getX(),
+                                        translationalStick.getValue().getY()),
+                                new Angle(rotationalStick.getValue().getX())));
+    }
 }

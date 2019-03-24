@@ -27,11 +27,11 @@ import org.montclairrobotics.alloy.components.InputComponent;
 import org.montclairrobotics.alloy.motor.MotorModule;
 
 public class TankDrive extends DriveTrain {
-  public TankDrive(InputComponent<DTInput> input, MotorModule... modules) {
-    super(input, new TankMapper(), modules);
-  }
+    public TankDrive(InputComponent<DTInput> input, MotorModule... modules) {
+        super(input, new TankMapper(), modules);
+    }
 
-  public TankDrive(MotorModule... modules) {
-    this(null, modules);
-  }
+    public TankDrive(MotorModule... modules) {
+        this(null, modules);
+    }
 }

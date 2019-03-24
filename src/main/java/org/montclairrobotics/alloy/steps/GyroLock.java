@@ -30,36 +30,36 @@ import org.montclairrobotics.alloy.utils.Toggleable;
 import org.montclairrobotics.alloy.vector.Angle;
 
 public class GyroLock extends Toggleable implements Step<DTInput> {
-  private final GyroCorrection correction;
+    private final GyroCorrection correction;
 
-  public GyroLock(GyroCorrection correction) {
-    this.correction = correction;
-  }
-
-  public GyroLock() {
-    if (GyroCorrection.getGeneralCorrection() != null) {
-      correction = GyroCorrection.getGeneralCorrection();
-    } else {
-      throw new RuntimeException(
-          "Global Gyro Correction has not been set, set it using GyroCorrection.setGeneralCorrection()");
+    public GyroLock(GyroCorrection correction) {
+        this.correction = correction;
     }
-  }
 
-  @Override
-  public void enableAction() {
-    correction.setTargetAngle(new Angle(correction.getGyro().getYaw()));
-  }
-
-  public void disableAction() {
-    // Do nothing
-  }
-
-  @Override
-  public DTInput getOutput(DTInput input) {
-    if (status.isEnabled()) {
-      return input.addAngle(correction.get());
-    } else {
-      return input;
+    public GyroLock() {
+        if (GyroCorrection.getGeneralCorrection() != null) {
+            correction = GyroCorrection.getGeneralCorrection();
+        } else {
+            throw new RuntimeException(
+                    "Global Gyro Correction has not been set, set it using GyroCorrection.setGeneralCorrection()");
+        }
     }
-  }
+
+    @Override
+    public void enableAction() {
+        correction.setTargetAngle(new Angle(correction.getGyro().getYaw()));
+    }
+
+    public void disableAction() {
+        // Do nothing
+    }
+
+    @Override
+    public DTInput getOutput(DTInput input) {
+        if (status.isEnabled()) {
+            return input.addAngle(correction.get());
+        } else {
+            return input;
+        }
+    }
 }

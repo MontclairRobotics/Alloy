@@ -36,31 +36,31 @@ package org.montclairrobotics.alloy.core;
  * @since 0.1
  */
 public interface TargetMotor extends Motor {
-  /**
-   * Sets the motor Power
-   *
-   * @param power the power that the motor will be set to (0-1 inclusive )
-   */
-  public void setTargetPower(double power);
+    /**
+     * Sets the motor Power
+     *
+     * @param power the power that the motor will be set to (0-1 inclusive )
+     */
+    public void setTargetPower(double power);
 
-  /**
-   * Gets the motor power
-   *
-   * @return the current motor power, a value between (0-1)
-   */
-  public double getTargetPower();
+    /**
+     * Gets the motor power
+     *
+     * @return the current motor power, a value between (0-1)
+     */
+    public double getTargetPower();
 
-  /**
-   * Sets the motor position
-   *
-   * @param position the position the motor will be set to (in encoder ticks)
-   */
-  public void setPosition(int position);
+    /**
+     * Sets the motor position
+     *
+     * @param position the position the motor will be set to (in encoder ticks)
+     */
+    public void setPosition(int position);
 
-  /**
-   * Gets the motors position
-   *
-   * @return the position that the motor is at (in encoder ticks)
-   */
-  public int getPosition();
+    /**
+     * Gets the motors position
+     *
+     * @return the position that the motor is at (in encoder ticks)
+     */
+    public int getPosition();
 }

@@ -34,75 +34,75 @@ import org.montclairrobotics.alloy.core.Motor;
  * @since
  */
 public class FRCMotor extends Component implements Motor {
-  protected final SpeedController controller;
+    protected final SpeedController controller;
 
-  private double power;
+    private double power;
 
-  public FRCMotor(SpeedController controller) {
-    this.controller = controller;
-  }
-
-  public FRCMotor(SpeedController controller, boolean inverted) {
-    this(controller);
-    setInverted(inverted);
-  }
-
-  /**
-   * Sets the motor Power
-   *
-   * @param power the power that the motor will be set to [-1, 1]
-   */
-  @Override
-  public void setMotorPower(double power) {
-    this.power = power;
-    if (status.isEnabled()) {
-      controller.set(power);
+    public FRCMotor(SpeedController controller) {
+        this.controller = controller;
     }
-  }
 
-  /**
-   * Gets the motor power
-   *
-   * @return the current motor power, a value between (0-1)
-   */
-  @Override
-  public double getMotorPower() {
-    return controller.get();
-  }
+    public FRCMotor(SpeedController controller, boolean inverted) {
+        this(controller);
+        setInverted(inverted);
+    }
 
-  /**
-   * Sets weather the motor runs the default way , or inverted
-   *
-   * @param inverted true for inverted, false for normal
-   */
-  @Override
-  public void setInverted(boolean inverted) {
-    controller.setInverted(inverted);
-  }
+    /**
+     * Sets the motor Power
+     *
+     * @param power the power that the motor will be set to [-1, 1]
+     */
+    @Override
+    public void setMotorPower(double power) {
+        this.power = power;
+        if (status.isEnabled()) {
+            controller.set(power);
+        }
+    }
 
-  /**
-   * Gets weather the motor is inverted
-   *
-   * @return true if the motor is inverted
-   */
-  @Override
-  public boolean getInverted() {
-    return controller.getInverted();
-  }
+    /**
+     * Gets the motor power
+     *
+     * @return the current motor power, a value between (0-1)
+     */
+    @Override
+    public double getMotorPower() {
+        return controller.get();
+    }
 
-  /** The action that is taken when the component is disabled, should be overridden by the user */
-  @Override
-  public void disableAction() {
-    controller.set(0);
-  }
+    /**
+     * Sets weather the motor runs the default way , or inverted
+     *
+     * @param inverted true for inverted, false for normal
+     */
+    @Override
+    public void setInverted(boolean inverted) {
+        controller.setInverted(inverted);
+    }
 
-  /** Disables the toggleable */
-  @Override
-  public void disable() {
-    controller.set(power);
-  }
+    /**
+     * Gets weather the motor is inverted
+     *
+     * @return true if the motor is inverted
+     */
+    @Override
+    public boolean getInverted() {
+        return controller.getInverted();
+    }
 
-  public SpeedController getController() {
-    return controller;
-  }
+    /** The action that is taken when the component is disabled, should be overridden by the user */
+    @Override
+    public void disableAction() {
+        controller.set(0);
+    }
+
+    /** Disables the toggleable */
+    @Override
+    public void disable() {
+        controller.set(power);
+    }
+
+    public SpeedController getController() {
+        return controller;
+    }
 }

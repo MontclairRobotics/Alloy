@@ -32,7 +32,7 @@ package org.montclairrobotics.alloy.control;
  * motor, the action will be
  */
 public interface CompletableAction {
-  void doAction();
+    void doAction();
 
-  boolean isComplete();
+    boolean isComplete();
 }

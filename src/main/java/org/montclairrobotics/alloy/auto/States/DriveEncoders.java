@@ -42,96 +42,96 @@ import org.montclairrobotics.alloy.vector.Vector;
  */
 public class DriveEncoders extends State {
 
-  /** The drive train the auto state uses to drive */
-  private final DriveTrain driveTrain;
+    /** The drive train the auto state uses to drive */
+    private final DriveTrain driveTrain;
 
-  /** the speed the motors will run at */
-  private final double speed;
+    /** the speed the motors will run at */
+    private final double speed;
 
-  /** The distance (encoder distance) */
-  private final double distance;
+    /** The distance (encoder distance) */
+    private final double distance;
 
-  /** Storing the starting encoder values */
-  private int[] startValues;
+    /** Storing the starting encoder values */
+    private int[] startValues;
 
-  /** The tolerance for detecting if the robot has reached its final position */
-  private static int tolerance = 5;
+    /** The tolerance for detecting if the robot has reached its final position */
+    private static int tolerance = 5;
 
-  /**
-   * Sets the global tolerance
-   *
-   * <p>The tolerance is used in the calculation to determine if the motor has reached its final
-   * position
-   *
-   * <p>For encoders that have more ticks per rotation, you may want to choose a higher tolerance,
-   * as smaller movements will cause a greater change in encoder ticks
-   *
-   * @param tolerance
-   */
-  public static void setTolerance(int tolerance) {
-    DriveEncoders.tolerance = tolerance;
-  }
-
-  /**
-   * Create a new state that drives a certain distance
-   *
-   * <p>A drive encoder state will drive at the specified speed until the encoders reach the
-   * specified distance
-   *
-   * @param speed the speed to drive at
-   * @param distance the distance to drive (determined by encoders)
-   */
-  public DriveEncoders(double speed, double distance) {
-    driveTrain = DriveTrain.getAutoDriveTrain();
-    this.speed = speed;
-    this.distance = distance;
-  }
-
-  /**
-   * Create a new state that drives a certain distance, specifing the next state
-   *
-   * <p>A drive encoder state will drive at the specified speed until the encoders reach the
-   * specified distance
-   *
-   * <p>This constructor will set the next state
-   *
-   * @param speed the speed to drive at
-   * @param distance the distance to drive (determined by encoders)
-   * @param nextState the next state to go to when this state is finished
-   */
-  public DriveEncoders(double speed, double distance, int nextState) {
-    super(nextState);
-    driveTrain = DriveTrain.getAutoDriveTrain();
-    this.speed = speed;
-    this.distance = distance;
-  }
-
-  @Override
-  public void start() {
-    startValues = driveTrain.getEncoderValues();
-  }
-
-  @Override
-  public void run() {
-    driveTrain.setInput(
-        new ConstantInput<DTInput>(new DTInput(new Polar(speed, Angle.ZERO), Angle.ZERO)));
-  }
-
-  @Override
-  public void stop() {
-    driveTrain.setInput(new ConstantInput<DTInput>(new DTInput(Vector.ZERO, Angle.ZERO)));
-  }
-
-  @Override
-  public boolean isDone() {
-    // Done when the average encoder values are within
-    // a tolerance range of the specified value
-    int[] currentValues = driveTrain.getEncoderValues();
-    double total = 0;
-    for (int i = 0; i < startValues.length; i++) {
-      total += currentValues[i] - startValues[i];
+    /**
+     * Sets the global tolerance
+     *
+     * <p>The tolerance is used in the calculation to determine if the motor has reached its final
+     * position
+     *
+     * <p>For encoders that have more ticks per rotation, you may want to choose a higher tolerance,
+     * as smaller movements will cause a greater change in encoder ticks
+     *
+     * @param tolerance
+     */
+    public static void setTolerance(int tolerance) {
+        DriveEncoders.tolerance = tolerance;
     }
-    double average = total / (double) currentValues.length;
-    return Math.abs(distance - average) < tolerance;
-  }
+
+    /**
+     * Create a new state that drives a certain distance
+     *
+     * <p>A drive encoder state will drive at the specified speed until the encoders reach the
+     * specified distance
+     *
+     * @param speed the speed to drive at
+     * @param distance the distance to drive (determined by encoders)
+     */
+    public DriveEncoders(double speed, double distance) {
+        driveTrain = DriveTrain.getAutoDriveTrain();
+        this.speed = speed;
+        this.distance = distance;
+    }
+
+    /**
+     * Create a new state that drives a certain distance, specifing the next state
+     *
+     * <p>A drive encoder state will drive at the specified speed until the encoders reach the
+     * specified distance
+     *
+     * <p>This constructor will set the next state
+     *
+     * @param speed the speed to drive at
+     * @param distance the distance to drive (determined by encoders)
+     * @param nextState the next state to go to when this state is finished
+     */
+    public DriveEncoders(double speed, double distance, int nextState) {
+        super(nextState);
+        driveTrain = DriveTrain.getAutoDriveTrain();
+        this.speed = speed;
+        this.distance = distance;
+    }
+
+    @Override
+    public void start() {
+        startValues = driveTrain.getEncoderValues();
+    }
+
+    @Override
+    public void run() {
+        driveTrain.setInput(
+                new ConstantInput<DTInput>(new DTInput(new Polar(speed, Angle.ZERO), Angle.ZERO)));
+    }
+
+    @Override
+    public void stop() {
+        driveTrain.setInput(new ConstantInput<DTInput>(new DTInput(Vector.ZERO, Angle.ZERO)));
+    }
+
+    @Override
+    public boolean isDone() {
+        // Done when the average encoder values are within
+        // a tolerance range of the specified value
+        int[] currentValues = driveTrain.getEncoderValues();
+        double total = 0;
+        for (int i = 0; i < startValues.length; i++) {
+            total += currentValues[i] - startValues[i];
+        }
+        double average = total / (double) currentValues.length;
+        return Math.abs(distance - average) < tolerance;
+    }
 }

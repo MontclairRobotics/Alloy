@@ -24,11 +24,11 @@ SOFTWARE.
 package org.montclairrobotics.alloy.core;
 
 public interface Gyro {
-  public double getRoll();
+    public double getRoll();
 
-  public double getYaw();
+    public double getYaw();
 
-  public double getPitch();
+    public double getPitch();
 
-  public void reset();
+    public void reset();
 }

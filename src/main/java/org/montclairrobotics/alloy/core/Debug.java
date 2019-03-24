@@ -42,20 +42,20 @@ import org.montclairrobotics.alloy.utils.Input;
  * @since 0.1
  */
 public class Debug {
-  /** The key, label, or name of the information */
-  public final String key;
-  /** The information, or object to be debugged */
-  public final Input<Object> value;
+    /** The key, label, or name of the information */
+    public final String key;
+    /** The information, or object to be debugged */
+    public final Input<Object> value;
 
-  /** debug a changing value */
-  public Debug(String key, Input<Object> value) {
-    this.key = key;
-    this.value = value;
-  }
+    /** debug a changing value */
+    public Debug(String key, Input<Object> value) {
+        this.key = key;
+        this.value = value;
+    }
 
-  /** debug a constant value */
-  public Debug(String key, Object value) {
-    this.key = key;
-    this.value = new ConstantInput<>(value);
-  }
+    /** debug a constant value */
+    public Debug(String key, Object value) {
+        this.key = key;
+        this.value = new ConstantInput<>(value);
+    }
 }

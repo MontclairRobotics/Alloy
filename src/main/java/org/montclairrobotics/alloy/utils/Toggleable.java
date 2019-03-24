@@ -36,54 +36,54 @@ package org.montclairrobotics.alloy.utils;
  */
 public abstract class Toggleable {
 
-  /** The status of the toggleable, to keep track of weather it is enabled, or disabled */
-  public Status status;
+    /** The status of the toggleable, to keep track of weather it is enabled, or disabled */
+    public Status status;
 
-  /** Method to be called when the toggleable is enabled */
-  public abstract void enableAction();
+    /** Method to be called when the toggleable is enabled */
+    public abstract void enableAction();
 
-  /** Method to be called when the toggleable is disabled */
-  public abstract void disableAction();
+    /** Method to be called when the toggleable is disabled */
+    public abstract void disableAction();
 
-  public enum Status {
-    ENABLED(true),
-    DISABLED(false);
+    public enum Status {
+        ENABLED(true),
+        DISABLED(false);
 
-    boolean enabled;
+        boolean enabled;
 
-    Status(boolean enabled) {
-      this.enabled = enabled;
+        Status(boolean enabled) {
+            this.enabled = enabled;
+        }
+
+        public boolean isEnabled() {
+            return enabled;
+        }
     }
 
-    public boolean isEnabled() {
-      return enabled;
+    /** Enables the toggleable */
+    public void enable() {
+        status = Status.ENABLED;
+        enableAction();
     }
-  }
 
-  /** Enables the toggleable */
-  public void enable() {
-    status = Status.ENABLED;
-    enableAction();
-  }
-
-  /** Disables the toggleable */
-  public void disable() {
-    status = Status.DISABLED;
-    disableAction();
-  }
-
-  /**
-   * Switches(Toggles), between the two states, If the toggleable is disabled, enable it If the
-   * toggleable is enabled, disable it
-   */
-  public void toggle() {
-    switch (status) {
-      case ENABLED:
-        disable();
-        break;
-      case DISABLED:
-        enable();
-        break;
+    /** Disables the toggleable */
+    public void disable() {
+        status = Status.DISABLED;
+        disableAction();
     }
-  }
+
+    /**
+     * Switches(Toggles), between the two states, If the toggleable is disabled, enable it If the
+     * toggleable is enabled, disable it
+     */
+    public void toggle() {
+        switch (status) {
+            case ENABLED:
+                disable();
+                break;
+            case DISABLED:
+                enable();
+                break;
+        }
+    }
 }

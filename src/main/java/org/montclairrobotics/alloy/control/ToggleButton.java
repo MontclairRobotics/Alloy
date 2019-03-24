@@ -37,8 +37,8 @@ import org.montclairrobotics.alloy.utils.Toggleable;
  * @since 0.1
  */
 public class ToggleButton extends ButtonAction {
-  public ToggleButton(Button button, Toggleable toggleable) {
-    super(button);
-    super.addOnPressedAction(toggleable::toggle);
-  }
+    public ToggleButton(Button button, Toggleable toggleable) {
+        super(button);
+        super.addOnPressedAction(toggleable::toggle);
+    }
 }

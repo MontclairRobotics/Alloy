@@ -41,31 +41,31 @@ package org.montclairrobotics.alloy.utils;
  */
 public interface ErrorCorrection<T> {
 
-  /**
-   * Set the input of the error correction the input should be the source of what correction is
-   * correcting. For example in a motor the input would be the encoder
-   *
-   * @param input the input to the error correction
-   */
-  public ErrorCorrection<T> setInput(Input<T> input);
+    /**
+     * Set the input of the error correction the input should be the source of what correction is
+     * correcting. For example in a motor the input would be the encoder
+     *
+     * @param input the input to the error correction
+     */
+    public ErrorCorrection<T> setInput(Input<T> input);
 
-  /**
-   * Set the target for the correction When the input is equal to the target the error is 0
-   *
-   * @param target the goal of the error correction
-   */
-  public ErrorCorrection setTarget(T target);
+    /**
+     * Set the target for the correction When the input is equal to the target the error is 0
+     *
+     * @param target the goal of the error correction
+     */
+    public ErrorCorrection setTarget(T target);
 
-  /**
-   * Get the value to apply the correction
-   *
-   * @return the correction
-   */
-  public T getCorrection();
+    /**
+     * Get the value to apply the correction
+     *
+     * @return the correction
+     */
+    public T getCorrection();
 
-  /** @return A copy of the error correction */
-  public ErrorCorrection copy();
+    /** @return A copy of the error correction */
+    public ErrorCorrection copy();
 
-  /** @return the current target that the error correction is trying to correct to */
-  public T getTarget();
+    /** @return the current target that the error correction is trying to correct to */
+    public T getTarget();
 }

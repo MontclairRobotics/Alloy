@@ -30,25 +30,26 @@ import org.montclairrobotics.alloy.utils.Toggleable;
 import org.montclairrobotics.alloy.vector.Angle;
 
 public class FieldCentric extends Toggleable implements Step<DTInput> {
-  private final Gyro gyro;
+    private final Gyro gyro;
 
-  public FieldCentric(Gyro gyro) {
-    this.gyro = gyro;
-  }
-
-  @Override
-  public DTInput getOutput(DTInput input) {
-    if (status.isEnabled()) {
-      return new DTInput(
-          input.getTranslation().rotate(new Angle(gyro.getYaw() * -1)), input.getRotation());
-    } else {
-      return input;
+    public FieldCentric(Gyro gyro) {
+        this.gyro = gyro;
     }
-  }
 
-  @Override
-  public void enableAction() {}
+    @Override
+    public DTInput getOutput(DTInput input) {
+        if (status.isEnabled()) {
+            return new DTInput(
+                    input.getTranslation().rotate(new Angle(gyro.getYaw() * -1)),
+                    input.getRotation());
+        } else {
+            return input;
+        }
+    }
 
-  @Override
-  public void disableAction() {}
+    @Override
+    public void enableAction() {}
+
+    @Override
+    public void disableAction() {}
 }

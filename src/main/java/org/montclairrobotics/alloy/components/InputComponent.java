@@ -45,45 +45,45 @@ import org.montclairrobotics.alloy.utils.Input;
  */
 public abstract class InputComponent<T> extends Component implements Input {
 
-  /** The initial input value */
-  public Input<T> input;
+    /** The initial input value */
+    public Input<T> input;
 
-  /** The value after steps have been applied */
-  public T output;
+    /** The value after steps have been applied */
+    public T output;
 
-  /** An arraylist to store all of the steps */
-  public ArrayList<Step<T>> steps = new ArrayList<>();
+    /** An arraylist to store all of the steps */
+    public ArrayList<Step<T>> steps = new ArrayList<>();
 
-  @Override
-  public T get() {
-    return output;
-  }
-
-  /**
-   * Apply all of the steps, in order, taking the output of one step and passing it as the input to
-   * the next
-   */
-  public void applySteps() {
-    // Start off with the input
-    T calculation = input.get();
-    // Apply steps
-    for (Step<T> step : steps) {
-      calculation = step.getOutput(calculation);
+    @Override
+    public T get() {
+        return output;
     }
-    // Set the output
-    output = calculation;
-  }
 
-  /** A daisy-chainable method that adds a step to the input component */
-  public InputComponent addStep(Step s) {
-    // addDebug(new Debug(), );
-    steps.add(s);
-    return this;
-  }
+    /**
+     * Apply all of the steps, in order, taking the output of one step and passing it as the input
+     * to the next
+     */
+    public void applySteps() {
+        // Start off with the input
+        T calculation = input.get();
+        // Apply steps
+        for (Step<T> step : steps) {
+            calculation = step.getOutput(calculation);
+        }
+        // Set the output
+        output = calculation;
+    }
 
-  /** A daisy-chainable method that sets the initial input of the input component */
-  public InputComponent<T> setInput(Input<T> input) {
-    this.input = input;
-    return this;
-  }
+    /** A daisy-chainable method that adds a step to the input component */
+    public InputComponent addStep(Step s) {
+        // addDebug(new Debug(), );
+        steps.add(s);
+        return this;
+    }
+
+    /** A daisy-chainable method that sets the initial input of the input component */
+    public InputComponent<T> setInput(Input<T> input) {
+        this.input = input;
+        return this;
+    }
 }

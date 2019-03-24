@@ -51,97 +51,97 @@ import org.montclairrobotics.alloy.utils.Utils;
  */
 public class AnalogUltrasonic extends InputComponent<Double> implements UltrasonicSensor {
 
-  /** The analog input that the ultrasonic sensor is in */
-  private final AnalogInput sensor;
+    /** The analog input that the ultrasonic sensor is in */
+    private final AnalogInput sensor;
 
-  /** Sensor voltage to millimeter scaling factor */
-  private final double scalingFactor;
+    /** Sensor voltage to millimeter scaling factor */
+    private final double scalingFactor;
 
-  /** true if averaging oversample bits */
-  private boolean average = false;
+    /** true if averaging oversample bits */
+    private boolean average = false;
 
-  /**
-   * Create a new ultrasonic sensor on a specified port
-   *
-   * <p>Be careful when using this constructor as it has the potential to cause errors due to
-   * already assigned ports, for this reason, make sure this constructor is called at most ONCE in
-   * your robot code, for each sensor or the code will cause an error
-   *
-   * <p>Analog ultrasonic sensors work by returning a voltage value that is proportional to the
-   * range value, you will need to find out what the scaling factor is for your specific ultrasonic
-   * sensor, this is most often found on the datasheet released by the manufacturer,
-   *
-   * @see <a
-   *     href="https://wpilib.screenstepslive.com/s/currentCS/m/java/l/599715-ultrasonic-sensors-measuring-robot-distance-to-a-surface">WPI
-   *     Analog Rangefinders</>
-   * @param analogChannel the channel to initialize the ultrasonic sensor on
-   * @param scalingFactor the scaling factor for the ultrasonic sensor
-   */
-  public AnalogUltrasonic(int analogChannel, double scalingFactor) {
-    this.sensor = new AnalogInput(analogChannel);
-    this.scalingFactor = scalingFactor;
-    setInput(
-        () ->
-            average
-                ? sensor.getAverageVoltage() * scalingFactor
-                : sensor.getVoltage() * scalingFactor);
-  }
+    /**
+     * Create a new ultrasonic sensor on a specified port
+     *
+     * <p>Be careful when using this constructor as it has the potential to cause errors due to
+     * already assigned ports, for this reason, make sure this constructor is called at most ONCE in
+     * your robot code, for each sensor or the code will cause an error
+     *
+     * <p>Analog ultrasonic sensors work by returning a voltage value that is proportional to the
+     * range value, you will need to find out what the scaling factor is for your specific
+     * ultrasonic sensor, this is most often found on the datasheet released by the manufacturer,
+     *
+     * @see <a
+     *     href="https://wpilib.screenstepslive.com/s/currentCS/m/java/l/599715-ultrasonic-sensors-measuring-robot-distance-to-a-surface">WPI
+     *     Analog Rangefinders</>
+     * @param analogChannel the channel to initialize the ultrasonic sensor on
+     * @param scalingFactor the scaling factor for the ultrasonic sensor
+     */
+    public AnalogUltrasonic(int analogChannel, double scalingFactor) {
+        this.sensor = new AnalogInput(analogChannel);
+        this.scalingFactor = scalingFactor;
+        setInput(
+                () ->
+                        average
+                                ? sensor.getAverageVoltage() * scalingFactor
+                                : sensor.getVoltage() * scalingFactor);
+    }
 
-  /**
-   * Create a ultrasonic sensor using a analog input
-   *
-   * <p>Analog ultrasonic sensors work by returning a voltage value that is proportional to the
-   * range value, you will need to find out what the scaling factor is for your specific ultrasonic
-   * sensor, this is most often found on the datasheet released by the manufacturer
-   *
-   * <p>The scaling factor should convert from V (Volts) to mm (millimeters)
-   *
-   * @see <a
-   *     href="https://wpilib.screenstepslive.com/s/currentCS/m/java/l/599715-ultrasonic-sensors-measuring-robot-distance-to-a-surface">WPI
-   *     Analog Rangefinders</>
-   * @param sensor the analog input the sensor is connected to
-   * @param scalingFactor the scaling factor for the ultrasonic sensor
-   */
-  public AnalogUltrasonic(AnalogInput sensor, double scalingFactor) {
-    this.sensor = sensor;
-    this.scalingFactor = scalingFactor;
-    setInput(
-        () ->
-            average
-                ? sensor.getAverageVoltage() * scalingFactor
-                : sensor.getVoltage() * scalingFactor);
-  }
+    /**
+     * Create a ultrasonic sensor using a analog input
+     *
+     * <p>Analog ultrasonic sensors work by returning a voltage value that is proportional to the
+     * range value, you will need to find out what the scaling factor is for your specific
+     * ultrasonic sensor, this is most often found on the datasheet released by the manufacturer
+     *
+     * <p>The scaling factor should convert from V (Volts) to mm (millimeters)
+     *
+     * @see <a
+     *     href="https://wpilib.screenstepslive.com/s/currentCS/m/java/l/599715-ultrasonic-sensors-measuring-robot-distance-to-a-surface">WPI
+     *     Analog Rangefinders</>
+     * @param sensor the analog input the sensor is connected to
+     * @param scalingFactor the scaling factor for the ultrasonic sensor
+     */
+    public AnalogUltrasonic(AnalogInput sensor, double scalingFactor) {
+        this.sensor = sensor;
+        this.scalingFactor = scalingFactor;
+        setInput(
+                () ->
+                        average
+                                ? sensor.getAverageVoltage() * scalingFactor
+                                : sensor.getVoltage() * scalingFactor);
+    }
 
-  @Override
-  public double getInches() {
-    return getCentimeters() * Utils.CENTIMETERS_TO_INCHES;
-  }
+    @Override
+    public double getInches() {
+        return getCentimeters() * Utils.CENTIMETERS_TO_INCHES;
+    }
 
-  @Override
-  public double getCentimeters() {
-    return get() * 10;
-  }
+    @Override
+    public double getCentimeters() {
+        return get() * 10;
+    }
 
-  /**
-   * Set the sensor to average the oversampled reading
-   *
-   * <p>When setting to this mode, it is also important to specify the amount of bits used to
-   * oversample
-   *
-   * @param oversampleBits the number of bits used in oversampling
-   */
-  public void setModeAverage(int oversampleBits) {
-    sensor.setOversampleBits(oversampleBits);
-    average = false;
-  }
+    /**
+     * Set the sensor to average the oversampled reading
+     *
+     * <p>When setting to this mode, it is also important to specify the amount of bits used to
+     * oversample
+     *
+     * @param oversampleBits the number of bits used in oversampling
+     */
+    public void setModeAverage(int oversampleBits) {
+        sensor.setOversampleBits(oversampleBits);
+        average = false;
+    }
 
-  /** Set the sensor to read the absolute value (this is enabled by default) */
-  public void setModeAbsolute() {
-    average = true;
-  }
+    /** Set the sensor to read the absolute value (this is enabled by default) */
+    public void setModeAbsolute() {
+        average = true;
+    }
 
-  /** get the analog input of the sensor */
-  public AnalogInput getSensor() {
-    return sensor;
-  }
+    /** get the analog input of the sensor */
+    public AnalogInput getSensor() {
+        return sensor;
+    }
 }

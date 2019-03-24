@@ -34,23 +34,23 @@ import org.montclairrobotics.alloy.utils.Input;
  * @since
  */
 public class FRCEncoder extends Encoder {
-  private final Input<Integer> ticks;
+    private final Input<Integer> ticks;
 
-  public FRCEncoder(edu.wpi.first.wpilibj.Encoder encoder) {
-    ticks = () -> encoder.get();
-  }
+    public FRCEncoder(edu.wpi.first.wpilibj.Encoder encoder) {
+        ticks = () -> encoder.get();
+    }
 
-  public FRCEncoder(WPI_TalonSRX talon) {
-    ticks = () -> talon.getSensorCollection().getQuadraturePosition();
-  }
+    public FRCEncoder(WPI_TalonSRX talon) {
+        ticks = () -> talon.getSensorCollection().getQuadraturePosition();
+    }
 
-  /**
-   * A method that should be overridden by the encoder
-   *
-   * @return the raw value of encoder ticks that the encoder reads
-   */
-  @Override
-  public int getRawTicks() {
-    return ticks.get();
-  }
+    /**
+     * A method that should be overridden by the encoder
+     *
+     * @return the raw value of encoder ticks that the encoder reads
+     */
+    @Override
+    public int getRawTicks() {
+        return ticks.get();
+    }
 }

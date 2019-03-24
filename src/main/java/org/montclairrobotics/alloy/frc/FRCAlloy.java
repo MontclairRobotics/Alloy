@@ -41,118 +41,119 @@ import org.montclairrobotics.alloy.utils.Initializeable;
  * @since
  */
 public abstract class FRCAlloy extends TimedRobot implements Alloy {
-  private static DriveTrain driveTrain;
-  private static Selector<StateMachine> autoSelector;
-  private StateMachine autoMode;
-  public static Debugger debugger;
+    private static DriveTrain driveTrain;
+    private static Selector<StateMachine> autoSelector;
+    private StateMachine autoMode;
+    public static Debugger debugger;
 
-  /**
-   * Initialization code for teleop mode should go here.
-   *
-   * <p>Users should override this method for initialization code which will be called each time the
-   * robot enters teleop mode.
-   */
-  @Override
-  public void teleopInit() {
-    driveTrain.setDefaultInput();
-    initialization();
-  }
-
-  /**
-   * Robot-wide initialization code should go here.
-   *
-   * <p>
-   *
-   * <p>Users should override this method for default Robot-wide initialization which will be called
-   * when the robot is first powered on. It will be called exactly one time.
-   *
-   * <p>
-   *
-   * <p>Warning: the Driver Station "Robot Code" light and FMS "Robot Ready" indicators will be off
-   * until RobotInit() exits. Code in RobotInit() that waits for enable will cause the robot to
-   * never indicate that the code is ready, causing the robot to be bypassed in a match.
-   */
-  @Override
-  public void robotInit() {
-    Component.debugger = new FRCDebugger();
-    autoSelector = new Selector<>("Auto Chooser", new SendableChooser());
-    debugger = new FRCDebugger();
-    for (Initializeable i : Initializeable.getInitObjects()) {
-      i.init();
+    /**
+     * Initialization code for teleop mode should go here.
+     *
+     * <p>Users should override this method for initialization code which will be called each time
+     * the robot enters teleop mode.
+     */
+    @Override
+    public void teleopInit() {
+        driveTrain.setDefaultInput();
+        initialization();
     }
 
-    robotSetup();
-  }
+    /**
+     * Robot-wide initialization code should go here.
+     *
+     * <p>
+     *
+     * <p>Users should override this method for default Robot-wide initialization which will be
+     * called when the robot is first powered on. It will be called exactly one time.
+     *
+     * <p>
+     *
+     * <p>Warning: the Driver Station "Robot Code" light and FMS "Robot Ready" indicators will be
+     * off until RobotInit() exits. Code in RobotInit() that waits for enable will cause the robot
+     * to never indicate that the code is ready, causing the robot to be bypassed in a match.
+     */
+    @Override
+    public void robotInit() {
+        Component.debugger = new FRCDebugger();
+        autoSelector = new Selector<>("Auto Chooser", new SendableChooser());
+        debugger = new FRCDebugger();
+        for (Initializeable i : Initializeable.getInitObjects()) {
+            i.init();
+        }
 
-  /** Periodic code for teleop mode should go here. */
-  @Override
-  public void teleopPeriodic() {
-    Updater.update();
-  }
-
-  /**
-   * Initialization code for autonomous mode should go here.
-   *
-   * <p>
-   *
-   * <p>Users should override this method for initialization code which will be called each time the
-   * robot enters autonomous mode.
-   */
-  @Override
-  public void autonomousInit() {
-    autoMode = autoSelector.getSelected();
-    if (getDriveTrain() == null) {
-      debugger.error("DRIVE TRAIN NOT SPECIFIED FOR AUTO");
+        robotSetup();
     }
-    DriveTrain.setAutoDriveTrain(getDriveTrain());
-    try {
-      autoMode.start();
-    } catch (NullPointerException e) {
-      debugger.error("You have not specified an auto mode, a null auto has been created for you");
-      autoMode = new StateMachine("Null Auto", 0, new NullState());
+
+    /** Periodic code for teleop mode should go here. */
+    @Override
+    public void teleopPeriodic() {
+        Updater.update();
     }
-  }
 
-  /** Periodic code for autonomous mode should go here. */
-  @Override
-  public void autonomousPeriodic() {
-    Updater.update();
-  }
-
-  /**
-   * Initialization code for disabled mode should go here.
-   *
-   * <p>
-   *
-   * <p>Users should override this method for initialization code which will be called each time the
-   * robot enters disabled mode.
-   */
-  @Override
-  public void disabledInit() {
-    for (Selector selector : Selector.getSelectors()) {
-      selector.send();
+    /**
+     * Initialization code for autonomous mode should go here.
+     *
+     * <p>
+     *
+     * <p>Users should override this method for initialization code which will be called each time
+     * the robot enters autonomous mode.
+     */
+    @Override
+    public void autonomousInit() {
+        autoMode = autoSelector.getSelected();
+        if (getDriveTrain() == null) {
+            debugger.error("DRIVE TRAIN NOT SPECIFIED FOR AUTO");
+        }
+        DriveTrain.setAutoDriveTrain(getDriveTrain());
+        try {
+            autoMode.start();
+        } catch (NullPointerException e) {
+            debugger.error(
+                    "You have not specified an auto mode, a null auto has been created for you");
+            autoMode = new StateMachine("Null Auto", 0, new NullState());
+        }
     }
-  }
 
-  /** Periodic code for disabled mode should go here. */
-  @Override
-  public void disabledPeriodic() {
-    for (Selector selector : Selector.getSelectors()) {
-      selector.send();
+    /** Periodic code for autonomous mode should go here. */
+    @Override
+    public void autonomousPeriodic() {
+        Updater.update();
     }
-  }
 
-  @Override
-  public void setDriveTrain(DriveTrain driveTrain) {
-    FRCAlloy.driveTrain = driveTrain;
-  }
+    /**
+     * Initialization code for disabled mode should go here.
+     *
+     * <p>
+     *
+     * <p>Users should override this method for initialization code which will be called each time
+     * the robot enters disabled mode.
+     */
+    @Override
+    public void disabledInit() {
+        for (Selector selector : Selector.getSelectors()) {
+            selector.send();
+        }
+    }
 
-  @Override
-  public DriveTrain getDriveTrain() {
-    return FRCAlloy.driveTrain;
-  }
+    /** Periodic code for disabled mode should go here. */
+    @Override
+    public void disabledPeriodic() {
+        for (Selector selector : Selector.getSelectors()) {
+            selector.send();
+        }
+    }
 
-  public void addAutoMode(StateMachine autoMode) {
-    autoSelector.addOption(autoMode.getName(), autoMode);
-  }
+    @Override
+    public void setDriveTrain(DriveTrain driveTrain) {
+        FRCAlloy.driveTrain = driveTrain;
+    }
+
+    @Override
+    public DriveTrain getDriveTrain() {
+        return FRCAlloy.driveTrain;
+    }
+
+    public void addAutoMode(StateMachine autoMode) {
+        autoSelector.addOption(autoMode.getName(), autoMode);
+    }
 }

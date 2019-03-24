@@ -28,18 +28,18 @@ import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.update.Update;
 
 public class PressureRegulator extends Component {
-  private final Compressor compressor;
+    private final Compressor compressor;
 
-  public PressureRegulator(Compressor c) {
-    this.compressor = c;
-  }
-
-  @Update
-  public void regulatePressure() {
-    if (!compressor.getPressureSwitchValue() && status.isEnabled()) {
-      compressor.setClosedLoopControl(true);
-    } else {
-      compressor.setClosedLoopControl(false);
+    public PressureRegulator(Compressor c) {
+        this.compressor = c;
     }
-  }
+
+    @Update
+    public void regulatePressure() {
+        if (!compressor.getPressureSwitchValue() && status.isEnabled()) {
+            compressor.setClosedLoopControl(true);
+        } else {
+            compressor.setClosedLoopControl(false);
+        }
+    }
 }

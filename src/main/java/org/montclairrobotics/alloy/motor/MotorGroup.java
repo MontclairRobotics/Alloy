@@ -42,49 +42,49 @@ import org.montclairrobotics.alloy.utils.Input;
  */
 public class MotorGroup<T> extends Component {
 
-  /** The mapper that will be used for power assignment and calculation */
-  private final Mapper mapper;
+    /** The mapper that will be used for power assignment and calculation */
+    private final Mapper mapper;
 
-  /** The modules contained in the motor group */
-  private ArrayList<MotorModule> modules;
+    /** The modules contained in the motor group */
+    private ArrayList<MotorModule> modules;
 
-  /** The control input for the motor group */
-  private Input<T> input;
+    /** The control input for the motor group */
+    private Input<T> input;
 
-  public MotorGroup(Input input, Mapper mapper, MotorModule... modules) {
-    this.input = input;
-    this.mapper = mapper;
-    this.modules = (ArrayList) Arrays.asList(modules);
-  }
+    public MotorGroup(Input input, Mapper mapper, MotorModule... modules) {
+        this.input = input;
+        this.mapper = mapper;
+        this.modules = (ArrayList) Arrays.asList(modules);
+    }
 
-  /**
-   * Creates a motor group with a default mapper that simply
-   *
-   * @param input
-   * @param modules
-   */
-  public MotorGroup(Input<Double> input, MotorModule... modules) {
-    this(input, new DefaultMapper(), modules);
-  }
+    /**
+     * Creates a motor group with a default mapper that simply
+     *
+     * @param input
+     * @param modules
+     */
+    public MotorGroup(Input<Double> input, MotorModule... modules) {
+        this(input, new DefaultMapper(), modules);
+    }
 
-  @Update
-  public void controlPower() {
-    mapper.map(input, modules.toArray(new MotorModule[modules.size()]));
-  }
+    @Update
+    public void controlPower() {
+        mapper.map(input, modules.toArray(new MotorModule[modules.size()]));
+    }
 
-  public Mapper getMapper() {
-    return mapper;
-  }
+    public Mapper getMapper() {
+        return mapper;
+    }
 
-  public Input<T> getInput() {
-    return input;
-  }
+    public Input<T> getInput() {
+        return input;
+    }
 
-  public void setInput(Input<T> input) {
-    this.input = input;
-  }
+    public void setInput(Input<T> input) {
+        this.input = input;
+    }
 
-  public ArrayList<MotorModule> getModules() {
-    return modules;
-  }
+    public ArrayList<MotorModule> getModules() {
+        return modules;
+    }
 }

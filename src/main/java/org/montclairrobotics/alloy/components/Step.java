@@ -35,6 +35,6 @@ package org.montclairrobotics.alloy.components;
  * @since 0.1
  */
 public interface Step<T> {
-  /** The operation to be performed on the input, to get the output */
-  public T getOutput(T input);
+    /** The operation to be performed on the input, to get the output */
+    public T getOutput(T input);
 }

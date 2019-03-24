@@ -53,7 +53,7 @@ dependencies{
 
 spotless {
     java {
-        googleJavaFormat()
+        googleJavaFormat().aosp()
         licenseHeaderFile 'SpotlessLicense'
         // paddedCell()
     }

@@ -32,9 +32,9 @@ import org.montclairrobotics.alloy.components.Component;
  * @since
  */
 public class DebugException extends RuntimeException {
-  public DebugException(String message) {
-    // super(message);
-    getStackTrace();
-    Component.debugger.error(message);
-  }
+    public DebugException(String message) {
+        // super(message);
+        getStackTrace();
+        Component.debugger.error(message);
+    }
 }

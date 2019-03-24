@@ -43,66 +43,66 @@ import org.montclairrobotics.alloy.vector.Vector;
  * @see DriveEncoders
  */
 public class DriveTime extends State {
-  /** the time in seconds the robot will drive for */
-  private final double time;
+    /** the time in seconds the robot will drive for */
+    private final double time;
 
-  /** the power the robot wil drive at */
-  private final double power;
+    /** the power the robot wil drive at */
+    private final double power;
 
-  /** the drive train this state will use, this is set by defualt to be the alloy drive train */
-  private final DriveTrain driveTrain;
+    /** the drive train this state will use, this is set by defualt to be the alloy drive train */
+    private final DriveTrain driveTrain;
 
-  /** the time the state starts at */
-  private long startTimeMillis;
+    /** the time the state starts at */
+    private long startTimeMillis;
 
-  /**
-   * Create a new DriveTime state
-   *
-   * <p>This constructor will set the next state to be the sequential state
-   *
-   * @param time how long the robot wll drive for
-   * @param power how fast the robot will drive
-   */
-  public DriveTime(double time, double power) {
-    this.driveTrain = DriveTrain.getAutoDriveTrain();
-    this.time = time;
-    this.power = power;
-  }
+    /**
+     * Create a new DriveTime state
+     *
+     * <p>This constructor will set the next state to be the sequential state
+     *
+     * @param time how long the robot wll drive for
+     * @param power how fast the robot will drive
+     */
+    public DriveTime(double time, double power) {
+        this.driveTrain = DriveTrain.getAutoDriveTrain();
+        this.time = time;
+        this.power = power;
+    }
 
-  /**
-   * Create a new DriveTime state specifing the next state
-   *
-   * <p>This constructor will set the next state
-   *
-   * @param time how long the robot iwll drive for
-   * @param power how fast the robot will drive
-   * @param nextState the state to go to after this state is done
-   */
-  public DriveTime(double time, double power, int nextState) {
-    super(nextState);
-    this.driveTrain = DriveTrain.getAutoDriveTrain();
-    this.time = time;
-    this.power = power;
-  }
+    /**
+     * Create a new DriveTime state specifing the next state
+     *
+     * <p>This constructor will set the next state
+     *
+     * @param time how long the robot iwll drive for
+     * @param power how fast the robot will drive
+     * @param nextState the state to go to after this state is done
+     */
+    public DriveTime(double time, double power, int nextState) {
+        super(nextState);
+        this.driveTrain = DriveTrain.getAutoDriveTrain();
+        this.time = time;
+        this.power = power;
+    }
 
-  @Override
-  public void start() {
-    startTimeMillis = System.currentTimeMillis();
-  }
+    @Override
+    public void start() {
+        startTimeMillis = System.currentTimeMillis();
+    }
 
-  @Override
-  public void run() {
-    driveTrain.setInput(
-        new ConstantInput<DTInput>(new DTInput(new Polar(power, Angle.ZERO), Angle.ZERO)));
-  }
+    @Override
+    public void run() {
+        driveTrain.setInput(
+                new ConstantInput<DTInput>(new DTInput(new Polar(power, Angle.ZERO), Angle.ZERO)));
+    }
 
-  @Override
-  public void stop() {
-    driveTrain.setInput(new ConstantInput<>(new DTInput(Vector.ZERO, Angle.ZERO)));
-  }
+    @Override
+    public void stop() {
+        driveTrain.setInput(new ConstantInput<>(new DTInput(Vector.ZERO, Angle.ZERO)));
+    }
 
-  @Override
-  public boolean isDone() {
-    return startTimeMillis / 1000 > time;
-  }
+    @Override
+    public boolean isDone() {
+        return startTimeMillis / 1000 > time;
+    }
 }
