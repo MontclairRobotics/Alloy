@@ -40,74 +40,74 @@ import org.montclairrobotics.alloy.utils.Input;
  */
 public class DriveTrain extends MotorGroup<DTInput> {
 
-    /**
-     * The default input to the drive train
-     *
-     * <p>Since numerous parts of alloy can "Hijack" the drive train input to control it in
-     * autonomously, the default input is stored in the drivetrain class and able to be restored
-     * using setDefaultInput()
-     */
-    private final Input<DTInput> defaultInput;
+  /**
+   * The default input to the drive train
+   *
+   * <p>Since numerous parts of alloy can "Hijack" the drive train input to control it in
+   * autonomously, the default input is stored in the drivetrain class and able to be restored using
+   * setDefaultInput()
+   */
+  private final Input<DTInput> defaultInput;
 
-    private static DriveTrain autoDriveTrain;
+  private static DriveTrain autoDriveTrain;
 
-    public DriveTrain(Input<DTInput> input, Mapper mapper, MotorModule... modules) {
-        super(input, mapper, modules);
-        defaultInput = input;
+  public DriveTrain(Input<DTInput> input, Mapper mapper, MotorModule... modules) {
+    super(input, mapper, modules);
+    defaultInput = input;
+  }
+
+  public static DriveTrain getAutoDriveTrain() {
+    return autoDriveTrain;
+  }
+
+  public static void setAutoDriveTrain(DriveTrain autoDriveTrain) {
+    DriveTrain.autoDriveTrain = autoDriveTrain;
+  }
+
+  public void setDefaultInput() {
+    setInput(defaultInput);
+  }
+
+  public int[] getEncoderValues() {
+    ArrayList<MotorModule> modules = getModules();
+    int[] values = new int[modules.size()];
+    for (int i = 0; i < values.length; i++) {
+      values[i] = modules.get(i).getEncoder().getTicks();
     }
+    return values;
+  }
 
-    public static DriveTrain getAutoDriveTrain() {
-        return autoDriveTrain;
+  public int[] getRightEncoderValues() {
+    ArrayList<MotorModule> modules = getModules();
+    int total = 0;
+    for (MotorModule m : modules) {
+      if (m.getOffset().getX() > 0) {
+        total++;
+      }
     }
+    int[] values = new int[total];
+    for (int i = 0; i < values.length; i++) {
+      if (modules.get(i).getOffset().getX() > 0) {
+        values[i] = modules.get(i).getEncoder().getTicks();
+      }
+    }
+    return values;
+  }
 
-    public static void setAutoDriveTrain(DriveTrain autoDriveTrain) {
-        DriveTrain.autoDriveTrain = autoDriveTrain;
+  public int[] getLeftEncoderValues() {
+    ArrayList<MotorModule> modules = getModules();
+    int total = 0;
+    for (MotorModule m : modules) {
+      if (m.getOffset().getX() < 0) {
+        total++;
+      }
     }
-
-    public void setDefaultInput() {
-        setInput(defaultInput);
+    int[] values = new int[total];
+    for (int i = 0; i < values.length; i++) {
+      if (modules.get(i).getOffset().getX() < 0) {
+        values[i] = modules.get(i).getEncoder().getTicks();
+      }
     }
-
-    public int[] getEncoderValues() {
-        ArrayList<MotorModule> modules = getModules();
-        int[] values = new int[modules.size()];
-        for (int i = 0; i < values.length; i++) {
-            values[i] = modules.get(i).getEncoder().getTicks();
-        }
-        return values;
-    }
-
-    public int[] getRightEncoderValues() {
-        ArrayList<MotorModule> modules = getModules();
-        int total = 0;
-        for (MotorModule m : modules) {
-            if (m.getOffset().getX() > 0) {
-                total++;
-            }
-        }
-        int[] values = new int[total];
-        for (int i = 0; i < values.length; i++) {
-            if (modules.get(i).getOffset().getX() > 0) {
-                values[i] = modules.get(i).getEncoder().getTicks();
-            }
-        }
-        return values;
-    }
-
-    public int[] getLeftEncoderValues() {
-        ArrayList<MotorModule> modules = getModules();
-        int total = 0;
-        for (MotorModule m : modules) {
-            if (m.getOffset().getX() < 0) {
-                total++;
-            }
-        }
-        int[] values = new int[total];
-        for (int i = 0; i < values.length; i++) {
-            if (modules.get(i).getOffset().getX() < 0) {
-                values[i] = modules.get(i).getEncoder().getTicks();
-            }
-        }
-        return values;
-    }
+    return values;
+  }
 }

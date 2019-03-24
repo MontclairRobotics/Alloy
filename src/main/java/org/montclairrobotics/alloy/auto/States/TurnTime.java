@@ -44,65 +44,65 @@ import org.montclairrobotics.alloy.vector.Vector;
  * @since 0.1
  */
 public class TurnTime extends State {
-    /** the time in seconds the robot will turn for */
-    private final double time;
+  /** the time in seconds the robot will turn for */
+  private final double time;
 
-    /** the power the robot wil turn at */
-    private final double power;
+  /** the power the robot wil turn at */
+  private final double power;
 
-    /** the drive train this state will use, this is set by default to be the alloy drive train */
-    private final DriveTrain driveTrain;
+  /** the drive train this state will use, this is set by default to be the alloy drive train */
+  private final DriveTrain driveTrain;
 
-    /** the time the state starts at */
-    private long startTimeMillis;
+  /** the time the state starts at */
+  private long startTimeMillis;
 
-    /**
-     * Creates an auto state that turns the robot for a specified time at a specified power
-     *
-     * <p>This constructor does not indicate the next state
-     *
-     * @param time the time (in seconds) to turn the robot
-     * @param power the power to turn the robot
-     */
-    public TurnTime(double time, double power) {
-        this.time = time;
-        this.power = power;
-        this.driveTrain = DriveTrain.getAutoDriveTrain();
-    }
+  /**
+   * Creates an auto state that turns the robot for a specified time at a specified power
+   *
+   * <p>This constructor does not indicate the next state
+   *
+   * @param time the time (in seconds) to turn the robot
+   * @param power the power to turn the robot
+   */
+  public TurnTime(double time, double power) {
+    this.time = time;
+    this.power = power;
+    this.driveTrain = DriveTrain.getAutoDriveTrain();
+  }
 
-    /**
-     * Creates an auto state that turns the robot for a specified time at a specified power
-     *
-     * <p>This constructor indicates the following state
-     *
-     * @param time the time (in seconds) to turn the robot
-     * @param power the power to turn the robot
-     * @param nextState the state to go to when this state is done
-     */
-    public TurnTime(double time, double power, int nextState) {
-        super(nextState);
-        this.time = time;
-        this.power = power;
-        this.driveTrain = DriveTrain.getAutoDriveTrain();
-    }
+  /**
+   * Creates an auto state that turns the robot for a specified time at a specified power
+   *
+   * <p>This constructor indicates the following state
+   *
+   * @param time the time (in seconds) to turn the robot
+   * @param power the power to turn the robot
+   * @param nextState the state to go to when this state is done
+   */
+  public TurnTime(double time, double power, int nextState) {
+    super(nextState);
+    this.time = time;
+    this.power = power;
+    this.driveTrain = DriveTrain.getAutoDriveTrain();
+  }
 
-    @Override
-    public void start() {
-        startTimeMillis = System.currentTimeMillis();
-    }
+  @Override
+  public void start() {
+    startTimeMillis = System.currentTimeMillis();
+  }
 
-    @Override
-    public void run() {
-        driveTrain.setInput(new ConstantInput<DTInput>(new DTInput(Vector.ZERO, new Angle(power))));
-    }
+  @Override
+  public void run() {
+    driveTrain.setInput(new ConstantInput<DTInput>(new DTInput(Vector.ZERO, new Angle(power))));
+  }
 
-    @Override
-    public void stop() {
-        driveTrain.setInput(new ConstantInput<>(new DTInput(Vector.ZERO, Angle.ZERO)));
-    }
+  @Override
+  public void stop() {
+    driveTrain.setInput(new ConstantInput<>(new DTInput(Vector.ZERO, Angle.ZERO)));
+  }
 
-    @Override
-    public boolean isDone() {
-        return startTimeMillis / 1000 > time;
-    }
+  @Override
+  public boolean isDone() {
+    return startTimeMillis / 1000 > time;
+  }
 }

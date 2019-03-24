@@ -32,8 +32,8 @@ import org.montclairrobotics.alloy.components.Component;
  * - Motor, or controller ports are improperly specified or accessed <br>
  */
 public class InvalidConfigurationException extends RuntimeException {
-    public InvalidConfigurationException(String message) {
-        super(message);
-        Component.debugger.error(message);
-    }
+  public InvalidConfigurationException(String message) {
+    super(message);
+    Component.debugger.error(message);
+  }
 }

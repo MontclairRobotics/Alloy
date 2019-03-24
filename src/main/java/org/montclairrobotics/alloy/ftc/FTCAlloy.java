@@ -46,36 +46,36 @@ import org.montclairrobotics.alloy.utils.Initializeable;
  * @since 0.1
  */
 public abstract class FTCAlloy extends OpMode implements Alloy {
-    public static DriveTrain driveTrain;
+  public static DriveTrain driveTrain;
 
-    @Override
-    public void init() {
-        // Set Up the core robot components, This allows them to be accessed throughout the project
-        new RobotCore(telemetry, hardwareMap, gamepad1, gamepad2);
-        Component.debugger = new FTCDebugger();
+  @Override
+  public void init() {
+    // Set Up the core robot components, This allows them to be accessed throughout the project
+    new RobotCore(telemetry, hardwareMap, gamepad1, gamepad2);
+    Component.debugger = new FTCDebugger();
 
-        for (Initializeable i : Initializeable.getInitObjects()) {
-            i.init();
-        }
-
-        robotSetup();
-        initialization();
-        DriveTrain.setAutoDriveTrain(getDriveTrain());
+    for (Initializeable i : Initializeable.getInitObjects()) {
+      i.init();
     }
 
-    @Override
-    public void loop() {
-        Updater.update();
-        periodic();
-    }
+    robotSetup();
+    initialization();
+    DriveTrain.setAutoDriveTrain(getDriveTrain());
+  }
 
-    @Override
-    public void setDriveTrain(DriveTrain driveTrain) {
-        FTCAlloy.driveTrain = driveTrain;
-    }
+  @Override
+  public void loop() {
+    Updater.update();
+    periodic();
+  }
 
-    @Override
-    public DriveTrain getDriveTrain() {
-        return driveTrain;
-    }
+  @Override
+  public void setDriveTrain(DriveTrain driveTrain) {
+    FTCAlloy.driveTrain = driveTrain;
+  }
+
+  @Override
+  public DriveTrain getDriveTrain() {
+    return driveTrain;
+  }
 }

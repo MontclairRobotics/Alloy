@@ -45,60 +45,60 @@ import org.montclairrobotics.alloy.vector.XY;
  */
 public class FTCJoystick extends InputComponent<Vector> implements Joystick {
 
-    /**
-     * The gamepad that the joystick is attached to, this will either be joystick 1, or joystick2,
-     * these can be accessed from the RobotCore class
-     *
-     * @see org.montclairrobotics.alloy.core.RobotCore
-     */
-    private final Gamepad gamepad;
+  /**
+   * The gamepad that the joystick is attached to, this will either be joystick 1, or joystick2,
+   * these can be accessed from the RobotCore class
+   *
+   * @see org.montclairrobotics.alloy.core.RobotCore
+   */
+  private final Gamepad gamepad;
 
-    /** The side that the joystick is on */
-    private final Side side;
+  /** The side that the joystick is on */
+  private final Side side;
 
-    /**
-     * The side in a FTCJoystick is referring to the side of the controller is on, there are 2
-     * joysticks, one on the right, one on the left
-     */
-    public enum Side {
-        RIGHT,
-        LEFT
+  /**
+   * The side in a FTCJoystick is referring to the side of the controller is on, there are 2
+   * joysticks, one on the right, one on the left
+   */
+  public enum Side {
+    RIGHT,
+    LEFT
+  }
+
+  /**
+   * Create a new Joystick using the gamepad and side
+   *
+   * @param gamepad The gamepad the joystick is on
+   * @param side The side the joystick is on (Right/Left)
+   */
+  public FTCJoystick(Gamepad gamepad, Side side) {
+    this.gamepad = gamepad;
+    this.side = side;
+  }
+
+  /**
+   * Gets the position of the joystick as a vector
+   *
+   * @return the position of the joystick as a vector
+   */
+  @Override
+  public Vector getValue() {
+    switch (side) {
+      case RIGHT:
+        return new XY(gamepad.right_stick_x, gamepad.right_stick_y);
+      case LEFT:
+        return new XY(gamepad.left_stick_x, gamepad.left_stick_y);
+      default:
+        return new XY(0, 0);
     }
+  }
 
-    /**
-     * Create a new Joystick using the gamepad and side
-     *
-     * @param gamepad The gamepad the joystick is on
-     * @param side The side the joystick is on (Right/Left)
-     */
-    public FTCJoystick(Gamepad gamepad, Side side) {
-        this.gamepad = gamepad;
-        this.side = side;
+  @Update
+  public void updateControls() {
+    if (status.isEnabled()) {
+      output = getValue();
+    } else {
+      output = Vector.ZERO;
     }
-
-    /**
-     * Gets the position of the joystick as a vector
-     *
-     * @return the position of the joystick as a vector
-     */
-    @Override
-    public Vector getValue() {
-        switch (side) {
-            case RIGHT:
-                return new XY(gamepad.right_stick_x, gamepad.right_stick_y);
-            case LEFT:
-                return new XY(gamepad.left_stick_x, gamepad.left_stick_y);
-            default:
-                return new XY(0, 0);
-        }
-    }
-
-    @Update
-    public void updateControls() {
-        if (status.isEnabled()) {
-            output = getValue();
-        } else {
-            output = Vector.ZERO;
-        }
-    }
+  }
 }

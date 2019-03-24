@@ -36,38 +36,38 @@ import org.montclairrobotics.alloy.vector.XY;
  * @since
  */
 public class FRCJoystick extends InputComponent<Vector> implements Joystick {
-    edu.wpi.first.wpilibj.Joystick stick;
+  edu.wpi.first.wpilibj.Joystick stick;
 
-    public FRCJoystick(int port) {
-        this.stick = new edu.wpi.first.wpilibj.Joystick(port);
-        setInput(this::getValue);
-    }
+  public FRCJoystick(int port) {
+    this.stick = new edu.wpi.first.wpilibj.Joystick(port);
+    setInput(this::getValue);
+  }
 
-    public FRCJoystick(edu.wpi.first.wpilibj.Joystick joystick) {
-        this.stick = joystick;
-        setInput(this::getValue);
-    }
+  public FRCJoystick(edu.wpi.first.wpilibj.Joystick joystick) {
+    this.stick = joystick;
+    setInput(this::getValue);
+  }
 
-    /**
-     * Gets the position of the joystick
-     *
-     * @return a vector made up of the X and Y values of the Joysticks Position
-     */
-    @Override
-    public Vector getValue() {
-        return new XY(stick.getX(), stick.getY());
-    }
+  /**
+   * Gets the position of the joystick
+   *
+   * @return a vector made up of the X and Y values of the Joysticks Position
+   */
+  @Override
+  public Vector getValue() {
+    return new XY(stick.getX(), stick.getY());
+  }
 
-    @Update
-    public void updateControls() {
-        if (status.isEnabled()) {
-            output = getValue();
-        } else {
-            output = Vector.ZERO;
-        }
+  @Update
+  public void updateControls() {
+    if (status.isEnabled()) {
+      output = getValue();
+    } else {
+      output = Vector.ZERO;
     }
+  }
 
-    public edu.wpi.first.wpilibj.Joystick getStick() {
-        return stick;
-    }
+  public edu.wpi.first.wpilibj.Joystick getStick() {
+    return stick;
+  }
 }

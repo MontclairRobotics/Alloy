@@ -33,23 +33,23 @@ import org.montclairrobotics.alloy.utils.Input;
  * @since
  */
 public class FRCButton implements Button {
-    private final Input<Boolean> out;
+  private final Input<Boolean> out;
 
-    public FRCButton(FRCJoystick joystick, int button) {
-        out = () -> joystick.getStick().getRawButton(button);
-    }
+  public FRCButton(FRCJoystick joystick, int button) {
+    out = () -> joystick.getStick().getRawButton(button);
+  }
 
-    public FRCButton(Input<Boolean> button) {
-        out = button;
-    }
+  public FRCButton(Input<Boolean> button) {
+    out = button;
+  }
 
-    /**
-     * Gets the value of a button
-     *
-     * @return returns the value of the button, in most case True(pressed) or False(unpressed)
-     */
-    @Override
-    public boolean getValue() {
-        return out.get();
-    }
+  /**
+   * Gets the value of a button
+   *
+   * @return returns the value of the button, in most case True(pressed) or False(unpressed)
+   */
+  @Override
+  public boolean getValue() {
+    return out.get();
+  }
 }

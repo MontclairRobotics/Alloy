@@ -35,10 +35,10 @@ import org.montclairrobotics.alloy.vector.Vector;
  * @since 0.1
  */
 public interface Joystick {
-    /**
-     * Gets the position of the joystick
-     *
-     * @return a vector made up of the X and Y values of the Joysticks Position
-     */
-    public Vector getValue();
+  /**
+   * Gets the position of the joystick
+   *
+   * @return a vector made up of the X and Y values of the Joysticks Position
+   */
+  public Vector getValue();
 }

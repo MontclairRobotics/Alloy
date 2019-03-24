@@ -29,14 +29,14 @@ import org.montclairrobotics.alloy.utils.Utils;
 import org.montclairrobotics.alloy.vector.Vector;
 
 public class IntakeMapper implements Mapper<Vector> {
-    @Override
-    public void map(Vector input, MotorModule... modules) {
-        for (MotorModule m : modules) {
-            if (m.getOffset().getX() > 0) {
-                m.setPower((input.getY() + input.getX()) * Utils.sign(m.getDirection().getY()));
-            } else {
-                m.setPower((input.getY() - input.getX()) * Utils.sign(m.getDirection().getY()));
-            }
-        }
+  @Override
+  public void map(Vector input, MotorModule... modules) {
+    for (MotorModule m : modules) {
+      if (m.getOffset().getX() > 0) {
+        m.setPower((input.getY() + input.getX()) * Utils.sign(m.getDirection().getY()));
+      } else {
+        m.setPower((input.getY() - input.getX()) * Utils.sign(m.getDirection().getY()));
+      }
     }
+  }
 }

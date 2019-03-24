@@ -55,88 +55,78 @@ on that, and alloy allows for the design of many different robots and parts.
 
 @TeleOp
 public class TestRobot extends FTCAlloy {
-    // Lower level hardware abstractions
-    FTCMotor rightIntakeMotor;
-    FTCMotor leftIntakeMotor;
-    FTCMotor d_rightFront;
-    FTCMotor d_rightBack;
-    FTCMotor d_leftFront;
-    FTCMotor d_leftBack;
+  // Lower level hardware abstractions
+  FTCMotor rightIntakeMotor;
+  FTCMotor leftIntakeMotor;
+  FTCMotor d_rightFront;
+  FTCMotor d_rightBack;
+  FTCMotor d_leftFront;
+  FTCMotor d_leftBack;
 
-    // Higher Level Hardware abstractions
-    MotorGroup intake;
+  // Higher Level Hardware abstractions
+  MotorGroup intake;
 
-    // Global motor control
-    PID motorCorrection;
+  // Global motor control
+  PID motorCorrection;
 
-    // Physical control systems
-    InputComponent intakeController;
-    InputComponent driveStick;
+  // Physical control systems
+  InputComponent intakeController;
+  InputComponent driveStick;
 
-    @Override
-    public void robotSetup() {
+  @Override
+  public void robotSetup() {
 
-        // =============================================================================================================
-        // EXAMPLE DRIVETRAIN SETUP
-        // =============================================================================================================
+    // =============================================================================================================
+    // EXAMPLE DRIVETRAIN SETUP
+    // =============================================================================================================
 
-        // Create Drivetrain Modules (wheels)
-        // By making it a tank drive, we use the default tank drive mapper
-        DriveTrain dt =
-                new TankDrive(
-                        new MotorModule(new XY(0, 1), new XY(1, 0), d_rightFront, d_rightBack),
-                        new MotorModule(new XY(0, 1), new XY(-1, 0), d_leftFront, d_leftBack));
+    // Create Drivetrain Modules (wheels)
+    // By making it a tank drive, we use the default tank drive mapper
+    DriveTrain dt =
+        new TankDrive(
+            new MotorModule(new XY(0, 1), new XY(1, 0), d_rightFront, d_rightBack),
+            new MotorModule(new XY(0, 1), new XY(-1, 0), d_leftFront, d_leftBack));
 
-        // Create the Drivetrain input
-        driveStick = new FTCJoystick(RobotCore.getGamepad1(), FTCJoystick.Side.RIGHT);
+    // Create the Drivetrain input
+    driveStick = new FTCJoystick(RobotCore.getGamepad1(), FTCJoystick.Side.RIGHT);
 
-        // Add modifiers toe the controls
-        driveStick.addStep(new Deadzone());
+    // Add modifiers toe the controls
+    driveStick.addStep(new Deadzone());
 
-        // Set the Drivetrain Input
-        dt.setInput(driveStick);
+    // Set the Drivetrain Input
+    dt.setInput(driveStick);
 
-        // =============================================================================================================
-        // EXAMPLE INTAKE SETUP
-        // =============================================================================================================
+    // =============================================================================================================
+    // EXAMPLE INTAKE SETUP
+    // =============================================================================================================
 
-        // Define the PID Correction
-        motorCorrection = new PID(1, 0, 0);
+    // Define the PID Correction
+    motorCorrection = new PID(1, 0, 0);
 
-        // Create the input
-        intakeController = new FTCJoystick(RobotCore.getGamepad2(), FTCJoystick.Side.RIGHT);
-        // Modify the input
-        intakeController.addStep(new Deadzone());
+    // Create the input
+    intakeController = new FTCJoystick(RobotCore.getGamepad2(), FTCJoystick.Side.RIGHT);
+    // Modify the input
+    intakeController.addStep(new Deadzone());
 
-        // Get the encoders from the motors
-        Encoder intakeRightEncoder = rightIntakeMotor.getEncoder(30, 100);
-        Encoder intakeLeftEncoder = rightIntakeMotor.getEncoder(30, 100);
+    // Get the encoders from the motors
+    Encoder intakeRightEncoder = rightIntakeMotor.getEncoder(30, 100);
+    Encoder intakeLeftEncoder = rightIntakeMotor.getEncoder(30, 100);
 
-        // Define the right and left modules
-        MotorModule intakeRightSide =
-                new MotorModule(
-                        new XY(0, 1),
-                        new XY(1, 0),
-                        intakeRightEncoder,
-                        motorCorrection,
-                        rightIntakeMotor);
-        MotorModule intakeLeftSide =
-                new MotorModule(
-                        new XY(0, 1),
-                        new XY(-1, 0),
-                        intakeLeftEncoder,
-                        motorCorrection,
-                        leftIntakeMotor);
+    // Define the right and left modules
+    MotorModule intakeRightSide =
+        new MotorModule(
+            new XY(0, 1), new XY(1, 0), intakeRightEncoder, motorCorrection, rightIntakeMotor);
+    MotorModule intakeLeftSide =
+        new MotorModule(
+            new XY(0, 1), new XY(-1, 0), intakeLeftEncoder, motorCorrection, leftIntakeMotor);
 
-        // Create the intake
-        intake =
-                new MotorGroup(
-                        intakeController, new IntakeMapper(), intakeRightSide, intakeLeftSide);
-    }
+    // Create the intake
+    intake = new MotorGroup(intakeController, new IntakeMapper(), intakeRightSide, intakeLeftSide);
+  }
 
-    @Override
-    public void initialization() {}
+  @Override
+  public void initialization() {}
 
-    @Override
-    public void periodic() {}
+  @Override
+  public void periodic() {}
 }

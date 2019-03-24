@@ -37,47 +37,46 @@ import org.montclairrobotics.alloy.vector.Vector;
  */
 public class TankMapper extends Component implements DTMapper {
 
-    private final Vector maxSpeed;
-    private final Angle maxRotation;
+  private final Vector maxSpeed;
+  private final Angle maxRotation;
 
-    public TankMapper() {
-        this(1, 1);
+  public TankMapper() {
+    this(1, 1);
+  }
+
+  public TankMapper(Vector maxSpeed, Angle maxRotation) {
+    this.maxSpeed = maxSpeed;
+    this.maxRotation = maxRotation;
+  }
+
+  public TankMapper(double maxSpeed, double maxRotation) {
+    this.maxSpeed = new Polar(maxSpeed, new Angle(0));
+    this.maxRotation = new Angle(maxRotation);
+  }
+
+  @Override
+  public void map(DTInput input, MotorModule... modules) {
+    double inputSpeed = input.getTranslation().getManitude();
+    double inputRotation = input.getRotation().getDegrees();
+
+    // The values have a possibility of being from the maximum value, to their negative maximum
+    // values and should be scaled to (-1,1) to be applied to the motors
+    double scaledSpeed =
+        Utils.map(inputSpeed, -maxSpeed.getManitude(), maxSpeed.getManitude(), -1, 1);
+    double scaledRotation =
+        Utils.map(inputRotation, -maxRotation.getDegrees(), maxRotation.getDegrees(), -1, 1);
+
+    // Calculate the right and left powers and constrain them to (-1, 1)
+    double rightPower = Utils.constrain(scaledSpeed + scaledRotation, -1, 1);
+    double leftPower = Utils.constrain(scaledSpeed - scaledRotation, -1, 1);
+
+    for (MotorModule m : modules) {
+      // Determine whether the module is on the right side or the left
+      if (m.getOffset().getX() > 0) {
+        m.setPower(rightPower);
+      } else {
+        m.setPower(leftPower);
+      }
     }
-
-    public TankMapper(Vector maxSpeed, Angle maxRotation) {
-        this.maxSpeed = maxSpeed;
-        this.maxRotation = maxRotation;
-    }
-
-    public TankMapper(double maxSpeed, double maxRotation) {
-        this.maxSpeed = new Polar(maxSpeed, new Angle(0));
-        this.maxRotation = new Angle(maxRotation);
-    }
-
-    @Override
-    public void map(DTInput input, MotorModule... modules) {
-        double inputSpeed = input.getTranslation().getManitude();
-        double inputRotation = input.getRotation().getDegrees();
-
-        // The values have a possibility of being from the maximum value, to their negative maximum
-        // values and should be scaled to (-1,1) to be applied to the motors
-        double scaledSpeed =
-                Utils.map(inputSpeed, -maxSpeed.getManitude(), maxSpeed.getManitude(), -1, 1);
-        double scaledRotation =
-                Utils.map(
-                        inputRotation, -maxRotation.getDegrees(), maxRotation.getDegrees(), -1, 1);
-
-        // Calculate the right and left powers and constrain them to (-1, 1)
-        double rightPower = Utils.constrain(scaledSpeed + scaledRotation, -1, 1);
-        double leftPower = Utils.constrain(scaledSpeed - scaledRotation, -1, 1);
-
-        for (MotorModule m : modules) {
-            // Determine whether the module is on the right side or the left
-            if (m.getOffset().getX() > 0) {
-                m.setPower(rightPower);
-            } else {
-                m.setPower(leftPower);
-            }
-        }
-    }
+  }
 }

@@ -43,121 +43,119 @@ import org.montclairrobotics.alloy.vector.Vector;
  */
 public class TurnEncoders extends State {
 
-    /** The speed the robot will turn at */
-    private final double speed;
+  /** The speed the robot will turn at */
+  private final double speed;
 
-    /** The angle the robot will turn, this is relative */
-    private final double degrees;
+  /** The angle the robot will turn, this is relative */
+  private final double degrees;
 
-    /** Right starting values, used in turn calculation */
-    private int[] rightSideStartValues;
+  /** Right starting values, used in turn calculation */
+  private int[] rightSideStartValues;
 
-    /** Right starting values, used in turn calculation */
-    private int[] leftSideStartValues;
+  /** Right starting values, used in turn calculation */
+  private int[] leftSideStartValues;
 
-    /** The drive train the state will use to turn */
-    private final DriveTrain driveTrain;
+  /** The drive train the state will use to turn */
+  private final DriveTrain driveTrain;
 
-    /**
-     * The "Turning constant". a conversion factor used for turning calculations
-     *
-     * <p>This value can be computed mathematically, or experimentally
-     *
-     * <p>The mathematical form is: (Robot Diameter)*(PI)/360 * (ticks per inch)
-     */
-    private static double ticksPerDegree = 1;
+  /**
+   * The "Turning constant". a conversion factor used for turning calculations
+   *
+   * <p>This value can be computed mathematically, or experimentally
+   *
+   * <p>The mathematical form is: (Robot Diameter)*(PI)/360 * (ticks per inch)
+   */
+  private static double ticksPerDegree = 1;
 
-    /**
-     * Set the turning constant This value can be computed mathematically, or experimentally
-     *
-     * <p>The mathematical form is: (Robot Diameter)*(PI)/360 * (ticks per inch)
-     *
-     * @param ticksPerDegree the conversion rate from ticks to degrees
-     */
-    public static void setTicksPerDegree(double ticksPerDegree) {
-        TurnEncoders.ticksPerDegree = ticksPerDegree;
+  /**
+   * Set the turning constant This value can be computed mathematically, or experimentally
+   *
+   * <p>The mathematical form is: (Robot Diameter)*(PI)/360 * (ticks per inch)
+   *
+   * @param ticksPerDegree the conversion rate from ticks to degrees
+   */
+  public static void setTicksPerDegree(double ticksPerDegree) {
+    TurnEncoders.ticksPerDegree = ticksPerDegree;
+  }
+
+  /** The tolerance for detecting if the robot has reached its final rotation */
+  private static double tolerance = 5;
+
+  /** set the turning tolerance */
+  public static void setTolerance(double tolerance) {
+    TurnEncoders.tolerance = tolerance;
+  }
+
+  /**
+   * Create a new TurnEncoders state
+   *
+   * <p>This state will turn the robot determining if it has reached its final position based on
+   * encoders
+   *
+   * @param speed the speed to turn the robot
+   * @param degrees how many degrees to turn the robot (Relative)
+   */
+  public TurnEncoders(double speed, double degrees) {
+    driveTrain = DriveTrain.getAutoDriveTrain();
+    this.speed = speed;
+    this.degrees = degrees;
+  }
+
+  /**
+   * Create a new TurnEncoders state
+   *
+   * <p>This state will turn the robot determining if it has reached its final position based on
+   * encoders
+   *
+   * <p>This constructor specifies the next state to go to
+   *
+   * @param speed the speed to turn the robot
+   * @param degrees how many degrees to turn the robot (relative)
+   * @param nextState the state to go to when this state is done
+   */
+  public TurnEncoders(double speed, double degrees, int nextState) {
+    super(nextState);
+    driveTrain = DriveTrain.getAutoDriveTrain();
+    this.speed = speed;
+    this.degrees = degrees;
+  }
+
+  @Override
+  public void start() {
+    rightSideStartValues = driveTrain.getRightEncoderValues();
+    leftSideStartValues = driveTrain.getLeftEncoderValues();
+  }
+
+  @Override
+  public void run() {
+    if (degrees > 0) {
+      driveTrain.setInput(new ConstantInput<DTInput>(new DTInput(Vector.ZERO, new Angle(speed))));
+    } else {
+      driveTrain.setInput(new ConstantInput<DTInput>(new DTInput(Vector.ZERO, new Angle(-speed))));
+    }
+  }
+
+  @Override
+  public void stop() {
+    driveTrain.setInput(new ConstantInput<DTInput>(new DTInput(Vector.ZERO, Angle.ZERO)));
+  }
+
+  @Override
+  public boolean isDone() {
+    int rightTicks = 0;
+    int[] currentRight = driveTrain.getRightEncoderValues();
+    for (int i = 0; i < rightSideStartValues.length; i++) {
+      rightTicks += Math.abs(currentRight[i] - rightSideStartValues[i]);
     }
 
-    /** The tolerance for detecting if the robot has reached its final rotation */
-    private static double tolerance = 5;
-
-    /** set the turning tolerance */
-    public static void setTolerance(double tolerance) {
-        TurnEncoders.tolerance = tolerance;
+    int leftTicks = 0;
+    int[] currentLeft = driveTrain.getLeftEncoderValues();
+    for (int i = 0; i < leftSideStartValues.length; i++) {
+      leftTicks += Math.abs(currentLeft[i] - leftSideStartValues[i]);
     }
 
-    /**
-     * Create a new TurnEncoders state
-     *
-     * <p>This state will turn the robot determining if it has reached its final position based on
-     * encoders
-     *
-     * @param speed the speed to turn the robot
-     * @param degrees how many degrees to turn the robot (Relative)
-     */
-    public TurnEncoders(double speed, double degrees) {
-        driveTrain = DriveTrain.getAutoDriveTrain();
-        this.speed = speed;
-        this.degrees = degrees;
-    }
+    int ticksMoved = rightTicks + leftTicks;
 
-    /**
-     * Create a new TurnEncoders state
-     *
-     * <p>This state will turn the robot determining if it has reached its final position based on
-     * encoders
-     *
-     * <p>This constructor specifies the next state to go to
-     *
-     * @param speed the speed to turn the robot
-     * @param degrees how many degrees to turn the robot (relative)
-     * @param nextState the state to go to when this state is done
-     */
-    public TurnEncoders(double speed, double degrees, int nextState) {
-        super(nextState);
-        driveTrain = DriveTrain.getAutoDriveTrain();
-        this.speed = speed;
-        this.degrees = degrees;
-    }
-
-    @Override
-    public void start() {
-        rightSideStartValues = driveTrain.getRightEncoderValues();
-        leftSideStartValues = driveTrain.getLeftEncoderValues();
-    }
-
-    @Override
-    public void run() {
-        if (degrees > 0) {
-            driveTrain.setInput(
-                    new ConstantInput<DTInput>(new DTInput(Vector.ZERO, new Angle(speed))));
-        } else {
-            driveTrain.setInput(
-                    new ConstantInput<DTInput>(new DTInput(Vector.ZERO, new Angle(-speed))));
-        }
-    }
-
-    @Override
-    public void stop() {
-        driveTrain.setInput(new ConstantInput<DTInput>(new DTInput(Vector.ZERO, Angle.ZERO)));
-    }
-
-    @Override
-    public boolean isDone() {
-        int rightTicks = 0;
-        int[] currentRight = driveTrain.getRightEncoderValues();
-        for (int i = 0; i < rightSideStartValues.length; i++) {
-            rightTicks += Math.abs(currentRight[i] - rightSideStartValues[i]);
-        }
-
-        int leftTicks = 0;
-        int[] currentLeft = driveTrain.getLeftEncoderValues();
-        for (int i = 0; i < leftSideStartValues.length; i++) {
-            leftTicks += Math.abs(currentLeft[i] - leftSideStartValues[i]);
-        }
-
-        int ticksMoved = rightTicks + leftTicks;
-
-        return Math.abs(ticksMoved - degrees * ticksPerDegree) < tolerance;
-    }
+    return Math.abs(ticksMoved - degrees * ticksPerDegree) < tolerance;
+  }
 }

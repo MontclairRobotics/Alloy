@@ -43,51 +43,51 @@ import org.montclairrobotics.alloy.exceptions.UpdateException;
  */
 public class Updateable {
 
-    /** The method that will be called when it is updated */
-    private final Method update;
+  /** The method that will be called when it is updated */
+  private final Method update;
 
-    /** How often the updateable should be updated */
-    private final int updateRate;
+  /** How often the updateable should be updated */
+  private final int updateRate;
 
-    /** The class that contains the method */
-    private final Class clazz;
+  /** The class that contains the method */
+  private final Class clazz;
 
-    /** Any parameters for the method (This should be empty) */
-    private final Parameter[] parameters;
+  /** Any parameters for the method (This should be empty) */
+  private final Parameter[] parameters;
 
-    /** All objects that the method needs to be called on */
-    private ArrayList<Object> objects;
+  /** All objects that the method needs to be called on */
+  private ArrayList<Object> objects;
 
-    Updateable(Method update, int updateRate, Class clazz, Parameter[] parameters) {
-        this.update = update;
-        this.updateRate = updateRate;
-        this.clazz = clazz;
-        this.parameters = parameters;
+  Updateable(Method update, int updateRate, Class clazz, Parameter[] parameters) {
+    this.update = update;
+    this.updateRate = updateRate;
+    this.clazz = clazz;
+    this.parameters = parameters;
+  }
+
+  /** Gets references to all of the object that the update method should be called on */
+  public void getReferences() {
+    for (Component c : Component.getComponents()) {
+      if (c.getClass().equals(clazz)) {
+        objects.add(c);
+      }
     }
+  }
 
-    /** Gets references to all of the object that the update method should be called on */
-    public void getReferences() {
-        for (Component c : Component.getComponents()) {
-            if (c.getClass().equals(clazz)) {
-                objects.add(c);
-            }
-        }
+  public void run() {
+    if (parameters.length != 0) {
+      throw new UpdateException("UPDATED METHODS CAN NOT HAVE PARAMETERS");
     }
+    try {
+      for (Object o : objects) {
+        update.invoke(o, (Object[]) parameters);
+      }
+    } catch (IllegalAccessException | InvocationTargetException e) {
+      e.printStackTrace();
+    }
+  }
 
-    public void run() {
-        if (parameters.length != 0) {
-            throw new UpdateException("UPDATED METHODS CAN NOT HAVE PARAMETERS");
-        }
-        try {
-            for (Object o : objects) {
-                update.invoke(o, (Object[]) parameters);
-            }
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public int getUpdateRate() {
-        return updateRate;
-    }
+  public int getUpdateRate() {
+    return updateRate;
+  }
 }

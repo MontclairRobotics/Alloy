@@ -38,72 +38,72 @@ import org.montclairrobotics.alloy.components.InputComponent;
  */
 public class BangBang extends InputComponent<Double> implements ErrorCorrection<Double> {
 
-    private double target;
-    private final double lowOut;
-    private final double highOut;
-    private final double tolerance;
+  private double target;
+  private final double lowOut;
+  private final double highOut;
+  private final double tolerance;
 
-    public BangBang(double lowOut, double highOut, double tolerance) {
-        this.lowOut = lowOut;
-        this.highOut = highOut;
-        this.tolerance = tolerance;
-    }
+  public BangBang(double lowOut, double highOut, double tolerance) {
+    this.lowOut = lowOut;
+    this.highOut = highOut;
+    this.tolerance = tolerance;
+  }
 
-    public BangBang(double correction, double tolerance) {
-        this(-correction, correction, tolerance);
-    }
+  public BangBang(double correction, double tolerance) {
+    this(-correction, correction, tolerance);
+  }
 
-    public BangBang(double correction) {
-        this(correction, 0);
-    }
+  public BangBang(double correction) {
+    this(correction, 0);
+  }
 
-    /**
-     * Set the target for the correction When the input is equal to the target the error is 0
-     *
-     * @param target the goal of the error correction
-     */
-    @Override
-    public BangBang setTarget(Double target) {
-        this.target = target;
-        return this;
-    }
+  /**
+   * Set the target for the correction When the input is equal to the target the error is 0
+   *
+   * @param target the goal of the error correction
+   */
+  @Override
+  public BangBang setTarget(Double target) {
+    this.target = target;
+    return this;
+  }
 
-    @Override
-    public BangBang setInput(Input input) {
-        this.input = input;
-        return this;
-    }
+  @Override
+  public BangBang setInput(Input input) {
+    this.input = input;
+    return this;
+  }
 
-    /**
-     * Get the value to apply the correction
-     *
-     * @return the correction
-     */
-    @Override
-    public Double getCorrection() {
-        return output;
-    }
+  /**
+   * Get the value to apply the correction
+   *
+   * @return the correction
+   */
+  @Override
+  public Double getCorrection() {
+    return output;
+  }
 
-    /** @return A copy of the error correction */
-    @Override
-    public BangBang copy() {
-        return new BangBang(lowOut, highOut).setTarget(target).setInput(input);
-    }
+  /** @return A copy of the error correction */
+  @Override
+  public BangBang copy() {
+    return new BangBang(lowOut, highOut).setTarget(target).setInput(input);
+  }
 
-    /** @return the current target that the error correction is trying to correct to */
-    @Override
-    public Double getTarget() {
-        return target;
-    }
+  /** @return the current target that the error correction is trying to correct to */
+  @Override
+  public Double getTarget() {
+    return target;
+  }
 
-    @Override
-    public Double get() {
-        if (input.get() > target + tolerance) {
-            return highOut;
-        } else if (input.get() < target - tolerance) {
-            return lowOut;
-        } else {
-            return 0d;
-        }
+  @Override
+  public Double get() {
+    if (input.get() > target + tolerance) {
+      return highOut;
+    } else if (input.get() < target - tolerance) {
+      return lowOut;
+    } else {
+      return 0d;
     }
+  }
 }

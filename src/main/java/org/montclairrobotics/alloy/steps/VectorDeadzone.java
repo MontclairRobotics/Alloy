@@ -36,40 +36,40 @@ import org.montclairrobotics.alloy.vector.Vector;
  */
 public class VectorDeadzone extends Toggleable implements Step<Vector> {
 
-    /** the threshold value that the input has to be lower than for the step to return 0 */
-    private final double tolerance;
+  /** the threshold value that the input has to be lower than for the step to return 0 */
+  private final double tolerance;
 
-    /** Create a VectorDeadzone specifying the tolerance */
-    public VectorDeadzone(double tolerance) {
-        this.tolerance = tolerance;
-    }
+  /** Create a VectorDeadzone specifying the tolerance */
+  public VectorDeadzone(double tolerance) {
+    this.tolerance = tolerance;
+  }
 
-    /** Create a VectorDeadzone with a default tolerance of 0.05 */
-    public VectorDeadzone() {
-        this(0.05);
-    }
+  /** Create a VectorDeadzone with a default tolerance of 0.05 */
+  public VectorDeadzone() {
+    this(0.05);
+  }
 
-    @Override
-    public Vector getOutput(Vector input) {
-        if (status.isEnabled()) {
-            return input.getManitude() < tolerance ? Vector.ZERO : input;
-        } else {
-            return input;
-        }
+  @Override
+  public Vector getOutput(Vector input) {
+    if (status.isEnabled()) {
+      return input.getManitude() < tolerance ? Vector.ZERO : input;
+    } else {
+      return input;
     }
+  }
 
-    @Override
-    public void enableAction() {
-        // Do nothing because all action is taken care of
-    }
+  @Override
+  public void enableAction() {
+    // Do nothing because all action is taken care of
+  }
 
-    @Override
-    public void disableAction() {
-        // Do nothing because all action is taken care of
-    }
+  @Override
+  public void disableAction() {
+    // Do nothing because all action is taken care of
+  }
 
-    /** @return the threshold value */
-    public double getTolerance() {
-        return tolerance;
-    }
+  /** @return the threshold value */
+  public double getTolerance() {
+    return tolerance;
+  }
 }

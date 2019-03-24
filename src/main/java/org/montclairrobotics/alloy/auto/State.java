@@ -39,58 +39,58 @@ import org.montclairrobotics.alloy.ftc.AlloyAutonomous;
  */
 public abstract class State {
 
-    Integer nextState = null;
-    String debug = "Running State: ";
-    String description = "None";
+  Integer nextState = null;
+  String debug = "Running State: ";
+  String description = "None";
 
-    public State(int nextState) {}
+  public State(int nextState) {}
 
-    public State() {}
+  public State() {}
 
-    /** The start method is the first thing called when the state is run */
-    public abstract void start();
+  /** The start method is the first thing called when the state is run */
+  public abstract void start();
 
-    /** The run method is called every loop while the state is running */
-    public abstract void run();
+  /** The run method is called every loop while the state is running */
+  public abstract void run();
 
-    /** The Stop method is the last thing called once the state is done */
-    public abstract void stop();
+  /** The Stop method is the last thing called once the state is done */
+  public abstract void stop();
 
-    /**
-     * IsDone should return true when the state is finished
-     *
-     * @return true if the state is done
-     */
-    public abstract boolean isDone();
+  /**
+   * IsDone should return true when the state is finished
+   *
+   * @return true if the state is done
+   */
+  public abstract boolean isDone();
 
-    /**
-     * In order to have a non linear state machine, the state machine must know what state to go to
-     * when it is done with the previous state. The state also sometimes needs to know the current
-     * state for example if it just wanted to increment the state by one.
-     *
-     * @param currentState the state the state machine is currently running
-     * @return the state the state machine should go to
-     */
-    public int getNextState(int currentState) {
-        if (nextState != null) {
-            return nextState;
-        }
-        return currentState + 1;
+  /**
+   * In order to have a non linear state machine, the state machine must know what state to go to
+   * when it is done with the previous state. The state also sometimes needs to know the current
+   * state for example if it just wanted to increment the state by one.
+   *
+   * @param currentState the state the state machine is currently running
+   * @return the state the state machine should go to
+   */
+  public int getNextState(int currentState) {
+    if (nextState != null) {
+      return nextState;
     }
+    return currentState + 1;
+  }
 
-    public State setNextState(int nextState) {
-        this.nextState = nextState;
-        return this;
-    }
+  public State setNextState(int nextState) {
+    this.nextState = nextState;
+    return this;
+  }
 
-    /**
-     * When a state machine is running, it will debug out information about the state it is running.
-     * It will debug the result of debugInfo
-     *
-     * @param currentState the current state so that it can be used in the debug
-     * @return debug information about the state
-     */
-    public String debugInfo(int currentState) {
-        return debug + currentState + "\n Description" + description;
-    }
+  /**
+   * When a state machine is running, it will debug out information about the state it is running.
+   * It will debug the result of debugInfo
+   *
+   * @param currentState the current state so that it can be used in the debug
+   * @return debug information about the state
+   */
+  public String debugInfo(int currentState) {
+    return debug + currentState + "\n Description" + description;
+  }
 }

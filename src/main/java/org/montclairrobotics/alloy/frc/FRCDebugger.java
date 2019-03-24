@@ -35,19 +35,19 @@ import org.montclairrobotics.alloy.exceptions.DebugException;
  * @since
  */
 public class FRCDebugger extends Debugger {
-    /**
-     * The most basic debug that simply outputs information given a key and value
-     *
-     * @param key Key of the value being debugged
-     * @param value Value to be debugged
-     */
-    @Override
-    public void out(String key, Object value) {
-        try {
-            SmartDashboard.putData(key, (Sendable) value);
-        } catch (Exception e) {
-            throw new DebugException(
-                    "Objects being debugged must be able to be sent over the network tables");
-        }
+  /**
+   * The most basic debug that simply outputs information given a key and value
+   *
+   * @param key Key of the value being debugged
+   * @param value Value to be debugged
+   */
+  @Override
+  public void out(String key, Object value) {
+    try {
+      SmartDashboard.putData(key, (Sendable) value);
+    } catch (Exception e) {
+      throw new DebugException(
+          "Objects being debugged must be able to be sent over the network tables");
     }
+  }
 }

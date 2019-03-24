@@ -27,8 +27,8 @@ import org.montclairrobotics.alloy.components.Component;
 
 /** An exception that is thrown when there is problem with the update system */
 public class UpdateException extends RuntimeException {
-    public UpdateException(String message) {
-        super(message);
-        Component.debugger.error(message);
-    }
+  public UpdateException(String message) {
+    super(message);
+    Component.debugger.error(message);
+  }
 }

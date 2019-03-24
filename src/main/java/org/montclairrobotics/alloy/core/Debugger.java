@@ -41,161 +41,161 @@ package org.montclairrobotics.alloy.core;
  */
 public abstract class Debugger {
 
-    public enum Level {
-
-        /**
-         * The override can be used to override the level system and ouput any information Overrides
-         * are always enabled
-         */
-        OVERRIDE(-1),
-
-        /**
-         * Error Debugs should never be Turned off. Error debugs will display when anything that is
-         * critical to robot operation occurs
-         */
-        ERROR(0),
-
-        /**
-         * Competition debugs should contain information that is important to the drive team during
-         * a competition match.
-         */
-        COMPETITION(1),
-
-        /** Warnings should display when there is a potential problem with robot operation */
-        WARNING(2),
-
-        /**
-         * Test debugs should be used when testing functionality of a process or mechanism, Tests
-         * should contain simple and important information to the process rather than an in depth
-         * look on how everything is working.
-         */
-        TEST(3),
-
-        /**
-         * Debugs should contain the most information about a mechanism or process. For example,
-         * debug information for a motor would include its target speed, current speed, target
-         * position, current position, direction, % error, and so on. Debugs should only be turned
-         * on when fixing problems, as the amount of information can be quite cluttering
-         */
-        DEBUG(4);
-
-        /**
-         * Each debug level has a rank, the lower the rank, the more important. For example, if
-         * running debug level 3, information from levels 3, 2, 1, and 0 will be debugged.
-         *
-         * <p>Ranks should not be lower than 0
-         */
-        int rank;
-
-        private Level(int rank) {
-            this.rank = rank;
-        }
-
-        public int getRank() {
-            return rank;
-        }
-    }
-
-    /** Current Debug Level */
-    public static Level debugLevel = Level.DEBUG;
+  public enum Level {
 
     /**
-     * Set the debug level
-     *
-     * @param level The level to be set
+     * The override can be used to override the level system and ouput any information Overrides are
+     * always enabled
      */
-    public static void setDebugLevel(Level level) {
-        if (level.getRank() < 0) {
-            Debugger.debugLevel = level;
-        } else {
-            Debugger.debugLevel = Level.ERROR;
-        }
-    }
+    OVERRIDE(-1),
 
     /**
-     * The most basic debug that simply outputs information given a key and value
-     *
-     * @param key Key of the value being debugged
-     * @param value Value to be debugged
+     * Error Debugs should never be Turned off. Error debugs will display when anything that is
+     * critical to robot operation occurs
      */
-    public abstract void out(String key, Object value);
+    ERROR(0),
 
     /**
-     * Debugs a value if the level is lower than the current debug level
-     *
-     * @param key Name of the value
-     * @param value Value to be debugged
+     * Competition debugs should contain information that is important to the drive team during a
+     * competition match.
      */
-    public void log(String key, Object value, Level level) {
-        if (level.getRank() < debugLevel.getRank()) {
-            out(key, value);
-        }
-    }
+    COMPETITION(1),
+
+    /** Warnings should display when there is a potential problem with robot operation */
+    WARNING(2),
 
     /**
-     * Debugs out a debug object
-     *
-     * @param debug the object to be debugged
+     * Test debugs should be used when testing functionality of a process or mechanism, Tests should
+     * contain simple and important information to the process rather than an in depth look on how
+     * everything is working.
      */
-    public void debug(Debug debug) {
-        log(debug.key, debug.value, Level.DEBUG);
-    }
+    TEST(3),
 
     /**
-     * Debug out verbose information
-     *
-     * @param key Name of the value
-     * @param value Value to be displayed
+     * Debugs should contain the most information about a mechanism or process. For example, debug
+     * information for a motor would include its target speed, current speed, target position,
+     * current position, direction, % error, and so on. Debugs should only be turned on when fixing
+     * problems, as the amount of information can be quite cluttering
      */
-    public void debug(String key, Object value) {
-        log(key, value, Level.DEBUG);
-    }
+    DEBUG(4);
 
     /**
-     * Gives a warning to the user
+     * Each debug level has a rank, the lower the rank, the more important. For example, if running
+     * debug level 3, information from levels 3, 2, 1, and 0 will be debugged.
      *
-     * @param warning the warning
+     * <p>Ranks should not be lower than 0
      */
-    public void warn(String warning) {
-        log("WARNING", warning, Level.WARNING);
+    int rank;
+
+    private Level(int rank) {
+      this.rank = rank;
     }
 
-    /**
-     * Gives an error message to the user
-     *
-     * @param error the error message to be displayed
-     */
-    public void error(String error) {
-        log("ERROR", error, Level.ERROR);
+    public int getRank() {
+      return rank;
     }
+  }
 
-    /**
-     * Give a message intended for the driver during practice or competition operation
-     *
-     * @param key Name of the value
-     * @param value Value to be displayed
-     */
-    public void driverInfo(String key, Object value) {
-        log(key, value, Level.COMPETITION);
-    }
+  /** Current Debug Level */
+  public static Level debugLevel = Level.DEBUG;
 
-    /**
-     * Information to be displayed when testing a process or mechanism
-     *
-     * @param key Name of the value
-     * @param value Value to be displayed
-     */
-    public void test(String key, Object value) {
-        log(key, value, Level.TEST);
+  /**
+   * Set the debug level
+   *
+   * @param level The level to be set
+   */
+  public static void setDebugLevel(Level level) {
+    if (level.getRank() < 0) {
+      Debugger.debugLevel = level;
+    } else {
+      Debugger.debugLevel = Level.ERROR;
     }
+  }
 
-    /**
-     * A message that overrides the debug level system
-     *
-     * @param key Name of the value
-     * @param value Value to be displayed
-     */
-    public void override(String key, Object value) {
-        log(key, value, Level.OVERRIDE);
+  /**
+   * The most basic debug that simply outputs information given a key and value
+   *
+   * @param key Key of the value being debugged
+   * @param value Value to be debugged
+   */
+  public abstract void out(String key, Object value);
+
+  /**
+   * Debugs a value if the level is lower than the current debug level
+   *
+   * @param key Name of the value
+   * @param value Value to be debugged
+   */
+  public void log(String key, Object value, Level level) {
+    if (level.getRank() < debugLevel.getRank()) {
+      out(key, value);
     }
+  }
+
+  /**
+   * Debugs out a debug object
+   *
+   * @param debug the object to be debugged
+   */
+  public void debug(Debug debug) {
+    log(debug.key, debug.value, Level.DEBUG);
+  }
+
+  /**
+   * Debug out verbose information
+   *
+   * @param key Name of the value
+   * @param value Value to be displayed
+   */
+  public void debug(String key, Object value) {
+    log(key, value, Level.DEBUG);
+  }
+
+  /**
+   * Gives a warning to the user
+   *
+   * @param warning the warning
+   */
+  public void warn(String warning) {
+    log("WARNING", warning, Level.WARNING);
+  }
+
+  /**
+   * Gives an error message to the user
+   *
+   * @param error the error message to be displayed
+   */
+  public void error(String error) {
+    log("ERROR", error, Level.ERROR);
+  }
+
+  /**
+   * Give a message intended for the driver during practice or competition operation
+   *
+   * @param key Name of the value
+   * @param value Value to be displayed
+   */
+  public void driverInfo(String key, Object value) {
+    log(key, value, Level.COMPETITION);
+  }
+
+  /**
+   * Information to be displayed when testing a process or mechanism
+   *
+   * @param key Name of the value
+   * @param value Value to be displayed
+   */
+  public void test(String key, Object value) {
+    log(key, value, Level.TEST);
+  }
+
+  /**
+   * A message that overrides the debug level system
+   *
+   * @param key Name of the value
+   * @param value Value to be displayed
+   */
+  public void override(String key, Object value) {
+    log(key, value, Level.OVERRIDE);
+  }
 }

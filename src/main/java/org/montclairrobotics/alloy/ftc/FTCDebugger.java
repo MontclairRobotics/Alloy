@@ -37,32 +37,32 @@ import org.montclairrobotics.alloy.exceptions.InvalidConfigurationException;
  */
 public class FTCDebugger extends Debugger {
 
-    /** The telemetry used for debugging */
-    private final Telemetry telemetry;
+  /** The telemetry used for debugging */
+  private final Telemetry telemetry;
 
-    /** Create a new FTCDebugger, and throw an exception if it has not been initialized */
-    public FTCDebugger() {
-        try {
-            this.telemetry = RobotCore.getTelemetry();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            throw new InvalidConfigurationException(
-                    "You tried to access the telemetry before the robotcore has been initialized");
-        }
+  /** Create a new FTCDebugger, and throw an exception if it has not been initialized */
+  public FTCDebugger() {
+    try {
+      this.telemetry = RobotCore.getTelemetry();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+      throw new InvalidConfigurationException(
+          "You tried to access the telemetry before the robotcore has been initialized");
     }
+  }
 
-    public Telemetry getTelemetry() {
-        return telemetry;
-    }
+  public Telemetry getTelemetry() {
+    return telemetry;
+  }
 
-    /**
-     * The most basic debug that simply outputs information given a key and value
-     *
-     * @param key Key of the value being debugged
-     * @param value Value to be debugged
-     */
-    @Override
-    public void out(String key, Object value) {
-        telemetry.addData(key, value);
-    }
+  /**
+   * The most basic debug that simply outputs information given a key and value
+   *
+   * @param key Key of the value being debugged
+   * @param value Value to be debugged
+   */
+  @Override
+  public void out(String key, Object value) {
+    telemetry.addData(key, value);
+  }
 }

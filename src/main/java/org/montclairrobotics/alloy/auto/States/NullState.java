@@ -36,25 +36,25 @@ import org.montclairrobotics.alloy.auto.State;
  * @since
  */
 public class NullState extends State {
-    /** The start method is the first thing called when the state is run */
-    @Override
-    public void start() {}
+  /** The start method is the first thing called when the state is run */
+  @Override
+  public void start() {}
 
-    /** The run method is called every loop while the state is running */
-    @Override
-    public void run() {}
+  /** The run method is called every loop while the state is running */
+  @Override
+  public void run() {}
 
-    /** The Stop method is the last thing called once the state is done */
-    @Override
-    public void stop() {}
+  /** The Stop method is the last thing called once the state is done */
+  @Override
+  public void stop() {}
 
-    /**
-     * IsDone should return true when the state is finished
-     *
-     * @return true if the state is done
-     */
-    @Override
-    public boolean isDone() {
-        return true;
-    }
+  /**
+   * IsDone should return true when the state is finished
+   *
+   * @return true if the state is done
+   */
+  @Override
+  public boolean isDone() {
+    return true;
+  }
 }

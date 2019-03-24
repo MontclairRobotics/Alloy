@@ -31,9 +31,9 @@ package org.montclairrobotics.alloy.core;
  */
 public interface UltrasonicSensor {
 
-    /** @return The distance in inches that the rangefinder returns */
-    double getInches();
+  /** @return The distance in inches that the rangefinder returns */
+  double getInches();
 
-    /** @return The distance in centimeters that the rangefinder returns */
-    double getCentimeters();
+  /** @return The distance in centimeters that the rangefinder returns */
+  double getCentimeters();
 }

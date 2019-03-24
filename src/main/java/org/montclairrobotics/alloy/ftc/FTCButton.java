@@ -36,97 +36,97 @@ import org.montclairrobotics.alloy.utils.Input;
  */
 public class FTCButton implements Button {
 
-    /** Will return the value of the button */
-    private final Input<Boolean> buttonInput;
+  /** Will return the value of the button */
+  private final Input<Boolean> buttonInput;
 
-    /** If true inverts the value of the button. */
-    private final boolean inverted;
+  /** If true inverts the value of the button. */
+  private final boolean inverted;
 
-    /**
-     * Creates a new button using a buttonInput
-     *
-     * @param buttonInput an input that returns true if the button is being pressed, and false if
-     *     unpressed
-     */
-    public FTCButton(Input<Boolean> buttonInput) {
-        this(buttonInput, false);
+  /**
+   * Creates a new button using a buttonInput
+   *
+   * @param buttonInput an input that returns true if the button is being pressed, and false if
+   *     unpressed
+   */
+  public FTCButton(Input<Boolean> buttonInput) {
+    this(buttonInput, false);
+  }
+
+  /**
+   * Creates a new button specifying a button input and an invert
+   *
+   * @param buttonInput an input that returns true if the button is being pressed, and false if
+   *     unpressed
+   * @param invert if true inverts the value of buttonInput
+   */
+  public FTCButton(Input<Boolean> buttonInput, boolean invert) {
+    this.buttonInput = buttonInput;
+    this.inverted = invert;
+  }
+
+  /**
+   * Gets the values for a button
+   *
+   * @return the value of the button if inverted is false, or returns the opposite if it is true
+   */
+  @Override
+  public boolean getValue() {
+    if (inverted) {
+      return !buttonInput.get();
+    } else {
+      return buttonInput.get();
     }
+  }
 
-    /**
-     * Creates a new button specifying a button input and an invert
-     *
-     * @param buttonInput an input that returns true if the button is being pressed, and false if
-     *     unpressed
-     * @param invert if true inverts the value of buttonInput
-     */
-    public FTCButton(Input<Boolean> buttonInput, boolean invert) {
-        this.buttonInput = buttonInput;
-        this.inverted = invert;
-    }
+  // BUTTON PAD
+  public static FTCButton getAButton(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.a);
+  }
 
-    /**
-     * Gets the values for a button
-     *
-     * @return the value of the button if inverted is false, or returns the opposite if it is true
-     */
-    @Override
-    public boolean getValue() {
-        if (inverted) {
-            return !buttonInput.get();
-        } else {
-            return buttonInput.get();
-        }
-    }
+  public static FTCButton getBButton(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.b);
+  }
 
-    // BUTTON PAD
-    public static FTCButton getAButton(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.a);
-    }
+  public static FTCButton getXButton(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.x);
+  }
 
-    public static FTCButton getBButton(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.b);
-    }
+  public static FTCButton getYButton(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.y);
+  }
 
-    public static FTCButton getXButton(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.x);
-    }
+  // DPAD
+  public static FTCButton getDPADUp(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.dpad_up);
+  }
 
-    public static FTCButton getYButton(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.y);
-    }
+  public static FTCButton getDPADDown(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.dpad_down);
+  }
 
-    // DPAD
-    public static FTCButton getDPADUp(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.dpad_up);
-    }
+  public static FTCButton getYDPADRight(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.dpad_right);
+  }
 
-    public static FTCButton getDPADDown(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.dpad_down);
-    }
+  public static FTCButton getDPADLeft(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.dpad_left);
+  }
 
-    public static FTCButton getYDPADRight(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.dpad_right);
-    }
+  // Bumpers
+  public static FTCButton getRightBumper(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.right_bumper);
+  }
 
-    public static FTCButton getDPADLeft(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.dpad_left);
-    }
+  public static FTCButton getLeftBumper(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.left_bumper);
+  }
 
-    // Bumpers
-    public static FTCButton getRightBumper(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.right_bumper);
-    }
+  // Triggers
+  public static FTCButton getRightTrigger(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.right_trigger > .5);
+  }
 
-    public static FTCButton getLeftBumper(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.left_bumper);
-    }
-
-    // Triggers
-    public static FTCButton getRightTrigger(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.right_trigger > .5);
-    }
-
-    public static FTCButton getLeftTrigger(Gamepad gamepad) {
-        return new FTCButton(() -> gamepad.left_trigger > .5);
-    }
+  public static FTCButton getLeftTrigger(Gamepad gamepad) {
+    return new FTCButton(() -> gamepad.left_trigger > .5);
+  }
 }

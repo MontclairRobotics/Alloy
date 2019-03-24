@@ -35,10 +35,10 @@ package org.montclairrobotics.alloy.core;
  * @since 0.1
  */
 public interface Button {
-    /**
-     * Gets the value of a button
-     *
-     * @return returns the value of the button, in most case True(pressed) or False(unpressed)
-     */
-    public boolean getValue();
+  /**
+   * Gets the value of a button
+   *
+   * @return returns the value of the button, in most case True(pressed) or False(unpressed)
+   */
+  public boolean getValue();
 }

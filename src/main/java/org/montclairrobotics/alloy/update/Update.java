@@ -41,7 +41,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface Update {
-    int updateRate() default 1;
+  int updateRate() default 1;
 
-    int priority() default 0;
+  int priority() default 0;
 }

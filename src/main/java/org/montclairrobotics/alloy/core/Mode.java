@@ -31,8 +31,8 @@ package org.montclairrobotics.alloy.core;
  * @since 0.1
  */
 public enum Mode {
-    /** ftc Telemetry Operated Mode */
-    FTCTELEOP,
-    /** ftc autonomous mode */
-    FTCAUTONOMOUS
+  /** ftc Telemetry Operated Mode */
+  FTCTELEOP,
+  /** ftc autonomous mode */
+  FTCAUTONOMOUS
 }

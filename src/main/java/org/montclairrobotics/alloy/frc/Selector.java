@@ -34,30 +34,30 @@ import java.util.ArrayList;
  * @since
  */
 public class Selector<E> {
-    private static ArrayList<Selector> selectors;
-    private SendableChooser<E> selector;
-    private final String name;
+  private static ArrayList<Selector> selectors;
+  private SendableChooser<E> selector;
+  private final String name;
 
-    public Selector(String name, SendableChooser selector) {
-        this.selector = selector;
-        this.name = name;
-        selectors.add(this);
-    }
+  public Selector(String name, SendableChooser selector) {
+    this.selector = selector;
+    this.name = name;
+    selectors.add(this);
+  }
 
-    public Selector addOption(String name, E option) {
-        selector.addOption(name, option);
-        return this;
-    }
+  public Selector addOption(String name, E option) {
+    selector.addOption(name, option);
+    return this;
+  }
 
-    public static ArrayList<Selector> getSelectors() {
-        return selectors;
-    }
+  public static ArrayList<Selector> getSelectors() {
+    return selectors;
+  }
 
-    public void send() {
-        SmartDashboard.putData(name, selector);
-    }
+  public void send() {
+    SmartDashboard.putData(name, selector);
+  }
 
-    public E getSelected() {
-        return selector.getSelected();
-    }
+  public E getSelected() {
+    return selector.getSelected();
+  }
 }

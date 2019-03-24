@@ -45,173 +45,164 @@ import org.montclairrobotics.alloy.utils.Input;
  */
 public class FTCTargetMotor extends FTCMotor implements TargetMotor {
 
-    /** The power that the motor will aim to be, a value between (-1, 1) */
-    private double targetPower;
+  /** The power that the motor will aim to be, a value between (-1, 1) */
+  private double targetPower;
 
-    /** PID being used to control the motor in custom mode */
-    private ErrorCorrection<Double> correction;
+  /** PID being used to control the motor in custom mode */
+  private ErrorCorrection<Double> correction;
 
-    /** Current target motor runmode NOTE: not equal to the DCMotor runmode */
-    private Mode runmode = Mode.DEFAULT;
+  /** Current target motor runmode NOTE: not equal to the DCMotor runmode */
+  private Mode runmode = Mode.DEFAULT;
+
+  /**
+   * Creates a new FTC Target motor, using the motor id from the FTC configuration
+   *
+   * <p>The configuration must be set on the phone before accessing it in code
+   *
+   * <p>A target motor created like this will have the default FTC motor regulation, to set a custom
+   * error correction, you can do this by calling 'setErrorCorrection(ErrorCorrection)' You should
+   * only do this if you know what you are doing
+   *
+   * @see ErrorCorrection
+   * @param motorConfiguration
+   */
+  public FTCTargetMotor(String motorConfiguration) {
+    super(motorConfiguration);
+    motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    addDebug(new Debug(motorConfiguration + " Motor Power: ", (Input<Double>) () -> power));
+    addDebug(
+        new Debug(motorConfiguration + " Motor Position: ", (Input<Integer>) () -> getPosition()));
+    addDebug(
+        new Debug(motorConfiguration + " Target Motor Power: ", (Input<Double>) () -> targetPower));
+  }
+
+  enum Mode {
+    /**
+     * Defualt target motor runmode The default mode will run using the build in Motor PIDs to
+     * control the motor
+     */
+    DEFAULT,
 
     /**
-     * Creates a new FTC Target motor, using the motor id from the FTC configuration
-     *
-     * <p>The configuration must be set on the phone before accessing it in code
-     *
-     * <p>A target motor created like this will have the default FTC motor regulation, to set a
-     * custom error correction, you can do this by calling 'setErrorCorrection(ErrorCorrection)' You
-     * should only do this if you know what you are doing
-     *
-     * @see ErrorCorrection
-     * @param motorConfiguration
+     * Custom target motor runmode The custom mode will control the motor with a user defined PID
+     * controller
      */
-    public FTCTargetMotor(String motorConfiguration) {
-        super(motorConfiguration);
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        addDebug(new Debug(motorConfiguration + " Motor Power: ", (Input<Double>) () -> power));
-        addDebug(
-                new Debug(
-                        motorConfiguration + " Motor Position: ",
-                        (Input<Integer>) () -> getPosition()));
-        addDebug(
-                new Debug(
-                        motorConfiguration + " Target Motor Power: ",
-                        (Input<Double>) () -> targetPower));
+    CUSTOM
+  }
+
+  /**
+   * Sets the motor position
+   *
+   * @param position the position the motor will be set to (in encoder ticks)
+   */
+  @Override
+  public void setPosition(int position) {
+    if (runmode == Mode.DEFAULT) {
+      motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+      motor.setTargetPosition(position);
+    } else {
+      correction.setTarget((double) position);
     }
+  }
 
-    enum Mode {
-        /**
-         * Defualt target motor runmode The default mode will run using the build in Motor PIDs to
-         * control the motor
-         */
-        DEFAULT,
+  /**
+   * Gets the motors position
+   *
+   * @return the position that the motor is at (in encoder ticks)
+   */
+  @Override
+  public int getPosition() {
+    return motor.getCurrentPosition();
+  }
 
-        /**
-         * Custom target motor runmode The custom mode will control the motor with a user defined
-         * PID controller
-         */
-        CUSTOM
-    }
+  /**
+   * Sets the motor Power
+   *
+   * @param power the power that the motor will be set to (0-1 inclusive )
+   */
+  @Override
+  public void setTargetPower(double power) {
+    motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    this.targetPower = power;
+  }
 
-    /**
-     * Sets the motor position
-     *
-     * @param position the position the motor will be set to (in encoder ticks)
-     */
-    @Override
-    public void setPosition(int position) {
-        if (runmode == Mode.DEFAULT) {
-            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            motor.setTargetPosition(position);
+  /**
+   * Gets the motor power
+   *
+   * @return the current motor power, a value between (0-1)
+   */
+  @Override
+  public double getTargetPower() {
+    return motor.getPower();
+  }
+
+  /**
+   * Set the motor to run using a custom Error Correction
+   *
+   * @param correction the correction that the motor will be controlled with
+   */
+  public void setErrorCorrection(ErrorCorrection correction) {
+    this.correction = correction.copy();
+    runmode = runmode.CUSTOM;
+  }
+
+  /** Stop using the custom Error Correction and return to using the default mode */
+  public void disableErrorCorrection() {
+    this.correction = null;
+    runmode = Mode.DEFAULT;
+  }
+
+  /** If the mode is custom, then the update method will set the motor power using the custom PID */
+  @Override
+  public void updateMotor() {
+    if (status.isEnabled()) { // Check if enabled
+      if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {
+        if (runmode == Mode.CUSTOM) {
+          setTargetPower(
+              targetPower * correction.getCorrection()); // If running using custom PID mode,
+          // set power to PID output
         } else {
-            correction.setTarget((double) position);
+          motor.setPower(targetPower); // If running in default target mode, set the target power
         }
+      } else {
+        motor.setPower(power); // If running by power, set the power
+      }
+    } else {
+      motor.setPower(0); // If disabled, set power to 0
     }
+  }
 
-    /**
-     * Gets the motors position
-     *
-     * @return the position that the motor is at (in encoder ticks)
-     */
-    @Override
-    public int getPosition() {
-        return motor.getCurrentPosition();
-    }
+  /** @return the Error Correction being used to control the motor */
+  public ErrorCorrection<Double> getErrorCorrection() {
+    return correction;
+  }
 
-    /**
-     * Sets the motor Power
-     *
-     * @param power the power that the motor will be set to (0-1 inclusive )
-     */
-    @Override
-    public void setTargetPower(double power) {
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        this.targetPower = power;
-    }
+  /** @return the motor being controlled */
+  public DcMotor getMotor() {
+    return motor;
+  }
 
-    /**
-     * Gets the motor power
-     *
-     * @return the current motor power, a value between (0-1)
-     */
-    @Override
-    public double getTargetPower() {
-        return motor.getPower();
-    }
+  /**
+   * NOTE: this is not the same as the DCMotor runmode
+   *
+   * @return the current target motor runmode
+   */
+  public Mode getRunmode() {
+    return runmode;
+  }
 
-    /**
-     * Set the motor to run using a custom Error Correction
-     *
-     * @param correction the correction that the motor will be controlled with
-     */
-    public void setErrorCorrection(ErrorCorrection correction) {
-        this.correction = correction.copy();
-        runmode = runmode.CUSTOM;
-    }
-
-    /** Stop using the custom Error Correction and return to using the default mode */
-    public void disableErrorCorrection() {
-        this.correction = null;
-        runmode = Mode.DEFAULT;
-    }
-
-    /**
-     * If the mode is custom, then the update method will set the motor power using the custom PID
-     */
-    @Override
-    public void updateMotor() {
-        if (status.isEnabled()) { // Check if enabled
-            if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {
-                if (runmode == Mode.CUSTOM) {
-                    setTargetPower(
-                            targetPower
-                                    * correction
-                                            .getCorrection()); // If running using custom PID mode,
-                    // set power to PID output
-                } else {
-                    motor.setPower(
-                            targetPower); // If running in default target mode, set the target power
-                }
-            } else {
-                motor.setPower(power); // If running by power, set the power
-            }
-        } else {
-            motor.setPower(0); // If disabled, set power to 0
-        }
-    }
-
-    /** @return the Error Correction being used to control the motor */
-    public ErrorCorrection<Double> getErrorCorrection() {
-        return correction;
-    }
-
-    /** @return the motor being controlled */
-    public DcMotor getMotor() {
-        return motor;
-    }
-
-    /**
-     * NOTE: this is not the same as the DCMotor runmode
-     *
-     * @return the current target motor runmode
-     */
-    public Mode getRunmode() {
-        return runmode;
-    }
-
-    /**
-     * Allows for the creation of an encoder object that is aware of the amount of ticks the motor
-     * has gone
-     *
-     * @return a new encoder object that will return the amount of encoder ticks the motor is at
-     */
-    public Encoder getEncoder() {
-        return new Encoder() {
-            @Override
-            public int getRawTicks() {
-                return getPosition();
-            }
-        };
-    }
+  /**
+   * Allows for the creation of an encoder object that is aware of the amount of ticks the motor has
+   * gone
+   *
+   * @return a new encoder object that will return the amount of encoder ticks the motor is at
+   */
+  public Encoder getEncoder() {
+    return new Encoder() {
+      @Override
+      public int getRawTicks() {
+        return getPosition();
+      }
+    };
+  }
 }

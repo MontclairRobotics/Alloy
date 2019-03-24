@@ -35,40 +35,40 @@ import org.montclairrobotics.alloy.utils.Toggleable;
  */
 public class Deadzone extends Toggleable implements Step<Double> {
 
-    /** the threshold value that the input has to be lower than for the step to return 0 */
-    private final double tolerance;
+  /** the threshold value that the input has to be lower than for the step to return 0 */
+  private final double tolerance;
 
-    /** Create a deadzone specifying the tolerance */
-    public Deadzone(double tolerance) {
-        this.tolerance = tolerance;
-    }
+  /** Create a deadzone specifying the tolerance */
+  public Deadzone(double tolerance) {
+    this.tolerance = tolerance;
+  }
 
-    /** Create a deadzone with a default tolerance of 0.05 */
-    public Deadzone() {
-        this(0.05);
-    }
+  /** Create a deadzone with a default tolerance of 0.05 */
+  public Deadzone() {
+    this(0.05);
+  }
 
-    @Override
-    public Double getOutput(Double input) {
-        if (status.isEnabled()) {
-            return input < tolerance ? 0 : input;
-        } else {
-            return input;
-        }
+  @Override
+  public Double getOutput(Double input) {
+    if (status.isEnabled()) {
+      return input < tolerance ? 0 : input;
+    } else {
+      return input;
     }
+  }
 
-    @Override
-    public void enableAction() {
-        // Do nothing because all action is taken care of
-    }
+  @Override
+  public void enableAction() {
+    // Do nothing because all action is taken care of
+  }
 
-    @Override
-    public void disableAction() {
-        // Do nothing because all action is taken care of
-    }
+  @Override
+  public void disableAction() {
+    // Do nothing because all action is taken care of
+  }
 
-    /** @return the threshold value */
-    public double getTolerance() {
-        return tolerance;
-    }
+  /** @return the threshold value */
+  public double getTolerance() {
+    return tolerance;
+  }
 }

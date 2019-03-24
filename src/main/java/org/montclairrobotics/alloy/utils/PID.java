@@ -47,161 +47,161 @@ import org.montclairrobotics.alloy.update.Update;
  * @version 0.1
  */
 public class PID extends InputComponent<Double> implements ErrorCorrection<Double> {
-    private final double p;
-    private final double i;
-    private final double d;
-    private double target;
+  private final double p;
+  private final double i;
+  private final double d;
+  private double target;
 
-    private Double minIn;
-    private Double maxIn;
+  private Double minIn;
+  private Double maxIn;
 
-    private Double minOut;
-    private Double maxOut;
+  private Double minOut;
+  private Double maxOut;
 
-    /** The error of the PID, calculated by the target - input */
-    private double error;
-    /**
-     * The rate that the error is changing on a certain interval (Slope of the error if it were
-     * graphed) AKA derivative
-     */
-    private double errorRate;
+  /** The error of the PID, calculated by the target - input */
+  private double error;
+  /**
+   * The rate that the error is changing on a certain interval (Slope of the error if it were
+   * graphed) AKA derivative
+   */
+  private double errorRate;
 
-    /**
-     * The total error that has accumulated over time (Area under the graph if the error were
-     * graphed) AKA Integral
-     */
-    private double totalError;
+  /**
+   * The total error that has accumulated over time (Area under the graph if the error were graphed)
+   * AKA Integral
+   */
+  private double totalError;
 
-    /** The error of the previous calculation, used for calculating the rate of error */
-    private double prevError;
+  /** The error of the previous calculation, used for calculating the rate of error */
+  private double prevError;
 
-    /** The time of the previous calculation, used for calculating the rate of error */
-    private double prevTime;
+  /** The time of the previous calculation, used for calculating the rate of error */
+  private double prevTime;
 
-    /** The difference in time between update loops */
-    private double timeDifference;
+  /** The difference in time between update loops */
+  private double timeDifference;
 
-    /** The difference in error between update loops */
-    private double errorDifference;
+  /** The difference in error between update loops */
+  private double errorDifference;
 
-    /**
-     * Create a new PID
-     *
-     * @param p proportional constant
-     * @param i integral constant
-     * @param d derivative constant
-     */
-    public PID(double p, double i, double d) {
-        this.p = p;
-        this.i = i;
-        this.d = d;
+  /**
+   * Create a new PID
+   *
+   * @param p proportional constant
+   * @param i integral constant
+   * @param d derivative constant
+   */
+  public PID(double p, double i, double d) {
+    this.p = p;
+    this.i = i;
+    this.d = d;
+  }
+
+  /**
+   * Create a new PID with the input and target defined
+   *
+   * @param p proportional constan
+   * @param i integral constant
+   * @param d derivative constant
+   * @param input the input of the component being controlled (current status)
+   * @param target the desired target (status) of the component being controlled
+   */
+  public PID(double p, double i, double d, Input<Double> input, double target) {
+    this.p = p;
+    this.i = i;
+    this.d = d;
+    super.input = input;
+    this.target = target;
+  }
+
+  @Override
+  public PID setTarget(Double target) {
+    this.target = target;
+    return this;
+  }
+
+  @Override
+  public PID setInput(Input<Double> input) {
+    this.input = input;
+    return this;
+  }
+
+  @Update
+  public void update() {
+
+    // Calculate Error
+    try {
+      error = target - input.get();
+    } catch (NullPointerException e) {
+      throw new InvalidConfigurationException(
+          "PID input has not been defined use pid.setInput(Input<Double> input), to set it");
     }
 
-    /**
-     * Create a new PID with the input and target defined
-     *
-     * @param p proportional constan
-     * @param i integral constant
-     * @param d derivative constant
-     * @param input the input of the component being controlled (current status)
-     * @param target the desired target (status) of the component being controlled
-     */
-    public PID(double p, double i, double d, Input<Double> input, double target) {
-        this.p = p;
-        this.i = i;
-        this.d = d;
-        super.input = input;
-        this.target = target;
+    // calculate time difference in time since the last update
+    timeDifference = prevTime - System.currentTimeMillis();
+
+    // calculate the difference in error since the last update
+    errorDifference = prevError - error;
+
+    // Calculate slope of the error (Derivative) change in error / change in time
+    try {
+      errorRate = errorDifference / timeDifference;
+    } catch (ArithmeticException e) {
+      errorRate = 0;
     }
 
-    @Override
-    public PID setTarget(Double target) {
-        this.target = target;
-        return this;
+    if (minIn != null && maxIn != null) {
+      errorRate = Utils.wrap(errorRate, minIn, maxIn);
+      error = Utils.wrap(error, minIn, minOut);
     }
 
-    @Override
-    public PID setInput(Input<Double> input) {
-        this.input = input;
-        return this;
+    // Calculate Error Integral
+    totalError += error * timeDifference;
+
+    // Calculate Correction and set the output
+    if (status.isEnabled()) {
+      output = p * error + i * totalError + d * errorRate;
+      if (minOut != null && maxOut != null) {
+        Utils.constrain(output, minIn, minOut);
+      }
+    } else {
+      output = 0d;
     }
+    prevError = error;
+    prevTime = System.currentTimeMillis() / 1000d;
+  }
 
-    @Update
-    public void update() {
+  public PID setInputConstraints(double min, double max) {
+    minIn = min;
+    maxIn = max;
+    return this;
+  }
 
-        // Calculate Error
-        try {
-            error = target - input.get();
-        } catch (NullPointerException e) {
-            throw new InvalidConfigurationException(
-                    "PID input has not been defined use pid.setInput(Input<Double> input), to set it");
-        }
+  public PID setOutputConstraints(double min, double max) {
+    minOut = min;
+    maxOut = max;
+    return this;
+  }
 
-        // calculate time difference in time since the last update
-        timeDifference = prevTime - System.currentTimeMillis();
+  /** @return the calculated correction */
+  @Override
+  public Double getCorrection() {
+    return output;
+  }
 
-        // calculate the difference in error since the last update
-        errorDifference = prevError - error;
+  /** @return A copy of the error correction */
+  @Override
+  public ErrorCorrection copy() {
+    return new PID(p, i, d)
+        .setTarget(target)
+        .setInput(input)
+        .setInputConstraints(minIn, maxIn)
+        .setOutputConstraints(minOut, maxOut);
+  }
 
-        // Calculate slope of the error (Derivative) change in error / change in time
-        try {
-            errorRate = errorDifference / timeDifference;
-        } catch (ArithmeticException e) {
-            errorRate = 0;
-        }
-
-        if (minIn != null && maxIn != null) {
-            errorRate = Utils.wrap(errorRate, minIn, maxIn);
-            error = Utils.wrap(error, minIn, minOut);
-        }
-
-        // Calculate Error Integral
-        totalError += error * timeDifference;
-
-        // Calculate Correction and set the output
-        if (status.isEnabled()) {
-            output = p * error + i * totalError + d * errorRate;
-            if (minOut != null && maxOut != null) {
-                Utils.constrain(output, minIn, minOut);
-            }
-        } else {
-            output = 0d;
-        }
-        prevError = error;
-        prevTime = System.currentTimeMillis() / 1000d;
-    }
-
-    public PID setInputConstraints(double min, double max) {
-        minIn = min;
-        maxIn = max;
-        return this;
-    }
-
-    public PID setOutputConstraints(double min, double max) {
-        minOut = min;
-        maxOut = max;
-        return this;
-    }
-
-    /** @return the calculated correction */
-    @Override
-    public Double getCorrection() {
-        return output;
-    }
-
-    /** @return A copy of the error correction */
-    @Override
-    public ErrorCorrection copy() {
-        return new PID(p, i, d)
-                .setTarget(target)
-                .setInput(input)
-                .setInputConstraints(minIn, maxIn)
-                .setOutputConstraints(minOut, maxOut);
-    }
-
-    /** @return the current target that the error correction is trying to correct to */
-    @Override
-    public Double getTarget() {
-        return target;
-    }
+  /** @return the current target that the error correction is trying to correct to */
+  @Override
+  public Double getTarget() {
+    return target;
+  }
 }

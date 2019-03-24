@@ -40,122 +40,122 @@ import org.montclairrobotics.alloy.utils.Input;
  */
 public abstract class Encoder extends InputComponent<Integer> {
 
-    /**
-     * An Object that calculates the change in position with respect to time (Velocity) Measured in
-     * Ticks per Second
-     */
-    private Differential calcVelocity;
+  /**
+   * An Object that calculates the change in position with respect to time (Velocity) Measured in
+   * Ticks per Second
+   */
+  private Differential calcVelocity;
 
-    /**
-     * An Object that calculates the change in velocity with respect to time (Acceleration) Measured
-     * in Ticks per Second per Second
-     */
-    private Differential calcAcceleration;
+  /**
+   * An Object that calculates the change in velocity with respect to time (Acceleration) Measured
+   * in Ticks per Second per Second
+   */
+  private Differential calcAcceleration;
 
-    /**
-     * How far the motor goes for each encoder tick NOTE : It is very important that distances are
-     * consistent
-     */
-    private final double distancePerTick;
+  /**
+   * How far the motor goes for each encoder tick NOTE : It is very important that distances are
+   * consistent
+   */
+  private final double distancePerTick;
 
-    /** Max speed that the motor can go Measured in Ticks per Second */
-    private final double maxSpeed;
+  /** Max speed that the motor can go Measured in Ticks per Second */
+  private final double maxSpeed;
 
-    /** Keeps track of the ticks when the encoder was "reset" */
-    private int ticksAtReset;
+  /** Keeps track of the ticks when the encoder was "reset" */
+  private int ticksAtReset;
 
-    /**
-     * A method that should be overridden by the encoder
-     *
-     * @return the raw value of encoder ticks that the encoder reads
-     */
-    public abstract int getRawTicks();
+  /**
+   * A method that should be overridden by the encoder
+   *
+   * @return the raw value of encoder ticks that the encoder reads
+   */
+  public abstract int getRawTicks();
 
-    /** Gets the ticks, this value is affected by encoder resets */
-    public int getTicks() {
-        return getRawTicks() - ticksAtReset;
-    }
+  /** Gets the ticks, this value is affected by encoder resets */
+  public int getTicks() {
+    return getRawTicks() - ticksAtReset;
+  }
 
-    /** soft reset the encoder, setting the current value as 0 ticks */
-    public void reset() {
-        ticksAtReset = getRawTicks();
-    }
+  /** soft reset the encoder, setting the current value as 0 ticks */
+  public void reset() {
+    ticksAtReset = getRawTicks();
+  }
 
-    public Encoder(double distancePerTick, double maxSpeed) {
-        this.distancePerTick = distancePerTick;
-        this.maxSpeed = maxSpeed;
-        setInput(this::getTicks);
-        calcVelocity = new Differential((Input<Double>) () -> (double) getTicks());
-        calcAcceleration = new Differential(calcVelocity);
-    }
+  public Encoder(double distancePerTick, double maxSpeed) {
+    this.distancePerTick = distancePerTick;
+    this.maxSpeed = maxSpeed;
+    setInput(this::getTicks);
+    calcVelocity = new Differential((Input<Double>) () -> (double) getTicks());
+    calcAcceleration = new Differential(calcVelocity);
+  }
 
-    /** Create a new encoder with default values */
-    public Encoder() {
-        this(1.0, 1.0);
-    }
+  /** Create a new encoder with default values */
+  public Encoder() {
+    this(1.0, 1.0);
+  }
 
-    /**
-     * Get the velocity in Ticks per Second
-     *
-     * @return velocity in ticks per second
-     */
-    public double getRawVelocity() {
-        return calcVelocity.get();
-    }
+  /**
+   * Get the velocity in Ticks per Second
+   *
+   * @return velocity in ticks per second
+   */
+  public double getRawVelocity() {
+    return calcVelocity.get();
+  }
 
-    /**
-     * Get the acceleration in ticks per second per second
-     *
-     * @return acceleration in ticks per second per second
-     */
-    private double getRawAcceleration() {
-        return calcAcceleration.get();
-    }
+  /**
+   * Get the acceleration in ticks per second per second
+   *
+   * @return acceleration in ticks per second per second
+   */
+  private double getRawAcceleration() {
+    return calcAcceleration.get();
+  }
 
-    /**
-     * Get the velocity in distance per second The distance is set by the distance per tick method,
-     * it is important to keep distances consistent throughout the project.
-     *
-     * @return velocity in distance per second
-     */
-    public double getVelocity() {
-        return getRawVelocity() / distancePerTick;
-    }
+  /**
+   * Get the velocity in distance per second The distance is set by the distance per tick method, it
+   * is important to keep distances consistent throughout the project.
+   *
+   * @return velocity in distance per second
+   */
+  public double getVelocity() {
+    return getRawVelocity() / distancePerTick;
+  }
 
-    /**
-     * Get the acceleration in distance per second The distance is set by the distance per tick
-     * method, it is important to keep distances consistent throughout
-     *
-     * @return acceleration in distance per second
-     */
-    public double getAcceleration() {
-        return getRawAcceleration() / distancePerTick;
-    }
+  /**
+   * Get the acceleration in distance per second The distance is set by the distance per tick
+   * method, it is important to keep distances consistent throughout
+   *
+   * @return acceleration in distance per second
+   */
+  public double getAcceleration() {
+    return getRawAcceleration() / distancePerTick;
+  }
 
-    /**
-     * Get a scaled value [-1, 1] of how fast the motor is going
-     *
-     * @return a value -1 - 1 depending on how fast the motor is going
-     */
-    public double getScaledVelocity() {
-        return getRawVelocity() / maxSpeed;
-    }
+  /**
+   * Get a scaled value [-1, 1] of how fast the motor is going
+   *
+   * @return a value -1 - 1 depending on how fast the motor is going
+   */
+  public double getScaledVelocity() {
+    return getRawVelocity() / maxSpeed;
+  }
 
-    /** @return the differential object that calculates the velocity */
-    public Differential getVelocityDifferential() {
-        return calcVelocity;
-    }
+  /** @return the differential object that calculates the velocity */
+  public Differential getVelocityDifferential() {
+    return calcVelocity;
+  }
 
-    /** @return the differential object that calculates the acceleration */
-    public Differential getAccelerationDifferential() {
-        return calcAcceleration;
-    }
+  /** @return the differential object that calculates the acceleration */
+  public Differential getAccelerationDifferential() {
+    return calcAcceleration;
+  }
 
-    public double getDistancePerTick() {
-        return distancePerTick;
-    }
+  public double getDistancePerTick() {
+    return distancePerTick;
+  }
 
-    public double getTicksPerDistance() {
-        return 1 / distancePerTick;
-    }
+  public double getTicksPerDistance() {
+    return 1 / distancePerTick;
+  }
 }

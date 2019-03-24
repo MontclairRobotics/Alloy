@@ -38,14 +38,14 @@ import org.montclairrobotics.alloy.auto.States.TurnEncoders;
  * @since
  */
 public class SimpleAutonomous extends AlloyAutonomous {
-    @Override
-    public void setup() {}
+  @Override
+  public void setup() {}
 
-    public void drive(double speed, double distance) {
-        auto.addState(new DriveEncoders(speed, distance));
-    }
+  public void drive(double speed, double distance) {
+    auto.addState(new DriveEncoders(speed, distance));
+  }
 
-    public void turn(double speed, double degrees) {
-        auto.addState(new TurnEncoders(speed, degrees));
-    }
+  public void turn(double speed, double degrees) {
+    auto.addState(new TurnEncoders(speed, degrees));
+  }
 }

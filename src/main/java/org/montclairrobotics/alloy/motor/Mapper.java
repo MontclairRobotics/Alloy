@@ -35,6 +35,6 @@ package org.montclairrobotics.alloy.motor;
  * @version 0.1
  */
 public interface Mapper<T> {
-    /** map the input to the modules */
-    public void map(T input, MotorModule... modules);
+  /** map the input to the modules */
+  public void map(T input, MotorModule... modules);
 }

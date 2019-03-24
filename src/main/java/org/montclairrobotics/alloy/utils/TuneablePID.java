@@ -39,45 +39,45 @@ import org.montclairrobotics.alloy.components.InputComponent;
  */
 public class TuneablePID extends InputComponent<Double> implements ErrorCorrection<Double> {
 
-    /**
-     * Set the input of the error correction the input should be the source of what correction is
-     * correcting. For example in a motor the input would be the encoder
-     *
-     * @param input the input to the error correction
-     */
-    @Override
-    public TuneablePID setInput(Input input) {
-        return this;
-    }
+  /**
+   * Set the input of the error correction the input should be the source of what correction is
+   * correcting. For example in a motor the input would be the encoder
+   *
+   * @param input the input to the error correction
+   */
+  @Override
+  public TuneablePID setInput(Input input) {
+    return this;
+  }
 
-    /**
-     * Set the target for the correction When the input is equal to the target the error is 0
-     *
-     * @param target the goal of the error correction
-     */
-    @Override
-    public TuneablePID setTarget(Double target) {
-        return this;
-    }
+  /**
+   * Set the target for the correction When the input is equal to the target the error is 0
+   *
+   * @param target the goal of the error correction
+   */
+  @Override
+  public TuneablePID setTarget(Double target) {
+    return this;
+  }
 
-    /**
-     * Get the value to apply the correction
-     *
-     * @return the correction
-     */
-    @Override
-    public Double getCorrection() {
-        return null;
-    }
+  /**
+   * Get the value to apply the correction
+   *
+   * @return the correction
+   */
+  @Override
+  public Double getCorrection() {
+    return null;
+  }
 
-    @Override
-    public ErrorCorrection copy() {
-        return new TuneablePID();
-    }
+  @Override
+  public ErrorCorrection copy() {
+    return new TuneablePID();
+  }
 
-    /** @return the current target that the error correction is trying to correct to */
-    @Override
-    public Double getTarget() {
-        return 0D;
-    }
+  /** @return the current target that the error correction is trying to correct to */
+  @Override
+  public Double getTarget() {
+    return 0D;
+  }
 }

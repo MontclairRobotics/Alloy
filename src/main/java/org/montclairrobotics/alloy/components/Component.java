@@ -57,71 +57,71 @@ import org.montclairrobotics.alloy.utils.Toggleable;
  * @since 0.1
  */
 public abstract class Component extends Toggleable {
-    /** The object used for debugging information about all components */
-    public static Debugger debugger;
+  /** The object used for debugging information about all components */
+  public static Debugger debugger;
 
-    /** Will debug out information if true */
-    private boolean debugMode = true;
+  /** Will debug out information if true */
+  private boolean debugMode = true;
 
-    /** The debugs that will be printed for this component out each loop */
-    private ArrayList<Debug> debugs = new ArrayList<>();
+  /** The debugs that will be printed for this component out each loop */
+  private ArrayList<Debug> debugs = new ArrayList<>();
 
-    /** a static reference of all the components that are made */
-    public static ArrayList<Component> components = new ArrayList<>();
+  /** a static reference of all the components that are made */
+  public static ArrayList<Component> components = new ArrayList<>();
 
-    public Component() {
-        components.add(this);
+  public Component() {
+    components.add(this);
+  }
+
+  public static ArrayList<Component> getComponents() {
+    return components;
+  }
+
+  /**
+   * Adds a debug to the component, this will be debugged out every loop if debug mode is enabled
+   */
+  public void addDebug(Debug debug) {
+    debugs.add(debug);
+  }
+
+  /**
+   * Adds multiple debugs to the components, they will be debugged out every loop if debug mode is
+   * enabled
+   */
+  public void addDebugs(Iterable<? extends Debug> debugs) {
+    for (Debug debug : debugs) {
+      this.debugs.add(debug);
     }
+  }
 
-    public static ArrayList<Component> getComponents() {
-        return components;
-    }
+  /** Enabled debug mode, causing any debugs added to the component to be debugged out */
+  public void enableDebug() {
+    debugMode = false;
+  }
 
-    /**
-     * Adds a debug to the component, this will be debugged out every loop if debug mode is enabled
-     */
-    public void addDebug(Debug debug) {
-        debugs.add(debug);
-    }
+  /** Disabled debug mode, stopping all debugs */
+  public void disableDebug() {
+    debugMode = true;
+  }
 
-    /**
-     * Adds multiple debugs to the components, they will be debugged out every loop if debug mode is
-     * enabled
-     */
-    public void addDebugs(Iterable<? extends Debug> debugs) {
-        for (Debug debug : debugs) {
-            this.debugs.add(debug);
-        }
+  @Update
+  public void debug() {
+    if (status.isEnabled() && debugMode) {
+      for (Debug debug : debugs) {
+        debugger.debug(debug);
+      }
     }
+  }
 
-    /** Enabled debug mode, causing any debugs added to the component to be debugged out */
-    public void enableDebug() {
-        debugMode = false;
-    }
+  /** The action that is taken when the component is enabled should be overridden bu the user */
+  @Override
+  public void enableAction() {
+    // Called when enabled
+  }
 
-    /** Disabled debug mode, stopping all debugs */
-    public void disableDebug() {
-        debugMode = true;
-    }
-
-    @Update
-    public void debug() {
-        if (status.isEnabled() && debugMode) {
-            for (Debug debug : debugs) {
-                debugger.debug(debug);
-            }
-        }
-    }
-
-    /** The action that is taken when the component is enabled should be overridden bu the user */
-    @Override
-    public void enableAction() {
-        // Called when enabled
-    }
-
-    /** The action that is taken when the component is disabled, should be overridden by the user */
-    @Override
-    public void disableAction() {
-        // Called when disabled
-    }
+  /** The action that is taken when the component is disabled, should be overridden by the user */
+  @Override
+  public void disableAction() {
+    // Called when disabled
+  }
 }
