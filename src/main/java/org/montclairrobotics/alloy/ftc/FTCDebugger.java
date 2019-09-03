@@ -54,7 +54,7 @@ public class FTCDebugger extends Debugger {
     public Telemetry getTelemetry() {
         return telemetry;
     }
-
+    
     /**
      * The most basic debug that simply outputs information given a key and value
      *

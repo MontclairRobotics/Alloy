@@ -37,7 +37,7 @@ import org.montclairrobotics.alloy.ftc.AlloyAutonomous;
  * @since 0.1
  * @version 0.1
  */
-public abstract class State {
+public abstract class State extends Component{
 
     private Integer nextState = null;
     protected String debug = "Running State: ";
@@ -93,6 +93,8 @@ public abstract class State {
     public String debugInfo(int currentState) {
         return debug + currentState;
     }
+    
+    public abstract Debug[] getDebugs();
 
     public String verboseDebug() {
         return description;

@@ -172,7 +172,12 @@ public class StateMachine extends State {
     public boolean isDone() {
         return done;
     }
-
+    
+    @Override
+    public Debug[] getDebugs() {
+        return states.get(state).getDebugs();
+    }
+    
     /**
      * Adds a state to the state machine. States can be added to a state machine but should not be
      * added after the state machine
