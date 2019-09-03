@@ -64,7 +64,7 @@ public class FTCTargetMotor extends FTCMotor implements TargetMotor {
      * should only do this if you know what you are doing
      *
      * @see ErrorCorrection
-     * @param motorConfiguration
+     * @param motorConfiguration the name of the motor
      */
     public FTCTargetMotor(String motorConfiguration) {
         super(motorConfiguration);

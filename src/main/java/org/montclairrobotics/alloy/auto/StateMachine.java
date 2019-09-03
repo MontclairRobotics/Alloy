@@ -88,16 +88,28 @@ public class StateMachine extends State {
         this.name = name;
         this.states = new ArrayList<>(Arrays.asList(states));
         this.finalState = finalState;
-        description = "A state machine";
+        description = "";
     }
 
     public StateMachine(String name, State... states) {
         this(name, states.length, states);
     }
 
+    public StateMachine(State... states) {
+        this("State Machine", 0, states);
+    }
+
     public StateMachine(String name, String description, int finalState, State... states) {
         this(name, finalState, states);
         super.description = description;
+    }
+
+    public void setFinalState(Integer finalState) {
+        this.finalState = finalState;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /** Read out that the state has started and reset the timer */
@@ -141,9 +153,8 @@ public class StateMachine extends State {
             }
             stateStarted = false; // The next state has not started yet.
         }
-        Component.debugger.test(
-                name + " | State: " + state,
-                currentState.debugInfo(state)); // Debug info about the state
+        Component.debugger.test(name + " | State: ", state); // Debug info about the state
+        Component.debugger.debug(currentState.debugInfo(state), currentState.verboseDebug());
     }
 
     /** When the state machine is finished, read out it has finished */

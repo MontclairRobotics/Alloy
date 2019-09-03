@@ -71,7 +71,7 @@ public abstract class Encoder extends InputComponent<Integer> {
      */
     public abstract int getRawTicks();
 
-    /** Gets the ticks, this value is affected by encoder resets */
+    /** @return the currnet ticks, this value is affected by encoder resets */
     public int getTicks() {
         return getRawTicks() - ticksAtReset;
     }

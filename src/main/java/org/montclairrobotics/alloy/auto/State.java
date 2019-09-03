@@ -39,9 +39,9 @@ import org.montclairrobotics.alloy.ftc.AlloyAutonomous;
  */
 public abstract class State {
 
-    Integer nextState = null;
-    String debug = "Running State: ";
-    String description = "None";
+    private Integer nextState = null;
+    protected String debug = "Running State: ";
+    protected String description = "None";
 
     public State(int nextState) {}
 
@@ -91,6 +91,10 @@ public abstract class State {
      * @return debug information about the state
      */
     public String debugInfo(int currentState) {
-        return debug + currentState + "\n Description" + description;
+        return debug + currentState;
+    }
+
+    public String verboseDebug() {
+        return description;
     }
 }
