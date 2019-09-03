@@ -48,7 +48,7 @@ public class SquareAuto extends SimpleAutonomous {
         for (int i = 0; i < 4; i++) {
             // These functions come from SimpleAutonomous, they just add a new state to the state machine
             drive(1, 100);
-            turn(1, new Angle(90));
+            turn(1, 90);
         }
     }
 }

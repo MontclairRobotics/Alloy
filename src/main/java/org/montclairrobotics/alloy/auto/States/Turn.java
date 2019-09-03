@@ -60,13 +60,13 @@ public class Turn extends State {
     public Turn(double speed, double degrees) {
         this.speed = speed;
         this.degrees = degrees;
-        driveTrain = Alloy.getDriveTrain();
+        driveTrain = DriveTrain.getAutoDriveTrain();
     }
 
     @Override
     public void start() {
-        rightSideStartValues = Alloy.getDriveTrain().getRightEncoderValues();
-        leftSideStartValues = Alloy.getDriveTrain().getLeftEncoderValues();
+        rightSideStartValues = driveTrain.getRightEncoderValues();
+        leftSideStartValues = driveTrain.getLeftEncoderValues();
     }
 
     @Override

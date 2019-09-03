@@ -1,11 +1,6 @@
 package org.montclairrobotics.alloy.virtualRobot.components;
 
 import org.montclairrobotics.alloy.components.Component;
-import org.montclairrobotics.alloy.core.Debug;
-import org.montclairrobotics.alloy.core.PoweredMotor;
-import org.montclairrobotics.alloy.core.TargetMotor;
-
-import java.util.ArrayList;
 
 /**
  * Created by MHS Robotics on 4/2/2018.
@@ -13,7 +8,7 @@ import java.util.ArrayList;
  * @author Garrett Burroughs
  * @since
  */
-public class Motor extends Component implements PoweredMotor{
+public class Motor extends Component implements org.montclairrobotics.alloy.core.Motor {
     private int ID;
     private int position;
     private double maxSpeed;
@@ -59,16 +54,7 @@ public class Motor extends Component implements PoweredMotor{
     public boolean getInverted() {
         return false;
     }
-    
-    /**
-     * gets the debug information for the motor
-     *
-     * @return the motor debugs
-     */
-    @Override
-    public ArrayList<Debug> getDebugs() {
-        return null;
-    }
+
     
     /**
      * Method to be called when the toggleable is enabled

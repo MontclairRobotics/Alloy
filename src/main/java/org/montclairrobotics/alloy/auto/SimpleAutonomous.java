@@ -23,7 +23,7 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.auto;
 
-import org.montclairrobotics.alloy.auto.States.Drive;
+import org.montclairrobotics.alloy.auto.States.DriveEncoders;
 import org.montclairrobotics.alloy.auto.States.Turn;
 
 /**
@@ -42,7 +42,7 @@ public class SimpleAutonomous extends AlloyAutonomous {
     public void setup() {}
 
     public void drive(double speed, double distance) {
-        auto.addState(new Drive(speed, distance));
+        auto.addState(new DriveEncoders(speed, distance));
     }
 
     public void turn(double speed, double degrees) {

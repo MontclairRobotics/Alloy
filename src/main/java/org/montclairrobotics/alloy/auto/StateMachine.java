@@ -27,6 +27,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.montclairrobotics.alloy.components.Component;
+import org.montclairrobotics.alloy.core.Debug;
 
 /**
  * Created by MHS Robotics on 12/16/2017.
@@ -173,10 +174,6 @@ public class StateMachine extends State {
         return done;
     }
     
-    @Override
-    public Debug[] getDebugs() {
-        return states.get(state).getDebugs();
-    }
     
     /**
      * Adds a state to the state machine. States can be added to a state machine but should not be
