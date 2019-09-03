@@ -24,7 +24,6 @@ SOFTWARE.
 package org.montclairrobotics.alloy.auto;
 
 import org.montclairrobotics.alloy.components.Component;
-import org.montclairrobotics.alloy.core.Debug;
 import org.montclairrobotics.alloy.ftc.AlloyAutonomous;
 
 /**

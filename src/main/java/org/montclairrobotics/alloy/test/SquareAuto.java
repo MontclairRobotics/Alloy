@@ -25,7 +25,6 @@ package org.montclairrobotics.alloy.test;
 
 import org.montclairrobotics.alloy.auto.SimpleAutonomous;
 import org.montclairrobotics.alloy.auto.States.Turn;
-import org.montclairrobotics.alloy.vector.Angle;
 
 public class SquareAuto extends SimpleAutonomous {
 
@@ -46,7 +45,8 @@ public class SquareAuto extends SimpleAutonomous {
         If you want to run states conditionally, use ConditionalState
          */
         for (int i = 0; i < 4; i++) {
-            // These functions come from SimpleAutonomous, they just add a new state to the state machine
+            // These functions come from SimpleAutonomous, they just add a new state to the state
+            // machine
             drive(1, 100);
             turn(1, 90);
         }

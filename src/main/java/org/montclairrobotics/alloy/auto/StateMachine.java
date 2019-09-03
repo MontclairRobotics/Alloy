@@ -27,7 +27,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.montclairrobotics.alloy.components.Component;
-import org.montclairrobotics.alloy.core.Debug;
 
 /**
  * Created by MHS Robotics on 12/16/2017.
@@ -173,8 +172,7 @@ public class StateMachine extends State {
     public boolean isDone() {
         return done;
     }
-    
-    
+
     /**
      * Adds a state to the state machine. States can be added to a state machine but should not be
      * added after the state machine

@@ -24,7 +24,6 @@ SOFTWARE.
 package org.montclairrobotics.alloy.auto.States;
 
 import org.montclairrobotics.alloy.auto.State;
-import org.montclairrobotics.alloy.core.Alloy;
 import org.montclairrobotics.alloy.drive.DTInput;
 import org.montclairrobotics.alloy.drive.DriveTrain;
 import org.montclairrobotics.alloy.utils.ConstantInput;
