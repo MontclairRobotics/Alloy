@@ -1,4 +1,4 @@
-# Alloy  [![Build Status](https://ci.montclairrobotics.org/buildStatus/icon?job=Alloy)](https://ci.montclairrobotics.org/job/Alloy/) [![CodeFactor](https://www.codefactor.io/repository/github/montclairrobotics/alloy/badge)](https://www.codefactor.io/repository/github/montclairrobotics/alloy) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f3335dca15a8429ebc50528ca6330411)](https://www.codacy.com/project/garrett_2/Alloy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GarrettBurroughs/Alloy&amp;utm_campaign=Badge_Grade_Dashboard)
+# Alloy [![CodeFactor](https://www.codefactor.io/repository/github/montclairrobotics/alloy/badge)](https://www.codefactor.io/repository/github/montclairrobotics/alloy) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f3335dca15a8429ebc50528ca6330411)](https://www.codacy.com/project/garrett_2/Alloy/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GarrettBurroughs/Alloy&amp;utm_campaign=Badge_Grade_Dashboard)
 
 ![AlloyLogo](http://gdurl.com/AFl8)
 
