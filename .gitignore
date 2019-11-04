@@ -2,6 +2,9 @@
 .idea/
 build/
 out/
+.settings
+.classpath
+.project
 *.iws
 *.iml
 *.MF
