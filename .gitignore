@@ -3,6 +3,7 @@
 build/
 out/
 .settings
+.classpath
 *.iws
 *.iml
 *.MF
