@@ -23,11 +23,15 @@ SOFTWARE.
 */
 package org.montclairrobotics.alloy.virtualRobot;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
+
+import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.Mode;
 import org.montclairrobotics.alloy.update.Updater;
+import org.montclairrobotics.alloy.virtualRobot.components.TestDebugger;
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
@@ -88,10 +92,8 @@ public class Main {
         // Create a new instance of each test robot and add it to the ArrayList
         for (Class robot : robots) {
             try {
-                Main.robots.add((AlloyTestBot) robot.newInstance());
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+                Main.robots.add((AlloyTestBot) robot.getDeclaredConstructor().newInstance());
+            } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                 e.printStackTrace();
             }
             System.out.println("Registered: " + robot.getName());
@@ -100,10 +102,8 @@ public class Main {
         // Create a new instance of each test autonomous and add it to the Array List
         for (Class auto : autoModes) {
             try {
-                Main.autoModes.add((AlloyTestAutonomous) auto.newInstance());
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+                Main.autoModes.add((AlloyTestAutonomous) auto.getDeclaredConstructor().newInstance());
+            } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
@@ -119,16 +119,16 @@ public class Main {
             System.out.println((i + 1) + ": " + Main.autoModes.get(i).getName());
         }
 
-        int autoSelection = intInput("Select the robot you want to run");
-        robot = Main.robots.get(autoSelection - 1);
+        int autoSelection = intInput("Select the autoMode you want to run");
+        autoMode = Main.autoModes.get(autoSelection - 1);
 
         start();
-
+        System.out.println(autoMode.getName());
         autonomousStart();
         while (opMode == Mode.TESTAUTONOMOUS && enabled) {
             autonomousLoop();
 
-            System.out.println(getSeconds());
+            // System.out.println(getSeconds());
 
             if (getSeconds() > autoRunTime) {
                 opMode = Mode.TESTTELEOP;
@@ -190,10 +190,12 @@ public class Main {
         enabled = true;
         robot.robotSetup();
         robot.initialization();
+        Component.debugger = new TestDebugger();
     }
 
     public static void autonomousStart() {
         autoMode.init();
+        autoMode.start();
     }
 
     public static void autonomousLoop() {

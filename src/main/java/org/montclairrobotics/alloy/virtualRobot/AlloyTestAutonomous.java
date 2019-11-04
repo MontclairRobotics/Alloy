@@ -63,6 +63,7 @@ public abstract class AlloyTestAutonomous {
      * care of setting up global robot variables and running the user setup method
      */
     public void init() {
+        timer = new ElapsedTime();
         setup();
     }
 

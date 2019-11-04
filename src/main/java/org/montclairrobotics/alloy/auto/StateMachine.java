@@ -89,6 +89,7 @@ public class StateMachine extends State {
         this.states = new ArrayList<>(Arrays.asList(states));
         this.finalState = finalState;
         description = "";
+        timer = new ElapsedTime();
     }
 
     public StateMachine(String name, State... states) {
@@ -96,7 +97,7 @@ public class StateMachine extends State {
     }
 
     public StateMachine(State... states) {
-        this("State Machine", 0, states);
+        this("State Machine", states.length, states);
     }
 
     public StateMachine(String name, String description, int finalState, State... states) {

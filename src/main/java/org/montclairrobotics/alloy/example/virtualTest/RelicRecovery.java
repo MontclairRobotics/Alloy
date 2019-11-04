@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.test.virtualTest;
+package org.montclairrobotics.alloy.example.virtualTest;
 
 import org.montclairrobotics.alloy.virtualRobot.AlloyTestBot;
 
@@ -31,8 +31,7 @@ import org.montclairrobotics.alloy.virtualRobot.AlloyTestBot;
  * @author Garrett Burroughs
  * @since
  */
-public class TestRobot extends AlloyTestBot {
-
+public class RelicRecovery extends AlloyTestBot {
     /**
      * The robotSetup is where all code specific to robot setup is placed If you only have one
      * teleop this can be done in the initialization Method. robotSetup is called right after the
@@ -56,8 +55,13 @@ public class TestRobot extends AlloyTestBot {
     @Override
     public void periodic() {}
 
+    /**
+     * For use in the virtual robot, should return the name of the robot so it can be selected
+     *
+     * @return the name of the robot
+     */
     @Override
     public String getName() {
-        return "Test Robot 1";
+        return "Relic Recovery";
     }
 }

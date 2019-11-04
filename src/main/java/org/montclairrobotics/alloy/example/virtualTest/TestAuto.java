@@ -21,8 +21,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package org.montclairrobotics.alloy.test.virtualTest;
+package org.montclairrobotics.alloy.example.virtualTest;
 
+import org.montclairrobotics.alloy.auto.State;
+import org.montclairrobotics.alloy.auto.StateMachine;
 import org.montclairrobotics.alloy.virtualRobot.AlloyTestAutonomous;
 
 /**
@@ -36,7 +38,30 @@ public class TestAuto extends AlloyTestAutonomous {
      * This is where the user should define all their code and where "Auto", should be instantiated
      */
     @Override
-    public void setup() {}
+    public void setup() {
+        System.out.println("Setting up auto mode");
+        auto = new StateMachine(new State() {
+            @Override
+            public void start() {
+                System.out.println("State Started");
+            }
+
+            @Override
+            public void run() {
+                System.out.println("State Running");
+            }
+
+            @Override
+            public void stop() {
+                System.out.println("State Stopped");
+            }
+
+            @Override
+            public boolean isDone() {
+                return true;
+            }
+        });
+    }
 
     @Override
     public String getName() {
