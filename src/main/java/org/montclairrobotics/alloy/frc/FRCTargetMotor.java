@@ -24,6 +24,7 @@ SOFTWARE.
 package org.montclairrobotics.alloy.frc;
 
 import edu.wpi.first.wpilibj.SpeedController;
+import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.Encoder;
 import org.montclairrobotics.alloy.core.TargetMotor;
 import org.montclairrobotics.alloy.utils.ErrorCorrection;
@@ -132,6 +133,9 @@ public class FRCTargetMotor extends FRCMotor implements TargetMotor {
                     break;
                 case POWER:
                     controller.set(power + powerCorrection.getCorrection());
+                    break;
+                default:
+                    Component.debugger.error("The motor does not have a mode!");
                     break;
             }
         } else {
