@@ -40,27 +40,29 @@ public class TestAuto extends AlloyTestAutonomous {
     @Override
     public void setup() {
         System.out.println("Setting up auto mode");
-        auto = new StateMachine(new State() {
-            @Override
-            public void start() {
-                System.out.println("State Started");
-            }
+        auto =
+                new StateMachine(
+                        new State() {
+                            @Override
+                            public void start() {
+                                System.out.println("State Started");
+                            }
 
-            @Override
-            public void run() {
-                System.out.println("State Running");
-            }
+                            @Override
+                            public void run() {
+                                System.out.println("State Running");
+                            }
 
-            @Override
-            public void stop() {
-                System.out.println("State Stopped");
-            }
+                            @Override
+                            public void stop() {
+                                System.out.println("State Stopped");
+                            }
 
-            @Override
-            public boolean isDone() {
-                return true;
-            }
-        });
+                            @Override
+                            public boolean isDone() {
+                                return true;
+                            }
+                        });
     }
 
     @Override

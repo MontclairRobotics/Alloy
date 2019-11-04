@@ -27,7 +27,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
-
 import org.montclairrobotics.alloy.components.Component;
 import org.montclairrobotics.alloy.core.Mode;
 import org.montclairrobotics.alloy.update.Updater;
@@ -93,7 +92,10 @@ public class Main {
         for (Class robot : robots) {
             try {
                 Main.robots.add((AlloyTestBot) robot.getDeclaredConstructor().newInstance());
-            } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            } catch (InstantiationException
+                    | NoSuchMethodException
+                    | InvocationTargetException
+                    | IllegalAccessException e) {
                 e.printStackTrace();
             }
             System.out.println("Registered: " + robot.getName());
@@ -102,8 +104,12 @@ public class Main {
         // Create a new instance of each test autonomous and add it to the Array List
         for (Class auto : autoModes) {
             try {
-                Main.autoModes.add((AlloyTestAutonomous) auto.getDeclaredConstructor().newInstance());
-            } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                Main.autoModes.add(
+                        (AlloyTestAutonomous) auto.getDeclaredConstructor().newInstance());
+            } catch (InstantiationException
+                    | NoSuchMethodException
+                    | InvocationTargetException
+                    | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
